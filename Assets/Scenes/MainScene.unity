@@ -1190,6 +1190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8114b107efedfe94cb22c63369cbd9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  possibleShapes: []
+  possibleColours: []
 --- !u!4 &2093593664
 Transform:
   m_ObjectHideFlags: 0
