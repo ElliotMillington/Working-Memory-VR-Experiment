@@ -1190,8 +1190,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8114b107efedfe94cb22c63369cbd9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleShapes: []
-  possibleColours: []
+  possibleShapes:
+  - {fileID: 4019234525060620036, guid: 1994e79804015a946908564683df43a4, type: 3}
+  - {fileID: -3993405297179130717, guid: f1e6b474cb6f5d1438c9382d9e417084, type: 3}
+  - {fileID: -7715573549798275142, guid: 3bbfc8dfa4aa6b64d9786d441f0bec49, type: 3}
+  - {fileID: 2668012528244375409, guid: 63ba39902ea03cc4c9d149e2b74e87d0, type: 3}
+  - {fileID: -2210785716201102107, guid: 0d7fe7b911ffb074aa8544209cd0885d, type: 3}
+  - {fileID: 8087458221035121081, guid: 6abcf7fe2c9515d429e4f473bb7891da, type: 3}
+  - {fileID: -7158247418717641203, guid: 07c043f153833134b8e2ba9570f3b234, type: 3}
+  - {fileID: -8047059791252976511, guid: 09d0147f4dffb094284cc29e8eaf7c4d, type: 3}
+  - {fileID: -5720366317408632297, guid: 5e99539382a1c5c4aacdf311f3a411e1, type: 3}
+  - {fileID: 8496649250955429088, guid: af79f7761d863cd4888d11d4a362081a, type: 3}
+  - {fileID: -7479817439732242351, guid: de992f87fe916314aaf43d809b7231a9, type: 3}
+  - {fileID: -6579459723539349537, guid: a5ac56520c081744eb4fee7c2d004bb5, type: 3}
+  - {fileID: 6091615645174524229, guid: adc252cfa6004cf4aa748a9a590ed22c, type: 3}
+  - {fileID: -917080948691100485, guid: 44d58e10d4e643e4dae9e1e0a51e17bf, type: 3}
+  - {fileID: 5536376176318416289, guid: 297c15e0694817549a60467adb24e530, type: 3}
+  - {fileID: 3030924124831481372, guid: 6479e7a500ac5114f90588512cbb75be, type: 3}
+  - {fileID: 3910348088450174411, guid: 55693012433d46d4580214a9b07aa2d0, type: 3}
+  - {fileID: -7047016320417709333, guid: 4e9d41aeace87404188cb3e68b73a68b, type: 3}
+  - {fileID: -1589659661994697337, guid: 143afcd04c06f7f4eb429f3e23e447cf, type: 3}
+  - {fileID: -513951656296473399, guid: 4ab1288126d97db449b5700dab8f9932, type: 3}
+  - {fileID: 5444761940182062025, guid: c588696db0e28a244adb43464fb9b993, type: 3}
+  - {fileID: 1881125385508326797, guid: f6b0507259bc6a14b9a82a265e1c8c6a, type: 3}
+  - {fileID: 4654388869092179521, guid: 59b1c364b10315146b859e8f82f69d7c, type: 3}
+  - {fileID: -1378344405640733772, guid: 8c34b09142aee9f4d8b198710da9022c, type: 3}
+  - {fileID: -1068824765804723772, guid: b1ecd50fdfe05db43a7890b5c381a198, type: 3}
+  possibleColours:
+  - {fileID: 2100000, guid: f08dddb9bfc6f2c4d848b902c14369d9, type: 2}
+  - {fileID: 2100000, guid: 2178437c21d100a4796cd7fea21abf16, type: 2}
+  - {fileID: 2100000, guid: 33f5af18ab75f434095bb13de705b0eb, type: 2}
+  - {fileID: 2100000, guid: 8499ddc86a4f3b74dae1dab7e2aa11db, type: 2}
+  - {fileID: 2100000, guid: 8ae72cbd3866ebe409a640b9174725a3, type: 2}
+  - {fileID: 2100000, guid: b06206a4d0a9c9b41ace6ff118d51b1e, type: 2}
+  - {fileID: 2100000, guid: 26f632a31867fd94eade5a9a2b2547d9, type: 2}
+  - {fileID: 2100000, guid: d75ccd7877832ff4cb2ee6c0b74bb8f1, type: 2}
 --- !u!4 &2093593664
 Transform:
   m_ObjectHideFlags: 0
