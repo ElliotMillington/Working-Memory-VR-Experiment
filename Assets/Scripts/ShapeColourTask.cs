@@ -37,10 +37,20 @@ namespace SCE
                 //Randomising shape and colour option
                 foreach (GameObject go in shapeOptions)
                 {
-                    go.GetComponent<MeshFilter>().mesh = possibleShapes[Random.Range(0, possibleShapes.Length - 1)];
-                    go.GetComponent<Renderer>().material = possibleColours[Random.Range(0, possibleColours.Length - 1)];
+                    go.GetComponent<MeshFilter>().mesh = possibleShapes[Random.Range(0, possibleShapes.Length)];
+                    go.GetComponent<Renderer>().material = possibleColours[Random.Range(0, possibleColours.Length)];
+                    go.transform.Rotate(new Vector3(Random.Range(-180, 180), 0, 0));
+                    print(go.name);
                 }
-                //TODO Randomise which shapes and colours are visible
+
+                //Selecting and modifying target shapes
+                List<int> keyShapesIndices = HelperMethods.GenRandomInts(0, shapeOptions.Count - 1, targets.Count);
+                for (int i = 0; i < targets.Count; i++)
+                {
+                    targets[i].GetComponent<MeshFilter>().mesh = shapeOptions[keyShapesIndices[i]].GetComponent<MeshFilter>().mesh;
+                    targets[i].GetComponent<Renderer>().material = shapeOptions[keyShapesIndices[i]].GetComponent<Renderer>().material;
+                }
+                
                 //TODO Randomise their orientation?
                 //TODO Randomise which of these are selected as the key shapes
             }
