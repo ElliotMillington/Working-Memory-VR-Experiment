@@ -16,17 +16,23 @@ namespace SCE
         public Material[] possibleColours;
 
         //Array of target objects
-        private List<GameObject> targets;
+        public List<GameObject> targets;
 
         //Array of shape option objects
-        private List<GameObject> shapeOptions;
+        public List<GameObject> shapeOptions;
 
         private void Start()
         {
             targets = GameObject.Find("Stand").GetChildren();
             shapeOptions = GameObject.Find("Board").GetChildren();
+
+            foreach (GameObject shape in targets)
+            {
+                shape.GetComponent<Shape>().clickable = false;
+            }
         }
 
+        /// <param name="session"></param>
         public void GenerateExperiment(Session session)
         {
             //Create a new block
@@ -50,9 +56,6 @@ namespace SCE
                     targets[i].GetComponent<MeshFilter>().mesh = shapeOptions[keyShapesIndices[i]].GetComponent<MeshFilter>().mesh;
                     targets[i].GetComponent<Renderer>().material = shapeOptions[keyShapesIndices[i]].GetComponent<Renderer>().material;
                 }
-                
-                //TODO Randomise their orientation?
-                //TODO Randomise which of these are selected as the key shapes
             }
         }
     }
