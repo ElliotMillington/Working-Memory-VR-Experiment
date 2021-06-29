@@ -23,6 +23,8 @@ public class Shape : MonoBehaviour
         transform.localScale -= new Vector3(50f, 50f, 50f);
     }
 
+    //TODO Record which shapes have been clicked to know which are mistakes
+
     void OnMouseDown()
     {
         if (clickable)

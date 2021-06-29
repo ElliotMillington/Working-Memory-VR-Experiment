@@ -18,16 +18,24 @@ namespace WorkingMemory
         // Called for when session starts.
         public void Generate(Session session)
         {
-            //Uses the settings file to determine the number of trials.
-            //Please refer to the reference files for block content.
-            Block block_sc1 = session.CreateBlock(session.settings.GetInt("block_sc1_numtrials"));
-            Block block_sc2 = session.CreateBlock(session.settings.GetInt("block_sc2_numtrials"));
-            Block block_vs1 = session.CreateBlock(session.settings.GetInt("block_vs1_numtrials"));
-            Block block_vs2 = session.CreateBlock(session.settings.GetInt("block_vs2_numtrials"));
+            //Number of trials per block
+            int trial_num = 3;
 
-            //Setting block scenes
-            block_sc1.settings.SetValue("scene_name", "Shapes_Colour");
-            block_sc2.settings.SetValue("scene_name", "Shapes_Colour");
+            //Please refer to the reference files for block contents.
+            Block block_sc1 = session.CreateBlock(trial_num);
+            Block block_sc2 = session.CreateBlock(trial_num);
+            Block block_vs1 = session.CreateBlock(trial_num);
+            Block block_vs2 = session.CreateBlock(trial_num);
+
+            //Setting block types
+            block_sc1.settings.SetValue("scene_type", "Shapes_Colours");
+            block_sc2.settings.SetValue("scene_type", "Shapes_Colours");
+            block_vs1.settings.SetValue("scene_type", "Visual_Search");
+            block_vs2.settings.SetValue("scene_type", "Visual_Search");
+
+            //Setting block scene names
+            block_sc1.settings.SetValue("scene_name", "Shapes_Colours_3d");
+            block_sc2.settings.SetValue("scene_name", "Shapes_Colours_2d");
             block_vs1.settings.SetValue("scene_name", "Visual_Search");
             block_vs2.settings.SetValue("scene_name", "Visual_Search");
         }
@@ -55,6 +63,11 @@ namespace WorkingMemory
                 manager.BlockSetUp(trial.block);
             }
             manager.TrialSetUp(trial);
+        }
+
+        public void CleanUpTrial(Trial trial)
+        {
+            FindObjectOfType<TrialManager>().TrialCleanUp(trial);
         }
     }
 }

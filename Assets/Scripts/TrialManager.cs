@@ -6,17 +6,23 @@ using WorkingMemory;
 
 public class TrialManager : MonoBehaviour
 {
+    //Variables for all trials
+    private System.DateTime trialStartTime;
+    private System.DateTime trialEndTime;
+
     //Shape Colour Variables
     public Mesh[] possibleShapes; //Array of potential shape meshes
     public Material[] possibleColours; //Array of potential colours
-    public List<GameObject> targets; //Array of target objects
-    public List<GameObject> shapeOptions; //Array of shape option objects
+    List<GameObject> targets; //Array of target objects
+    List<GameObject> shapeOptions; //Array of shape option objects
+    List<int> keyShapesIndices; //Indices of the target shapes in the option field
 
+    //Select block set up method
     public void BlockSetUp(Block block)
     {
-        switch (block.settings.GetString("scene_name"))
+        switch (block.settings.GetString("scene_type"))
         {
-            case "Shapes_Colour":
+            case "Shapes_Colours":
                 ShapeColourBlockSetUp(block);
                 break;
             case "Visual_Search":
@@ -25,11 +31,37 @@ public class TrialManager : MonoBehaviour
         }
     }
 
+    //Select trial set up based on block type
     public void TrialSetUp(Trial trial)
     {
+        trialStartTime = System.DateTime.Now;
 
+        switch (trial.block.settings.GetString("scene_type"))
+        {
+            case "Shapes_Colours":
+                ShapeColourTrialSetUp(trial);
+                break;
+            case "Visual_Search":
+                VisualSearchCleanUp(trial);
+                break;
+        }
     }
 
+    //Select trial clean up based on block type
+    public void TrialCleanUp(Trial trial)
+    {
+        switch (trial.block.settings.GetString("scene_type"))
+        {
+            case "Shapes_Colours":
+                ShapeColourTrialSetUp(trial);
+                break;
+            case "Visual_Search":
+                VisualSearchCleanUp(trial);
+                break;
+        }
+    }
+
+    //Shape Colour block methods
     public void ShapeColourBlockSetUp(Block block)
     {
         targets = GameObject.Find("Stand").GetChildren();
@@ -61,12 +93,28 @@ public class TrialManager : MonoBehaviour
         }
     }
 
+    public void ShapeColourCleanUp(Trial trial)
+    {
+        //TODO End the trial?
+        //TODO Calculate number of errors
+        //TODO Record the end of the trial
+
+        trial.result["Time"] = (trialStartTime - trialEndTime).Milliseconds;
+        trial.result["Errors"] = null;
+    }
+
+    //Visual Search block methods
     public void VisualSearchBlockSetUp(Block block)
     {
 
     }
 
     public void VisualSearchTrialSetUp(Trial trial)
+    {
+
+    }
+
+    public void VisualSearchCleanUp(Trial trial)
     {
 
     }
