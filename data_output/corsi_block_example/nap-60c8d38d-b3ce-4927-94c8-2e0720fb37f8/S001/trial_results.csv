@@ -1,5 +1,0 @@
-experiment,ppid,session_num,trial_num,block_num,trial_num_in_block,start_time,end_time,num_sequence,correct,corsi_results_location_0,corsi_results_location_1
-corsi_block_example,nap-60c8d38d-b3ce-4927-94c8-2e0720fb37f8,1,1,1,1,0.3533334,5.948075,,True,corsi_block_example/nap-60c8d38d-b3ce-4927-94c8-2e0720fb37f8/S001/othertrialdata/corsi_results_T001.json,corsi_results_T001.json
-corsi_block_example,nap-60c8d38d-b3ce-4927-94c8-2e0720fb37f8,1,2,1,2,6.940186,11.03704,,True,corsi_block_example/nap-60c8d38d-b3ce-4927-94c8-2e0720fb37f8/S001/othertrialdata/corsi_results_T002.json,corsi_results_T002.json
-corsi_block_example,nap-60c8d38d-b3ce-4927-94c8-2e0720fb37f8,1,3,1,3,12.02124,16.14049,,True,corsi_block_example/nap-60c8d38d-b3ce-4927-94c8-2e0720fb37f8/S001/othertrialdata/corsi_results_T003.json,corsi_results_T003.json
-corsi_block_example,nap-60c8d38d-b3ce-4927-94c8-2e0720fb37f8,1,4,2,1,17.14066,22.30891,,True,corsi_block_example/nap-60c8d38d-b3ce-4927-94c8-2e0720fb37f8/S001/othertrialdata/corsi_results_T004.json,corsi_results_T004.json

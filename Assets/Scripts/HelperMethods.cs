@@ -34,5 +34,18 @@ namespace WorkingMemory
 
             return newList;
         }
+
+        public static float[] Seq(int len, float start, float end)
+        {
+            float by = (end - start) / len;
+            float[] seq = new float[len];
+
+            seq[0] = start;
+            for (int i = 1; i < len; i++)
+            {
+                seq[i] = seq[i - 1] + by;
+            }
+            return seq;
+        }
     }
 }
