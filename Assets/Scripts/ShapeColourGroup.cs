@@ -86,7 +86,7 @@ namespace WorkingMemory
                 newShape.transform.localPosition = pos;
                 newShape.transform.localScale = new Vector3(100, 100, 100);
 
-                newShape.transform.Rotate(new Vector3(UnityEngine.Random.Range(-180, 180), 0, 0));
+                newShape.transform.Rotate(new Vector3(90, 0, UnityEngine.Random.Range(-180, 180)));
                 newShape.GetComponent<MeshFilter>().mesh = possibleShapes[UnityEngine.Random.Range(0, possibleShapes.Length)];
                 newShape.GetComponent<Renderer>().material = possibleColours[UnityEngine.Random.Range(0, possibleColours.Length)];
 
