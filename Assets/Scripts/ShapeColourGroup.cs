@@ -86,8 +86,9 @@ namespace WorkingMemory
                 newShape.transform.parent = optionDisplay.transform;
 
                 newShape.transform.localPosition = positions[i];
-                newShape.transform.localScale = new Vector3(600, 600, 100);
-                newShape.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-180, 180)));
+                //newShape.transform.localScale = new Vector3(600, 100, 600);
+                newShape.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(-180, 180), 0));
+                newShape.transform.localScale = HelperMethods.DivideVector3(new Vector3(100, 100, 100), optionDisplay.transform.localScale);
                 newShape.GetComponent<MeshFilter>().mesh = possibleShapes[UnityEngine.Random.Range(0, possibleShapes.Length)];
                 newShape.GetComponent<MeshCollider>().sharedMesh = newShape.GetComponent<MeshFilter>().mesh;
                 newShape.GetComponent<Renderer>().material = possibleColours[UnityEngine.Random.Range(0, possibleColours.Length)];
@@ -152,7 +153,7 @@ namespace WorkingMemory
             if (!Session.instance.InTrial) return;
 
             trialEndTime = DateTime.Now;
-            int trialTime = (trialEndTime - trialStartTime).Milliseconds;
+            double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
 
             Debug.Log("isSelected = " + String.Join("",
             new List<bool>(isSelected)
@@ -180,7 +181,7 @@ namespace WorkingMemory
             foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
             foreach (Transform child in optionDisplay.transform) Destroy(child.gameObject);
 
-            print("Trial took " + trialTime + " ms. " + mistakes + " mistakes were made.");
+            print("Trial took " + trialTime + " seconds. " + mistakes + " mistakes were made.");
             Session.instance.CurrentTrial.End();
             Session.instance.Invoke("BeginNextTrialSafe", 5);
         }

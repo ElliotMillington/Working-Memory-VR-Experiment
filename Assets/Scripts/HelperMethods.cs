@@ -19,7 +19,7 @@ namespace WorkingMemory
 
         public static List<int> GenRandomInts(int min, int max, int num)
         {
-            List<int> oldList = Enumerable.Range(0, num).ToList();
+            List<int> oldList = Enumerable.Range(0, max).ToList();
 
             // this is the list we're going to move items to
             List<int> newList = new List<int>();
