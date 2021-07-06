@@ -78,8 +78,8 @@ namespace WorkingMemory
             }
 
             //Set up option shapes.
-            optionShapes = new List<Shape>(optionNum);
-            print(optionShapes.Capacity);
+            optionShapes = new List<Shape>();
+            List<int[]> selectedCombo = new List<int[]>();
             for (int i = 0; i < positions.Length; i++)
             {
                 Shape newShape = Instantiate(optionPrefab);
@@ -95,12 +95,21 @@ namespace WorkingMemory
                 //newShape.transform.localScale = HelperMethods.DivideVector3(new Vector3(100, 100, 100), optionDisplay.transform.localScale);
 
                 //Set mesh
-                Mesh randomMesh = possibleShapes[UnityEngine.Random.Range(0, possibleShapes.Length)];
+                //First value is the mesh, the second value is the material
+                int[] comboID = {UnityEngine.Random.Range(0, possibleShapes.Length), UnityEngine.Random.Range(0, possibleColours.Length)};
+                //Ensures that no shape/colour combo is repeated
+                while (selectedCombo.Contains(comboID))
+                {
+                    comboID = new int[]{UnityEngine.Random.Range(0, possibleShapes.Length), UnityEngine.Random.Range(0, possibleColours.Length)};
+                    print("Duplicate detected");
+                }
+
+                Mesh randomMesh = possibleShapes[comboID[0]];
                 newShape.GetComponent<MeshFilter>().mesh = randomMesh;
                 newShape.GetComponent<MeshCollider>().sharedMesh = randomMesh;
 
                 //Set material
-                newShape.GetComponent<Renderer>().material = possibleColours[UnityEngine.Random.Range(0, possibleColours.Length)];
+                newShape.GetComponent<Renderer>().material = possibleColours[comboID[1]];
 
                 //Hide shape until trial start
                 newShape.clickable = true;
