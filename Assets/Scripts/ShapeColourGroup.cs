@@ -83,21 +83,27 @@ namespace WorkingMemory
             for (int i = 0; i < positions.Length; i++)
             {
                 Shape newShape = Instantiate(optionPrefab);
-                newShape.transform.parent = optionDisplay.transform;
+                optionShapes.Add(newShape);
+                newShape.group = this;
+                newShape.listPosition = i;
 
+                //Set transform properties
+                newShape.transform.parent = optionDisplay.transform;
                 newShape.transform.localPosition = positions[i];
-                //newShape.transform.localScale = new Vector3(600, 100, 600);
+                newShape.transform.localScale = new Vector3(600, 100, 600);
                 newShape.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(-180, 180), 0));
-                newShape.transform.localScale = HelperMethods.DivideVector3(new Vector3(100, 100, 100), optionDisplay.transform.localScale);
-                newShape.GetComponent<MeshFilter>().mesh = possibleShapes[UnityEngine.Random.Range(0, possibleShapes.Length)];
-                newShape.GetComponent<MeshCollider>().sharedMesh = newShape.GetComponent<MeshFilter>().mesh;
+                //newShape.transform.localScale = HelperMethods.DivideVector3(new Vector3(100, 100, 100), optionDisplay.transform.localScale);
+
+                //Set mesh
+                Mesh randomMesh = possibleShapes[UnityEngine.Random.Range(0, possibleShapes.Length)];
+                newShape.GetComponent<MeshFilter>().mesh = randomMesh;
+                newShape.GetComponent<MeshCollider>().sharedMesh = randomMesh;
+
+                //Set material
                 newShape.GetComponent<Renderer>().material = possibleColours[UnityEngine.Random.Range(0, possibleColours.Length)];
 
+                //Hide shape until trial start
                 newShape.clickable = true;
-                newShape.group = this;
-
-                optionShapes.Add(newShape);
-                newShape.listPosition = i;
                 newShape.gameObject.SetActive(false);
             }
 
@@ -112,20 +118,23 @@ namespace WorkingMemory
             for (int i = 0; i < targetNum; i++)
             {
                 Shape newShape = Instantiate(optionPrefab);
+                targetShapes.Add(newShape);
+                newShape.group = this;
+
+                int copyIndex = targetShapesIndex[i];
+                newShape.listPosition = copyIndex;
+
+                //Set transform properties
                 newShape.transform.parent = targetStand.transform;
                 newShape.transform.localPosition = new Vector3(0, 1.2f, zPos[i]);
-                //newShape.transform.Rotate(new Vector3(0, -90, 90));
                 newShape.transform.localScale = new Vector3(100, 100, 100);
 
-                newShape.listPosition = targetShapesIndex[i];
-                newShape.GetComponent<MeshFilter>().mesh = optionShapes[i].GetComponent<MeshFilter>().mesh;
-                newShape.GetComponent<Renderer>().material = optionShapes[i].GetComponent<Renderer>().material;
+                //Set mesh
+                newShape.GetComponent<MeshFilter>().mesh = optionShapes[copyIndex].GetComponent<MeshFilter>().mesh;
+                newShape.GetComponent<Renderer>().material = optionShapes[copyIndex].GetComponent<Renderer>().material;
 
                 newShape.clickable = false;
-                newShape.group = this;
-                targetShapes.Add(newShape);
-
-                isTarget[targetShapesIndex[i]] = true;
+                isTarget[copyIndex] = true;
             }
 
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
@@ -140,11 +149,17 @@ namespace WorkingMemory
             trialStartTime = System.DateTime.Now;
             //Show confirm button
             confirmButton.gameObject.SetActive(true);
+
+            Debug.Log("isTarget = " + String.Join("",
+            new List<bool>(isTarget)
+            .ConvertAll(i => i.ToString())
+            .ToArray()));
         }
 
         public void RegisterSelect(int index, bool selected)
         {
             isSelected[index] = selected;
+            print("Shape " + index + "was chosen.");
         }
 
         public void Confirm()
@@ -157,10 +172,6 @@ namespace WorkingMemory
 
             Debug.Log("isSelected = " + String.Join("",
             new List<bool>(isSelected)
-            .ConvertAll(i => i.ToString())
-            .ToArray()));
-            Debug.Log("isTarget = " + String.Join("",
-            new List<bool>(isTarget)
             .ConvertAll(i => i.ToString())
             .ToArray()));
 
