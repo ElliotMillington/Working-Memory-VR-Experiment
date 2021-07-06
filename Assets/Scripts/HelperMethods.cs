@@ -47,5 +47,10 @@ namespace WorkingMemory
             }
             return seq;
         }
+
+        public static Vector3 DivideVector3(Vector3 vec1, Vector3 vec2)
+        {
+            return (new Vector3(vec1.x / vec2.x, vec1.y / vec2.y, vec1.z / vec2.z));
+        }
     }
 }

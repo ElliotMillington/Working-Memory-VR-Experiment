@@ -83,11 +83,12 @@ namespace WorkingMemory
             {
                 Shape newShape = Instantiate(optionPrefab);
                 newShape.transform.parent = optionDisplay.transform;
-                newShape.transform.localPosition = pos;
-                newShape.transform.localScale = new Vector3(100, 100, 100);
 
-                newShape.transform.Rotate(new Vector3(90, 0, UnityEngine.Random.Range(-180, 180)));
+                newShape.transform.localPosition = pos;
+                newShape.transform.localScale = new Vector3(600, 600, 100);
+                newShape.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-180, 180)));
                 newShape.GetComponent<MeshFilter>().mesh = possibleShapes[UnityEngine.Random.Range(0, possibleShapes.Length)];
+                newShape.GetComponent<MeshCollider>().sharedMesh = newShape.GetComponent<MeshFilter>().mesh;
                 newShape.GetComponent<Renderer>().material = possibleColours[UnityEngine.Random.Range(0, possibleColours.Length)];
 
                 newShape.group = this;
@@ -109,7 +110,7 @@ namespace WorkingMemory
                 Shape newShape = Instantiate(optionPrefab);
                 newShape.transform.parent = targetStand.transform;
                 newShape.transform.localPosition = new Vector3(0, 1.2f, zPos[i]);
-                newShape.transform.Rotate(new Vector3(0, -90, 90));
+                //newShape.transform.Rotate(new Vector3(0, -90, 90));
                 newShape.transform.localScale = new Vector3(100, 100, 100);
 
                 newShape.listPosition = targetShapesIndex[i];
@@ -149,6 +150,7 @@ namespace WorkingMemory
 
             trialEndTime = DateTime.Now;
 
+
             int mistakes = 0;
             for (int i = 0; i < isSelected.Length; i++)
             {
@@ -167,6 +169,7 @@ namespace WorkingMemory
             foreach (Transform child in optionDisplay.transform) Destroy(child.gameObject);
 
             Session.instance.CurrentTrial.End();
+            Session.instance.Invoke("BeginNextTrialSafe", 1);
         }
     }
 }

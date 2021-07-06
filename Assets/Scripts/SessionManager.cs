@@ -40,7 +40,7 @@ namespace WorkingMemory
             block_vs2.settings.SetValue("scene_name", "Visual_Search");
 
             //Setting Shape Colour block settings
-            block_sc1.settings.SetValue("option_num", 10);
+            block_sc1.settings.SetValue("option_num", 9);
             block_sc1.settings.SetValue("target_num", 3);
             block_sc1.settings.SetValue("option_distro", "grid");
             block_sc1.settings.SetValue("delay_time", 2.0f);

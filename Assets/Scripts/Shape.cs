@@ -30,6 +30,7 @@ namespace WorkingMemory {
 
         void OnMouseDown()
         {
+            print("Clicked");
             if (clickable)
             {
                 if (lightOn)

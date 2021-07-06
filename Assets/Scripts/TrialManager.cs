@@ -21,6 +21,7 @@ public class TrialManager : MonoBehaviour
     public void TrialSetUp(Trial trial)
     {
         StopAllCoroutines();
+        print("Started trial");
 
         switch (trial.block.settings.GetString("scene_type"))
         {
@@ -36,7 +37,7 @@ public class TrialManager : MonoBehaviour
 
     public void TrialCleanUp(Trial trial)
     {
-
+        Debug.Log("Trial Ended");
     }
 
 
