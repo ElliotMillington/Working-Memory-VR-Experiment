@@ -79,21 +79,24 @@ namespace WorkingMemory
 
             //Set up option shapes.
             optionShapes = new List<Shape>(optionNum);
-            foreach(Vector3 pos in positions)
+            print(optionShapes.Capacity);
+            for (int i = 0; i < positions.Length; i++)
             {
                 Shape newShape = Instantiate(optionPrefab);
                 newShape.transform.parent = optionDisplay.transform;
 
-                newShape.transform.localPosition = pos;
+                newShape.transform.localPosition = positions[i];
                 newShape.transform.localScale = new Vector3(600, 600, 100);
                 newShape.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-180, 180)));
                 newShape.GetComponent<MeshFilter>().mesh = possibleShapes[UnityEngine.Random.Range(0, possibleShapes.Length)];
                 newShape.GetComponent<MeshCollider>().sharedMesh = newShape.GetComponent<MeshFilter>().mesh;
                 newShape.GetComponent<Renderer>().material = possibleColours[UnityEngine.Random.Range(0, possibleColours.Length)];
 
+                newShape.clickable = true;
                 newShape.group = this;
-                optionShapes.Add(newShape);
 
+                optionShapes.Add(newShape);
+                newShape.listPosition = i;
                 newShape.gameObject.SetActive(false);
             }
 
@@ -117,6 +120,7 @@ namespace WorkingMemory
                 newShape.GetComponent<MeshFilter>().mesh = optionShapes[i].GetComponent<MeshFilter>().mesh;
                 newShape.GetComponent<Renderer>().material = optionShapes[i].GetComponent<Renderer>().material;
 
+                newShape.clickable = false;
                 newShape.group = this;
                 targetShapes.Add(newShape);
 
@@ -128,7 +132,6 @@ namespace WorkingMemory
             foreach (Shape shape in targetShapes) shape.gameObject.SetActive(false);
             foreach (Shape shape in optionShapes)
             {
-                shape.clickable = true;
                 shape.gameObject.SetActive(true);
             }
 
@@ -149,7 +152,16 @@ namespace WorkingMemory
             if (!Session.instance.InTrial) return;
 
             trialEndTime = DateTime.Now;
+            int trialTime = (trialEndTime - trialStartTime).Milliseconds;
 
+            Debug.Log("isSelected = " + String.Join("",
+            new List<bool>(isSelected)
+            .ConvertAll(i => i.ToString())
+            .ToArray()));
+            Debug.Log("isTarget = " + String.Join("",
+            new List<bool>(isTarget)
+            .ConvertAll(i => i.ToString())
+            .ToArray()));
 
             int mistakes = 0;
             for (int i = 0; i < isSelected.Length; i++)
@@ -168,8 +180,9 @@ namespace WorkingMemory
             foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
             foreach (Transform child in optionDisplay.transform) Destroy(child.gameObject);
 
+            print("Trial took " + trialTime + " ms. " + mistakes + " mistakes were made.");
             Session.instance.CurrentTrial.End();
-            Session.instance.Invoke("BeginNextTrialSafe", 1);
+            Session.instance.Invoke("BeginNextTrialSafe", 5);
         }
     }
 }

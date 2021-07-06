@@ -10,27 +10,25 @@ namespace WorkingMemory {
         public int listPosition;
         public ShapeColourGroup group;
 
-    private void Start()
+        private float clickedSize = 200f;
+
+        private void Start()
         {
-            clickable = false;
             lightOn = false;
         }
 
         public void LightUp()
         {
-            transform.localScale += new Vector3(50f, 50f, 50f);
+            transform.localScale += new Vector3(clickedSize, clickedSize, clickedSize);
         }
 
         public void LightDown()
         {
-            transform.localScale -= new Vector3(50f, 50f, 50f);
+            transform.localScale -= new Vector3(clickedSize, clickedSize, clickedSize);
         }
-
-        //TODO Record which shapes have been clicked to know which are mistakes
 
         void OnMouseDown()
         {
-            print("Clicked");
             if (clickable)
             {
                 if (lightOn)
