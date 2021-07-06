@@ -103,6 +103,7 @@ namespace WorkingMemory
                     comboID = new int[]{UnityEngine.Random.Range(0, possibleShapes.Length), UnityEngine.Random.Range(0, possibleColours.Length)};
                     print("Duplicate detected");
                 }
+                selectedCombo.Add(comboID);
 
                 Mesh randomMesh = possibleShapes[comboID[0]];
                 newShape.GetComponent<MeshFilter>().mesh = randomMesh;
