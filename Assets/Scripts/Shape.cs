@@ -27,7 +27,7 @@ namespace WorkingMemory {
             transform.localScale -= new Vector3(clickedSize, clickedSize, clickedSize);
         }
 
-        void OnMouseDown()
+        public  void OnMouseDown()
         {
             if (clickable)
             {

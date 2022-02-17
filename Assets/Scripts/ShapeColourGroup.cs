@@ -83,6 +83,7 @@ namespace WorkingMemory
             for (int i = 0; i < positions.Length; i++)
             {
                 Shape newShape = Instantiate(optionPrefab);
+                newShape.name = "option_shape" + i;
                 optionShapes.Add(newShape);
                 newShape.group = this;
                 newShape.listPosition = i;
@@ -169,7 +170,7 @@ namespace WorkingMemory
         public void RegisterSelect(int index, bool selected)
         {
             isSelected[index] = selected;
-            print("Shape " + index + "was chosen.");
+            print("Shape " + index + " was chosen.");
         }
 
         public void Confirm()
