@@ -75,8 +75,8 @@ namespace WorkingMemory
                 case "random":
                     //TODO Set up random positioning
                     break;
-                
-                for (int i = 0; i < positions.Length; i++)
+            }
+            for (int i = 0; i < positions.Length; i++)
                 {
                     print("position is: " + positions[i]);
                 }
