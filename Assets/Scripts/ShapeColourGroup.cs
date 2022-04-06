@@ -76,11 +76,11 @@ namespace WorkingMemory
                     //TODO Set up random positioning
                     break;
             }
+
             for (int i = 0; i < positions.Length; i++)
                 {
                     print("position is: " + positions[i]);
                 }
-            }
 
             //Set up option shapes.
             optionShapes = new List<Shape>();
