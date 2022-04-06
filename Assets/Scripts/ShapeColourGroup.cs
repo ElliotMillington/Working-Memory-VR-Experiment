@@ -76,7 +76,7 @@ namespace WorkingMemory
                     //TODO Set up random positioning
                     break;
                 
-                print(positions);
+                print(positions.ToString());
             }
 
             //Set up option shapes.
