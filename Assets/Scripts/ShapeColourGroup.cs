@@ -13,9 +13,11 @@ namespace WorkingMemory
         GameObject targetStand;
         float targetZRange = 0.5f;
 
+        float[] zPos;
+
         GameObject optionDisplay;
-        float optionXRange = 4.0f;
-        float optionZRange = 4.0f;
+
+        GameObject roomObj;
 
         public Shape optionPrefab;
         public Button confirmButton;
@@ -38,13 +40,11 @@ namespace WorkingMemory
         {
             targetStand = GameObject.Find("Stand");
             optionDisplay = GameObject.Find("Display");
+            roomObj = GameObject.Find("CylinderRoom");
         }
 
         public IEnumerator CreateShapes(Trial trial)
         {
-            float[] zPos;
-            float[] xPos;
-
             yield return new WaitForSeconds(0.25f);
 
             int optionNum = trial.settings.GetInt("option_num");
@@ -58,33 +58,37 @@ namespace WorkingMemory
 
             //Generate option positions
             Vector3[] positions = new Vector3[optionNum];
-            switch (trial.settings.GetObject("option_distro"))
+            String option_string = trial.settings.GetObject("option_distro").ToString();
+            switch (option_string)
             {
                 case "grid":
                     int nrow = Convert.ToInt32(Math.Ceiling(Mathf.Sqrt(optionNum)));
-                    xPos = HelperMethods.Seq(nrow, -optionXRange, optionXRange);
-                    zPos = HelperMethods.Seq(nrow, -optionZRange, optionZRange);
-
+    
+                    List<float> posStep = new List<float>(new float [] {0.25f,0f,-0.25f});
                     for (int i = 0; i < positions.Length; i++)
                     {
-                        int zRow = i % nrow;
-                        int xRow = i / nrow;
-                        positions[i] = new Vector3(xPos[xRow], 0.1f, zPos[zRow]);
+                        int row = i % nrow;
+                        int column = i / nrow;
+                        positions[i] = new Vector3(posStep[row], posStep[column], -0.1f);
                     }
                     break;
                 case "random":
-                    //TODO Set up random positioning
+                    //TODO: Set up random positioning
                     break;
-            }
-
-            for (int i = 0; i < positions.Length; i++)
-                {
-                    print("position is: " + positions[i]);
-                }
+                case "circular":
+                    for (var i = 0; i < positions.Length; i++)      
+                    {
+                        float radius = 0.008f;
+                        var angle = i * Mathf.PI * 2 / positions.Length;
+                        positions[i] = (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius) - new Vector3(0,0,-0.0035f);
+                    }
+                    break;
+            };
 
             //Set up option shapes.
             optionShapes = new List<Shape>();
             List<int[]> selectedCombo = new List<int[]>();
+
             for (int i = 0; i < positions.Length; i++)
             {
                 Shape newShape = Instantiate(optionPrefab);
@@ -94,9 +98,21 @@ namespace WorkingMemory
                 newShape.listPosition = i;
 
                 //Set transform properties
-                newShape.transform.parent = optionDisplay.transform;
+                switch (option_string)
+                {
+                    case "grid":
+                        newShape.transform.parent = optionDisplay.transform;
+                        newShape.transform.localScale = new Vector3(100, 100, 100);
+                        break;
+                    case "random":
+                        //TODO:
+                        break;
+                    case "circular":
+                        newShape.transform.parent = roomObj.transform;
+                        newShape.transform.localScale = new Vector3(1, 1, 1);
+                        break;
+                }
                 newShape.transform.localPosition = positions[i];
-                newShape.transform.localScale = new Vector3(600, 100, 600);
                 newShape.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(-180, 180), 0));
                 //newShape.transform.localScale = HelperMethods.DivideVector3(new Vector3(100, 100, 100), optionDisplay.transform.localScale);
 
@@ -152,10 +168,12 @@ namespace WorkingMemory
                 newShape.clickable = false;
                 isTarget[copyIndex] = true;
             }
+            targetStand.SetActive(true);
 
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
 
             foreach (Shape shape in targetShapes) shape.gameObject.SetActive(false);
+            targetStand.SetActive(false);
             foreach (Shape shape in optionShapes)
             {
                 shape.gameObject.SetActive(true);

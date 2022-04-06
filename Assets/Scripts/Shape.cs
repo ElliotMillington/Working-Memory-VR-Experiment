@@ -9,22 +9,38 @@ namespace WorkingMemory {
         private bool lightOn;
         public int listPosition;
         public ShapeColourGroup group;
+        private float clickedSize;
 
-        private float clickedSize = 200f;
+        public GameObject scriptObj;
+
 
         private void Start()
         {
             lightOn = false;
+            Outline script = scriptObj.GetComponent<Outline>();
+            Destroy(scriptObj.GetComponent<Outline>());
+
+            if(transform.parent.name == "Display")
+            {
+                clickedSize = 50f;
+            }
+            else
+            {
+                clickedSize = 0.7f;
+            }
         }
 
         public void LightUp()
         {
             transform.localScale += new Vector3(clickedSize, clickedSize, clickedSize);
+            scriptObj.AddComponent<Outline>();
+            scriptObj.GetComponent<Outline>().OutlineWidth = 5f;
         }
 
         public void LightDown()
         {
             transform.localScale -= new Vector3(clickedSize, clickedSize, clickedSize);
+            Destroy(scriptObj.GetComponent<Outline>());
         }
 
         public  void OnMouseDown()

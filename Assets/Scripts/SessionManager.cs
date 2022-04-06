@@ -24,29 +24,29 @@ namespace WorkingMemory
             //Please refer to the reference files for block contents.
             Block block_sc1 = session.CreateBlock(trial_num);
             Block block_sc2 = session.CreateBlock(trial_num);
-            Block block_vs1 = session.CreateBlock(trial_num);
-            Block block_vs2 = session.CreateBlock(trial_num);
+            //Block block_vs1 = session.CreateBlock(trial_num);
+            //Block block_vs2 = session.CreateBlock(trial_num);
 
             //Setting block types
             block_sc1.settings.SetValue("scene_type", "Shapes_Colours");
             block_sc2.settings.SetValue("scene_type", "Shapes_Colours");
-            block_vs1.settings.SetValue("scene_type", "Visual_Search");
-            block_vs2.settings.SetValue("scene_type", "Visual_Search");
+            //block_vs1.settings.SetValue("scene_type", "Visual_Search");
+            //block_vs2.settings.SetValue("scene_type", "Visual_Search");
 
             //Setting block scene names
             block_sc1.settings.SetValue("scene_name", "Shapes_Colours_3d");
-            block_sc2.settings.SetValue("scene_name", "Shapes_Colours_2d");
-            block_vs1.settings.SetValue("scene_name", "Visual_Search");
-            block_vs2.settings.SetValue("scene_name", "Visual_Search");
+            block_sc2.settings.SetValue("scene_name", "Shapes_Colours_3d");
+            //block_vs1.settings.SetValue("scene_name", "Visual_Search");
+            //block_vs2.settings.SetValue("scene_name", "Visual_Search");
 
             //Setting Shape Colour block settings
             block_sc1.settings.SetValue("option_num", 9);
             block_sc1.settings.SetValue("target_num", 3);
-            block_sc1.settings.SetValue("option_distro", "grid");
+            block_sc1.settings.SetValue("option_distro", "circular");
             block_sc1.settings.SetValue("delay_time", 2.0f);
 
             //Setting Shape Colour block settings
-            block_sc2.settings.SetValue("option_num", 10);
+            block_sc2.settings.SetValue("option_num", 9);
             block_sc2.settings.SetValue("target_num", 3);
             block_sc2.settings.SetValue("option_distro", "grid");
             block_sc2.settings.SetValue("delay_time", 2.0f);
@@ -54,11 +54,10 @@ namespace WorkingMemory
 
         public void SetUpTrial(Trial trial)
         {
+            string scenePath = trial.settings.GetString("scene_name");
             //If first trial in the block, load a new scene.
             if (trial.numberInBlock == 1)
             {
-                string scenePath = trial.settings.GetString("scene_name");
-
                 AsyncOperation loadScene = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scenePath);
                 loadScene.completed += (op) => { SceneSpecificSetup(trial); };
             } else
@@ -75,11 +74,23 @@ namespace WorkingMemory
                 manager.BlockSetUp(trial.block);
             }
             manager.TrialSetUp(trial);
+
+            string option_string = trial.settings.GetObject("option_distro").ToString();
+            GameObject wallObj = GameObject.Find("Wall");
+            if(option_string != "grid")
+            {
+                wallObj.SetActive(false);
+            }
         }
 
         public void CleanUpTrial(Trial trial)
         {
-            //FindObjectOfType<TrialManager>().TrialCleanUp(trial);
+            string option_string = trial.settings.GetObject("option_distro").ToString();
+            GameObject wallObj = GameObject.Find("Wall");
+            if(option_string != "grid")
+            {
+                wallObj.SetActive(true);
+            }
         }
     }
 }
