@@ -75,6 +75,8 @@ namespace WorkingMemory
                 case "random":
                     //TODO Set up random positioning
                     break;
+                
+                print(positions);
             }
 
             //Set up option shapes.
