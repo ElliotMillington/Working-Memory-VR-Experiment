@@ -85,12 +85,7 @@ namespace WorkingMemory
 
         public void CleanUpTrial(Trial trial)
         {
-            string option_string = trial.settings.GetObject("option_distro").ToString();
-            GameObject wallObj = GameObject.Find("Wall");
-            if(option_string != "grid")
-            {
-                wallObj.SetActive(true);
-            }
+            
         }
     }
 }

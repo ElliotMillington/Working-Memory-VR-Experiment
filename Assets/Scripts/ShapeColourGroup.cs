@@ -36,6 +36,8 @@ namespace WorkingMemory
         private DateTime trialStartTime;
         private DateTime trialEndTime;
 
+        private String option_string;
+
         private void Start()
         {
             targetStand = GameObject.Find("Stand");
@@ -58,7 +60,7 @@ namespace WorkingMemory
 
             //Generate option positions
             Vector3[] positions = new Vector3[optionNum];
-            String option_string = trial.settings.GetObject("option_distro").ToString();
+            option_string = trial.settings.GetObject("option_distro").ToString();
             switch (option_string)
             {
                 case "grid":
@@ -224,7 +226,13 @@ namespace WorkingMemory
 
             confirmButton.gameObject.SetActive(false);
             foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
-            foreach (Transform child in optionDisplay.transform) Destroy(child.gameObject);
+            if (option_string != "grid")
+            {
+                foreach (Transform child in roomObj.transform) Destroy(child.gameObject);
+            }else
+            {
+                foreach (Transform child in optionDisplay.transform) Destroy(child.gameObject);
+            }
 
             print("Trial took " + trialTime + " seconds. " + mistakes + " mistakes were made.");
             Session.instance.CurrentTrial.End();
