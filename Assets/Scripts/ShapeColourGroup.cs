@@ -178,7 +178,7 @@ namespace WorkingMemory
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
 
             foreach (Shape shape in targetShapes) shape.gameObject.SetActive(false);
-            targetStand.SetActive(false);
+            if (option_string != "circular") targetStand.SetActive(false);
             foreach (Shape shape in optionShapes)
             {
                 shape.gameObject.SetActive(true);
@@ -246,7 +246,7 @@ namespace WorkingMemory
             foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
             if (option_string != "grid")
             {
-                foreach (Transform child in roomObj.transform) Destroy(child.gameObject);
+                foreach (Transform child in roomObj.transform) if (child.name != "ConfirmationPlanes") Destroy(child.gameObject);
             }else
             {
                 foreach (Transform child in optionDisplay.transform) Destroy(child.gameObject);
