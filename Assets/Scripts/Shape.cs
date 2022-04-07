@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace WorkingMemory {
     public class Shape : MonoBehaviour
@@ -12,6 +13,11 @@ namespace WorkingMemory {
         private float clickedSize;
 
         public GameObject scriptObj;
+
+        private bool leftHand = false;
+        private bool rightHand = false;
+
+        private bool selected = false;
 
 
         private void Start()
@@ -30,35 +36,65 @@ namespace WorkingMemory {
             }
         }
 
+        public void invertHandedness(String handedness)
+        {
+            if (handedness == "right")
+            {
+                leftHand = !leftHand;
+            }
+            else
+            {
+                rightHand = !rightHand;
+            }
+        }
+
         public void LightUp()
         {
-            transform.localScale += new Vector3(clickedSize, clickedSize, clickedSize);
-            scriptObj.AddComponent<Outline>();
-            scriptObj.GetComponent<Outline>().OutlineWidth = 5f;
+            if (!lightOn && (leftHand || rightHand))
+            {
+                transform.localScale += new Vector3(clickedSize, clickedSize, clickedSize);
+                lightOn = !lightOn;
+            }
         }
 
         public void LightDown()
         {
-            transform.localScale -= new Vector3(clickedSize, clickedSize, clickedSize);
-            Destroy(scriptObj.GetComponent<Outline>());
+            if (lightOn && (!leftHand && !rightHand) && !selected)
+            {
+                transform.localScale -= new Vector3(clickedSize, clickedSize, clickedSize);
+                lightOn = !lightOn;
+            }
+            
+        }
+
+        public void invertOutline(bool selected)
+        {
+            if (selected)
+            {
+                scriptObj.AddComponent<Outline>();
+                scriptObj.GetComponent<Outline>().OutlineWidth = 5f;
+            }
+            else
+            {
+                Destroy(scriptObj.GetComponent<Outline>());
+            }
         }
 
         public  void OnMouseDown()
         {
             if (clickable)
             {
-                if (lightOn)
+                if (selected)
                 {
-                    LightDown();
-                    lightOn = false;
                     group.RegisterSelect(listPosition, false);
+                    selected = !selected;
+                    invertOutline(selected);
                 } else
                 {
-                    LightUp();
-                    lightOn = true;
                     group.RegisterSelect(listPosition, true);
+                    selected = !selected;
+                    invertOutline(selected);
                 }
-                //cubeGroup.RegisterClick(id);
             }
         }
     }

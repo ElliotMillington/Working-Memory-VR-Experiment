@@ -42,13 +42,13 @@ namespace WorkingMemory
             //Setting Shape Colour block settings
             block_sc1.settings.SetValue("option_num", 9);
             block_sc1.settings.SetValue("target_num", 3);
-            block_sc1.settings.SetValue("option_distro", "circular");
+            block_sc1.settings.SetValue("option_distro", "grid");
             block_sc1.settings.SetValue("delay_time", 2.0f);
 
             //Setting Shape Colour block settings
             block_sc2.settings.SetValue("option_num", 9);
             block_sc2.settings.SetValue("target_num", 3);
-            block_sc2.settings.SetValue("option_distro", "grid");
+            block_sc2.settings.SetValue("option_distro", "circular");
             block_sc2.settings.SetValue("delay_time", 2.0f);
         }
 

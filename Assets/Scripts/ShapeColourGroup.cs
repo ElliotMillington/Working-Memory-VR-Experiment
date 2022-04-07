@@ -20,7 +20,7 @@ namespace WorkingMemory
         GameObject roomObj;
 
         public Shape optionPrefab;
-        public Button confirmButton;
+        //public Button confirmButton;
 
         public Mesh[] possibleShapes; //Array of potential shape meshes
         public Material[] possibleColours; //Array of potential colours
@@ -37,6 +37,9 @@ namespace WorkingMemory
         private DateTime trialEndTime;
 
         private String option_string;
+
+        private bool leftHand = false;
+        private bool rightHand = false;
 
         private void Start()
         {
@@ -184,7 +187,7 @@ namespace WorkingMemory
             //Start timing the trial
             trialStartTime = System.DateTime.Now;
             //Show confirm button
-            confirmButton.gameObject.SetActive(true);
+            //confirmButton.gameObject.SetActive(true);
 
             Debug.Log("isTarget = " + String.Join("",
             new List<bool>(isTarget)
@@ -198,10 +201,25 @@ namespace WorkingMemory
             print("Shape " + index + " was chosen.");
         }
 
+        public void invertHandedness(String handedness)
+        {
+            if (handedness == "right")
+            {
+                leftHand = !leftHand;
+            }
+            else
+            {
+                rightHand = !rightHand;
+            }
+        }
+
         public void Confirm()
         {
             //If not in trial, do nothing
             if (!Session.instance.InTrial) return;
+
+            //both hands must be pointing at the floor or ceiling in any configuration
+            if (!(leftHand && rightHand)) return;
 
             trialEndTime = DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
@@ -224,7 +242,7 @@ namespace WorkingMemory
             trial.result["Time"] = (trialStartTime - trialEndTime).Milliseconds;
             trial.result["Errors"] = mistakes;
 
-            confirmButton.gameObject.SetActive(false);
+            //confirmButton.gameObject.SetActive(false);
             foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
             if (option_string != "grid")
             {
