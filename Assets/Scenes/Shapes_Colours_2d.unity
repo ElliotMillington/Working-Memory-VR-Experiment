@@ -157,10 +157,10 @@ RectTransform:
   m_Father: {fileID: 1267813264}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 800, y: 790}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &173695854
 MonoBehaviour:
@@ -1505,10 +1505,10 @@ RectTransform:
   m_Father: {fileID: 560966809}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0.00012207}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 374, y: -270}
+  m_SizeDelta: {x: 748, y: 540.0001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1624248082
 MonoBehaviour:
@@ -1530,7 +1530,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   rows: 3
   columns: 3
-  cellSize: {x: 236.2215, y: 166.47002}
+  cellSize: {x: 236, y: 166.6667}
   spacing: {x: 10, y: 10}
 --- !u!1001 &1920570311
 PrefabInstance:
