@@ -26,10 +26,10 @@ namespace WorkingMemory
             
             int trial_num = 3;
             string scene_type = "Two_Dimensional";
-            int option_num = 25;
+            int option_num = 16;
             int target_num = 3;
             string option_distro = null; //not relevant for 2D
-            float delay_time = 6.0f;
+            float delay_time = 1.0f;
 
             string scene_name = (scene_type == "Two_Dimensional" ? "Shapes_Colours_2d" : "Shapes_Colours_3d");
             makeBlock(session, trial_num, scene_type, scene_name , option_num, target_num, option_distro, delay_time);
