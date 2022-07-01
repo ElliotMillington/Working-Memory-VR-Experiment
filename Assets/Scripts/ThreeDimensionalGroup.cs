@@ -229,9 +229,6 @@ namespace WorkingMemory
             //If not in trial, do nothing
             if (!Session.instance.InTrial) return;
 
-            //both hands must be pointing at the floor or ceiling in any configuration
-            //if (!(leftHand && rightHand)) return;
-
             trialEndTime = System.DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
 

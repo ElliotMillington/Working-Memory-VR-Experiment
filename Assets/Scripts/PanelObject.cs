@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class PanelObject : MonoBehaviour
 {
@@ -10,12 +11,19 @@ public class PanelObject : MonoBehaviour
     public GameObject down;
 
     public Transform panel;
+    public string currentDimension;
 
-    public string prefabType;
+    public Text panelTitle;
+    public Text badgeText;
+    public GameObject deleteSign;
 
     private void Start() {
         PanelGroup script = this.transform.GetComponentInParent<PanelGroup>();
-        prefabType = PrefabUtility.GetCorrespondingObjectFromSource(this).name;
+    }
+
+    public int getPanelIndex()
+    {
+        return panel.transform.GetSiblingIndex();
     }
     
     void moveDown()
@@ -29,10 +37,10 @@ public class PanelObject : MonoBehaviour
 
             this.panel.SetSiblingIndex(nextIndex);
 
+            this.transform.parent.GetComponent<PanelGroup>().switchIndexes(currentIndex, nextIndex);
+
             this.checkButtons();
             replacedSibling.checkButtons();
-
-            this.transform.parent.GetComponent<PanelGroup>().switchIndexes(currentIndex, nextIndex);
         }
     }
 
@@ -47,10 +55,10 @@ public class PanelObject : MonoBehaviour
 
             this.panel.SetSiblingIndex(nextIndex);
 
+            this.transform.parent.GetComponent<PanelGroup>().switchIndexes(currentIndex, nextIndex);
+
             this.checkButtons();
             replacedSibling.checkButtons();
-
-            this.transform.parent.GetComponent<PanelGroup>().switchIndexes(currentIndex, nextIndex);
         }
     }
 
@@ -83,25 +91,31 @@ public class PanelObject : MonoBehaviour
 
     public void invertDimension()
     {
-        PanelGroup script = this.transform.GetComponentInParent<PanelGroup>();
-        var prefabGameObject = PrefabUtility.GetCorrespondingObjectFromSource(this);
-        
-        string invertedPrefabType;
-        if (prefabType == "TwoDimButton")
+        if (currentDimension == "2D")
         {
-            invertedPrefabType = "3D";
-            script.createPositionalPanel(invertedPrefabType, this.transform.GetSiblingIndex());
+            currentDimension = "3D";
+            badgeText.text = currentDimension;
         } 
         else
         {
-            invertedPrefabType = "2D";
-            script.createPositionalPanel(invertedPrefabType, this.transform.GetSiblingIndex());
+            currentDimension = "2D";
+            badgeText.text = currentDimension;
         }
-        Destroy(gameObject);
     }
 
-    public string getType()
+    public string getDimension()
     {
-        return prefabType;
+        return currentDimension;
+    }
+
+    public void deletePanel()
+    {
+        PanelGroup script = this.transform.GetComponentInParent<PanelGroup>();
+        script.removeIndex(getPanelIndex());
+    }
+
+    public void setDelete(bool value)
+    {
+        deleteSign.SetActive(value);
     }
 }

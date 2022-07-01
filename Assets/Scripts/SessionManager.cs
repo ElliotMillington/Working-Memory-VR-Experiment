@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UXF;
+using UnityEngine.SceneManagement;
 
 namespace WorkingMemory
 {
     public class SessionManager : MonoBehaviour
     {
+
         // Start is called before the first frame update.
         void Awake()
         {
@@ -18,9 +20,19 @@ namespace WorkingMemory
         // Called for when session starts.
         public void Generate(Session session)
         {
+            //Debug.Log(session == null);
+           // makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "circular", 60.0f);
+
             
-            makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "grid", 2.0f);
-            //makeBlock(session, 3, "Two_Dimensional", "Shapes_Colours_2d", 9, 3, null, 2.0f);
+            int trial_num = 3;
+            string scene_type = "Two_Dimensional";
+            int option_num = 25;
+            int target_num = 3;
+            string option_distro = null; //not relevant for 2D
+            float delay_time = 6.0f;
+
+            string scene_name = (scene_type == "Two_Dimensional" ? "Shapes_Colours_2d" : "Shapes_Colours_3d");
+            makeBlock(session, trial_num, scene_type, scene_name , option_num, target_num, option_distro, delay_time);
             
 
         }
@@ -39,7 +51,6 @@ namespace WorkingMemory
             {
                 block.settings.SetValue("option_distro", option_distro);
             }
-
         }
 
         public void SetUpTrial(Trial trial)
@@ -65,16 +76,26 @@ namespace WorkingMemory
             }
             manager.TrialSetUp(trial);
 
-            string option_string = trial.settings.GetObject("option_distro").ToString();
-            GameObject wallObj = GameObject.Find("Wall");
-            if(option_string != "grid")
+            string scene_type = trial.settings.GetObject("scene_type").ToString();
+
+            if (scene_type != "Two_Dimensional")
             {
-                wallObj.SetActive(false);
+                string option_string = trial.settings.GetObject("option_distro").ToString();
+                
+                GameObject wallObj = GameObject.Find("Wall");
+                if(option_string != "grid")
+                {
+                    wallObj.SetActive(false);
+                }
             }
+            
         }
 
         public void CleanUpTrial(Trial trial)
         {
+            //Record results
+
+
             /*
             // ~ example show questions and get responses via the UI ~
             string exampleQuestion1 = "How difficult was the task";
@@ -102,5 +123,12 @@ namespace WorkingMemory
         }
             */
         }
+
+        [SerializeField]
+        private void moveToGUI()
+        {
+            SceneManager.LoadScene("GUIScene");
+        }
+
     }
 }

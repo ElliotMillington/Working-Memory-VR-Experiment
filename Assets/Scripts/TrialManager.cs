@@ -26,11 +26,12 @@ public class TrialManager : MonoBehaviour
         switch (trial.block.settings.GetString("scene_type"))
         {
             case "Three_Dimensional":
-                ThreeDimensionalGroup shapeManager = gameObject.GetComponent<ThreeDimensionalGroup>();
-                StartCoroutine(shapeManager.CreateShapes(trial));
+                ThreeDimensionalGroup threeShapeManager = gameObject.GetComponent<ThreeDimensionalGroup>();
+                StartCoroutine(threeShapeManager.CreateShapes(trial));
                 break;
             case "Two_Dimensional":
-                TwoDimensionalCleanUp(trial);
+                TwoDimensionalGroup twoShapeManager = gameObject.GetComponent<TwoDimensionalGroup>();
+                StartCoroutine(twoShapeManager.CreateShapes(trial));
                 break;
         }
     }
