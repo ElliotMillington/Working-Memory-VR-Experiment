@@ -187,7 +187,7 @@ namespace WorkingMemory
             //Start timing the trial
             trialStartTime = System.DateTime.Now;
             //Show confirm button
-            confirmButton.gameObject.SetActive(true);
+            //confirmButton.gameObject.SetActive(true);
 
             Debug.Log("Target Shapes: " + String.Join(" ", targetIndexes.ToArray()));
         }
@@ -251,7 +251,7 @@ namespace WorkingMemory
             Trial trial = Session.instance.CurrentTrial;
             trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
 
-            confirmButton.gameObject.SetActive(false);
+            //confirmButton.gameObject.SetActive(false);
             foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
             if (option_string != "grid")
             {

@@ -21,9 +21,11 @@ namespace WorkingMemory
         public void Generate(Session session)
         {
             //Debug.Log(session == null);
-            makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "circular", 5.0f);
+            makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "grid", 5.0f);
 
-            
+            //also do circular
+
+            /*
             int trial_num = 3;
             string scene_type = "Two_Dimensional";
             int option_num = 16;
@@ -33,7 +35,9 @@ namespace WorkingMemory
 
             string scene_name = (scene_type == "Two_Dimensional" ? "Shapes_Colours_2d" : "Shapes_Colours_3d");
             makeBlock(session, trial_num, scene_type, scene_name , option_num, target_num, option_distro, delay_time);
-            
+
+            */
+
 
         }
 
@@ -82,9 +86,9 @@ namespace WorkingMemory
             {
                 string option_string = trial.settings.GetObject("option_distro").ToString();
                 
-                GameObject wallObj = GameObject.Find("Wall");
                 if(option_string != "grid")
                 {
+                    GameObject wallObj = GameObject.Find("Wall");
                     wallObj.SetActive(false);
                 }
             }
