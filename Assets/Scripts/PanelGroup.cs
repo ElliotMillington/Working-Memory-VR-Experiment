@@ -12,6 +12,8 @@ public class PanelGroup : MonoBehaviour
     public GameObject moveSign;
     public GameObject deleteSign;
 
+    public GameObject confirmSign;
+
     private bool move;
     private bool delete;
 
@@ -38,10 +40,12 @@ public class PanelGroup : MonoBehaviour
         if (panelGroup.Count > 0)
         {
             deleteSign.SetActive(true);
+            confirmSign.SetActive(true);
         }
         else
         {
             deleteSign.SetActive(false);
+            confirmSign.SetActive(false);
         }
 
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class FlexibleGridLayout : LayoutGroup
 {
@@ -51,17 +52,38 @@ public class FlexibleGridLayout : LayoutGroup
 
     public override void CalculateLayoutInputVertical()
     {
-        throw new System.NotImplementedException();
+        try
+        {
+            throw new System.NotImplementedException();
+        }
+        catch
+        {
+            
+        }
     }
 
     public override void SetLayoutHorizontal()
-    {
-        throw new System.NotImplementedException();
+    { 
+        try
+        {
+            throw new System.NotImplementedException();
+        }
+        catch
+        {
+            
+        }
     }
 
     public override void SetLayoutVertical()
     {
-        throw new System.NotImplementedException();
+        try
+        {
+            throw new System.NotImplementedException();
+        }
+        catch
+        {
+            
+        }
     }
 
 

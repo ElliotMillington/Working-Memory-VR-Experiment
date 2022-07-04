@@ -21,7 +21,11 @@ namespace WorkingMemory
         public void Generate(Session session)
         {
             //Debug.Log(session == null);
-            makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "grid", 5.0f);
+
+
+            //makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "grid", 5.0f);
+            //makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "circular", 5.0f);
+            makeBlock(session, 3, "Two_Dimensional", "Shapes_Colours_2d", 9, 3, null , 1.0f);
 
             //also do circular
 
@@ -88,7 +92,7 @@ namespace WorkingMemory
                 
                 if(option_string != "grid")
                 {
-                    GameObject wallObj = GameObject.Find("Wall");
+                    GameObject wallObj = GameObject.Find("/TrialManager/Wall");
                     wallObj.SetActive(false);
                 }
             }
@@ -131,7 +135,7 @@ namespace WorkingMemory
         [SerializeField]
         private void moveToGUI()
         {
-            SceneManager.LoadScene("GUIScene");
+            SceneManager.LoadScene("EntryScene");
         }
 
     }
