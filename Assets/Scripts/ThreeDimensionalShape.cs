@@ -4,12 +4,12 @@ using UnityEngine;
 using System;
 
 namespace WorkingMemory {
-    public class Shape : MonoBehaviour
+    public class ThreeDimensionalShape : MonoBehaviour
     {
         public bool clickable;
         private bool lightOn;
         public int listPosition;
-        public ShapeColourGroup group;
+        public ThreeDimensionalGroup group;
         private float clickedSize;
 
         public GameObject scriptObj;
@@ -86,14 +86,22 @@ namespace WorkingMemory {
             {
                 if (selected)
                 {
+                    //already selected and need to unselect
                     group.RegisterSelect(listPosition, false);
                     selected = !selected;
                     invertOutline(selected);
                 } else
                 {
-                    group.RegisterSelect(listPosition, true);
-                    selected = !selected;
-                    invertOutline(selected);
+                    //not selected and need to select
+
+                    //only select if current number of selected does not exceed the total number of target shapes
+
+                    if (group.getSelectedSize() < group.targetNum)
+                    {
+                        group.RegisterSelect(listPosition, true);
+                        selected = !selected;
+                        invertOutline(selected);
+                    }
                 }
             }
         }

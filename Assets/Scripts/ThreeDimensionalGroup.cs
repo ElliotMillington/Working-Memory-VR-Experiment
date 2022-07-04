@@ -7,7 +7,7 @@ using UXF;
 
 namespace WorkingMemory
 {
-    public class ShapeColourGroup : MonoBehaviour
+    public class ThreeDimensionalGroup : MonoBehaviour
     {
         //Shape Colour Variables
         GameObject targetStand;
@@ -19,19 +19,22 @@ namespace WorkingMemory
 
         GameObject roomObj;
 
-        public Shape optionPrefab;
-        //public Button confirmButton;
+        public ThreeDimensionalShape optionPrefab;
+        public Button confirmButton;
 
         public Mesh[] possibleShapes; //Array of potential shape meshes
         public Material[] possibleColours; //Array of potential colours
         List<GameObject> targets; //Array of target objects
         List<GameObject> shapeOptions; //Array of shape option objects
 
-        List<Shape> optionShapes;
-        List<Shape> targetShapes;
+        List<ThreeDimensionalShape> optionShapes;
+        List<ThreeDimensionalShape> targetShapes;
 
         bool[] isTarget; //Records whether the shape is a target
         bool[] isSelected; //Records which shapes have been selected
+
+        ArrayList targetIndexes = new ArrayList();
+        ArrayList selectedIndexes = new ArrayList();
 
         private DateTime trialStartTime;
         private DateTime trialEndTime;
@@ -40,6 +43,8 @@ namespace WorkingMemory
 
         private bool leftHand = false;
         private bool rightHand = false;
+
+        public int targetNum; 
 
         private void Start()
         {
@@ -77,9 +82,6 @@ namespace WorkingMemory
                         positions[i] = new Vector3(posStep[row], posStep[column], -0.1f);
                     }
                     break;
-                case "random":
-                    //TODO: Set up random positioning
-                    break;
                 case "circular":
                     for (var i = 0; i < positions.Length; i++)      
                     {
@@ -91,12 +93,12 @@ namespace WorkingMemory
             };
 
             //Set up option shapes.
-            optionShapes = new List<Shape>();
+            optionShapes = new List<ThreeDimensionalShape>();
             List<int[]> selectedCombo = new List<int[]>();
 
             for (int i = 0; i < positions.Length; i++)
             {
-                Shape newShape = Instantiate(optionPrefab);
+                ThreeDimensionalShape newShape = Instantiate(optionPrefab);
                 newShape.name = "option_shape" + i;
                 optionShapes.Add(newShape);
                 newShape.group = this;
@@ -109,9 +111,6 @@ namespace WorkingMemory
                         newShape.transform.parent = optionDisplay.transform;
                         newShape.transform.localScale = new Vector3(100, 100, 100);
                         break;
-                    case "random":
-                        //TODO:
-                        break;
                     case "circular":
                         newShape.transform.parent = roomObj.transform;
                         newShape.transform.localScale = new Vector3(1, 1, 1);
@@ -119,7 +118,6 @@ namespace WorkingMemory
                 }
                 newShape.transform.localPosition = positions[i];
                 newShape.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(-180, 180), 0));
-                //newShape.transform.localScale = HelperMethods.DivideVector3(new Vector3(100, 100, 100), optionDisplay.transform.localScale);
 
                 //Set mesh
                 //First value is the mesh, the second value is the material
@@ -145,16 +143,16 @@ namespace WorkingMemory
             }
 
             //Set up target shapes
-            int targetNum = trial.settings.GetInt("target_num");
+            targetNum = trial.settings.GetInt("target_num");
             List<int> targetShapesIndex = HelperMethods.GenRandomInts(0, optionNum, targetNum);
             zPos = HelperMethods.Seq(targetNum, -targetZRange, targetZRange);
 
-            targetShapes = new List<Shape>(targetNum);
+            targetShapes = new List<ThreeDimensionalShape>(targetNum);
 
             //Set up target shape objects
             for (int i = 0; i < targetNum; i++)
             {
-                Shape newShape = Instantiate(optionPrefab);
+                ThreeDimensionalShape newShape = Instantiate(optionPrefab);
                 targetShapes.Add(newShape);
                 newShape.group = this;
 
@@ -172,14 +170,16 @@ namespace WorkingMemory
 
                 newShape.clickable = false;
                 isTarget[copyIndex] = true;
+
+                targetIndexes.Add(copyIndex);
             }
             targetStand.SetActive(true);
 
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
 
-            foreach (Shape shape in targetShapes) shape.gameObject.SetActive(false);
+            foreach (ThreeDimensionalShape shape in targetShapes) shape.gameObject.SetActive(false);
             if (option_string != "circular") targetStand.SetActive(false);
-            foreach (Shape shape in optionShapes)
+            foreach (ThreeDimensionalShape shape in optionShapes)
             {
                 shape.gameObject.SetActive(true);
             }
@@ -187,18 +187,29 @@ namespace WorkingMemory
             //Start timing the trial
             trialStartTime = System.DateTime.Now;
             //Show confirm button
-            //confirmButton.gameObject.SetActive(true);
+            confirmButton.gameObject.SetActive(true);
 
-            Debug.Log("isTarget = " + String.Join("",
-            new List<bool>(isTarget)
-            .ConvertAll(i => i.ToString())
-            .ToArray()));
+            Debug.Log("Target Shapes: " + String.Join(" ", targetIndexes.ToArray()));
         }
 
         public void RegisterSelect(int index, bool selected)
         {
             isSelected[index] = selected;
-            print("Shape " + index + " was chosen.");
+            Debug.Log("Shape " + index + " was " + (selected==true? "selected.": "deselected."));
+
+            if (selected==true)
+            {
+                selectedIndexes.Add(index);
+            }
+            else
+            {
+                selectedIndexes.Remove(index);
+            }
+        }
+
+        public int getSelectedSize()
+        {
+            return selectedIndexes.Count;
         }
 
         public void invertHandedness(String handedness)
@@ -218,16 +229,15 @@ namespace WorkingMemory
             //If not in trial, do nothing
             if (!Session.instance.InTrial) return;
 
-            //both hands must be pointing at the floor or ceiling in any configuration
-            if (!(leftHand && rightHand)) return;
-
-            trialEndTime = DateTime.Now;
+            trialEndTime = System.DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
 
-            Debug.Log("isSelected = " + String.Join("",
-            new List<bool>(isSelected)
-            .ConvertAll(i => i.ToString())
-            .ToArray()));
+            Debug.Log("Selected shapes at end: " + String.Join(" ", selectedIndexes.ToArray()));
+
+            //reset 
+            selectedIndexes.Clear();
+            targetIndexes.Clear();
+            
 
             int mistakes = 0;
             for (int i = 0; i < isSelected.Length; i++)
@@ -239,10 +249,9 @@ namespace WorkingMemory
             }
 
             Trial trial = Session.instance.CurrentTrial;
-            trial.result["Time"] = (trialStartTime - trialEndTime).Milliseconds;
-            trial.result["Errors"] = mistakes;
+            trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
 
-            //confirmButton.gameObject.SetActive(false);
+            confirmButton.gameObject.SetActive(false);
             foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
             if (option_string != "grid")
             {

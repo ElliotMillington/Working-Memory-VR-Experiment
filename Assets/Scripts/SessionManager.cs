@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UXF;
+using UnityEngine.SceneManagement;
 
 namespace WorkingMemory
 {
     public class SessionManager : MonoBehaviour
     {
+
         // Start is called before the first frame update.
         void Awake()
         {
@@ -18,38 +20,37 @@ namespace WorkingMemory
         // Called for when session starts.
         public void Generate(Session session)
         {
-            //Number of trials per block
+            //Debug.Log(session == null);
+           // makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "circular", 60.0f);
+
+            
             int trial_num = 3;
+            string scene_type = "Two_Dimensional";
+            int option_num = 16;
+            int target_num = 3;
+            string option_distro = null; //not relevant for 2D
+            float delay_time = 1.0f;
 
-            //Please refer to the reference files for block contents.
-            Block block_sc1 = session.CreateBlock(trial_num);
-            Block block_sc2 = session.CreateBlock(trial_num);
-            //Block block_vs1 = session.CreateBlock(trial_num);
-            //Block block_vs2 = session.CreateBlock(trial_num);
+            string scene_name = (scene_type == "Two_Dimensional" ? "Shapes_Colours_2d" : "Shapes_Colours_3d");
+            makeBlock(session, trial_num, scene_type, scene_name , option_num, target_num, option_distro, delay_time);
+            
 
-            //Setting block types
-            block_sc1.settings.SetValue("scene_type", "Shapes_Colours");
-            block_sc2.settings.SetValue("scene_type", "Shapes_Colours");
-            //block_vs1.settings.SetValue("scene_type", "Visual_Search");
-            //block_vs2.settings.SetValue("scene_type", "Visual_Search");
+        }
 
-            //Setting block scene names
-            block_sc1.settings.SetValue("scene_name", "Shapes_Colours_3d");
-            block_sc2.settings.SetValue("scene_name", "Shapes_Colours_3d");
-            //block_vs1.settings.SetValue("scene_name", "Visual_Search");
-            //block_vs2.settings.SetValue("scene_name", "Visual_Search");
+        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time)
+        {
+            Block block = session.CreateBlock(trial_num);
+            block.settings.SetValue("scene_type", scene_type);
+            block.settings.SetValue("scene_name", scene_name);
 
-            //Setting Shape Colour block settings
-            block_sc1.settings.SetValue("option_num", 9);
-            block_sc1.settings.SetValue("target_num", 3);
-            block_sc1.settings.SetValue("option_distro", "circular");
-            block_sc1.settings.SetValue("delay_time", 2.0f);
+            block.settings.SetValue("option_num", option_num);
+            block.settings.SetValue("target_num", target_num);
+            block.settings.SetValue("delay_time", delay_time);
 
-            //Setting Shape Colour block settings
-            block_sc2.settings.SetValue("option_num", 9);
-            block_sc2.settings.SetValue("target_num", 3);
-            block_sc2.settings.SetValue("option_distro", "grid");
-            block_sc2.settings.SetValue("delay_time", 2.0f);
+            if (scene_type == "Three_Dimensional")
+            {
+                block.settings.SetValue("option_distro", option_distro);
+            }
         }
 
         public void SetUpTrial(Trial trial)
@@ -75,17 +76,59 @@ namespace WorkingMemory
             }
             manager.TrialSetUp(trial);
 
-            string option_string = trial.settings.GetObject("option_distro").ToString();
-            GameObject wallObj = GameObject.Find("Wall");
-            if(option_string != "grid")
+            string scene_type = trial.settings.GetObject("scene_type").ToString();
+
+            if (scene_type != "Two_Dimensional")
             {
-                wallObj.SetActive(false);
+                string option_string = trial.settings.GetObject("option_distro").ToString();
+                
+                GameObject wallObj = GameObject.Find("Wall");
+                if(option_string != "grid")
+                {
+                    wallObj.SetActive(false);
+                }
             }
+            
         }
 
         public void CleanUpTrial(Trial trial)
         {
+            //Record results
+
+
+            /*
+            // ~ example show questions and get responses via the UI ~
+            string exampleQuestion1 = "How difficult was the task";
+            string exampleResponse1 = "Easy!";
+
+            string exampleQuestion2 = "How are you feeling today on a scale of 1-7";
+            int exampleResponse2 = 6;
+
+            // ~ example show questions and get responses via the UI ~
             
+
+            // questions are headers
+            var headers = new string[]{ exampleQuestion1,  exampleQuestion2 };
+            var surveyData = new UXF.UXFDataTable(headers); 
+
+            // one row for the response (only 1 participant here!)
+            var surveyResponse = new UXF.UXFDataRow();
+            surveyResponse.Add((exampleQuestion1, exampleResponse1));
+            surveyResponse.Add((exampleQuestion2, exampleResponse2));
+
+            surveyData.AddCompleteRow(surveyResponse);
+
+            // save output
+            UXF.Session.instance.SaveDataTable(surveyData, "survey");
         }
+            */
+        }
+
+        [SerializeField]
+        private void moveToGUI()
+        {
+            SceneManager.LoadScene("GUIScene");
+        }
+
     }
 }

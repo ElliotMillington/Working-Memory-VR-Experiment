@@ -24,7 +24,7 @@ public class FlexibleGridLayout : LayoutGroup
         float parentHeight = rectTransform.rect.height;
 
         float cellWidth = (parentWidth / (float) columns) - ((spacing.x / (float)columns) * 2) - (padding.left / (float)columns) - (padding.right / (float)columns);
-        float cellHeight = (parentHeight / (float) rows) - ((spacing.y / (float)rows) * 2) - (padding.top / (float)rows) - (padding.bottom / (float)rows);
+        float cellHeight = ((parentHeight / (float) rows) - ((spacing.y / (float)rows) * 2) - (padding.top / (float)rows) - (padding.bottom / (float)rows));
 
         cellSize.x = cellWidth;
         cellSize.y = cellHeight;

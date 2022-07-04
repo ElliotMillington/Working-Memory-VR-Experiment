@@ -33,13 +33,13 @@ public class SceneHandler : MonoBehaviour
         {
 
             int optionNum = getShapeIndex(e);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().OnMouseDown();
+            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().OnMouseDown();
         }
 
         //confirmation selection
         if (e.target.parent.name == "ConfirmationPlanes")
         {
-            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ShapeColourGroup>().Confirm();
+            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().Confirm();
         }
     }
 
@@ -48,14 +48,14 @@ public class SceneHandler : MonoBehaviour
         if (e.target.name.Contains("option_shape") && (e.target.parent.name == "Display" || e.target.parent.name == "CylinderRoom"))
         {
             int optionNum = getShapeIndex(e);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().invertHandedness(handedness);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().LightUp();
+            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().invertHandedness(handedness);
+            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().LightUp();
         }
 
         //confirmation selection
         if (e.target.parent.name == "ConfirmationPlanes")
         {
-            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ShapeColourGroup>().invertHandedness(handedness);
+            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
         }
     }
 
@@ -64,14 +64,14 @@ public class SceneHandler : MonoBehaviour
         if (e.target.name.Contains("option_shape") && (e.target.parent.name == "Display" || e.target.parent.name == "CylinderRoom"))
         {
             int optionNum = getShapeIndex(e);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().invertHandedness(handedness);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().LightDown();
+            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().invertHandedness(handedness);
+            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().LightDown();
         }
 
         //confirmation selection
         if (e.target.parent.name == "ConfirmationPlanes")
         {
-            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ShapeColourGroup>().invertHandedness(handedness);
+            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
         }
     }
 }

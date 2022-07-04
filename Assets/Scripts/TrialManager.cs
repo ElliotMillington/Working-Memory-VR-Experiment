@@ -10,9 +10,9 @@ public class TrialManager : MonoBehaviour
     {
         switch (block.settings.GetString("scene_type"))
         {
-            case "Shapes_Colours":
+            case "Three_Dimensional":
                 break;
-            case "Visual_Search":
+            case "Two_Dimensional":
                 break;
         }
     }
@@ -25,12 +25,13 @@ public class TrialManager : MonoBehaviour
 
         switch (trial.block.settings.GetString("scene_type"))
         {
-            case "Shapes_Colours":
-                ShapeColourGroup shapeManager = gameObject.GetComponent<ShapeColourGroup>();
-                StartCoroutine(shapeManager.CreateShapes(trial));
+            case "Three_Dimensional":
+                ThreeDimensionalGroup threeShapeManager = gameObject.GetComponent<ThreeDimensionalGroup>();
+                StartCoroutine(threeShapeManager.CreateShapes(trial));
                 break;
-            case "Visual_Search":
-                VisualSearchCleanUp(trial);
+            case "Two_Dimensional":
+                TwoDimensionalGroup twoShapeManager = gameObject.GetComponent<TwoDimensionalGroup>();
+                StartCoroutine(twoShapeManager.CreateShapes(trial));
                 break;
         }
     }
@@ -42,29 +43,29 @@ public class TrialManager : MonoBehaviour
 
 
     //Shape Colour block methods
-    public void ShapeColourBlockSetUp(Block block)
+    public void ThreeDimensionalBlockSetUp(Block block)
     {
         
         
     }
 
-    public void ShapeColourCleanUp(Trial trial)
+    public void ThreeDimensionalCleanUp(Trial trial)
     {
 
     }
 
     //Visual Search block methods
-    public void VisualSearchBlockSetUp(Block block)
+    public void TwoDimensionalBlockSetUp(Block block)
     {
 
     }
 
-    public void VisualSearchTrialSetUp(Trial trial)
+    public void TwoDimensionalTrialSetUp(Trial trial)
     {
 
     }
 
-    public void VisualSearchCleanUp(Trial trial)
+    public void TwoDimensionalCleanUp(Trial trial)
     {
 
     }
