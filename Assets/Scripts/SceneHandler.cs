@@ -10,6 +10,8 @@ public class SceneHandler : MonoBehaviour
 {
     public SteamVR_LaserPointer laserPointer;
 
+    public String handedness;
+
     private int getShapeIndex(PointerEventArgs e)
     {
 
@@ -26,32 +28,50 @@ public class SceneHandler : MonoBehaviour
 
     public void PointerClick(object sender, PointerEventArgs e)
     {
-
-        if (e.target.name.Contains("option_shape") && e.target.parent.name == "Display")
+        //shape selection
+        if (e.target.name.Contains("option_shape") && (e.target.parent.name == "Display" || e.target.parent.name== "CylinderRoom"))
         {
 
             int optionNum = getShapeIndex(e);
             GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().OnMouseDown();
-
         }
 
+        //confirmation selection
+        if (e.target.parent.name == "ConfirmationPlanes")
+        {
+            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ShapeColourGroup>().Confirm();
+        }
     }
 
     public void PointerInside(object sender, PointerEventArgs e)
     {
-        if (e.target.name.Contains("option_shape") && e.target.parent.name == "Display")
+        if (e.target.name.Contains("option_shape") && (e.target.parent.name == "Display" || e.target.parent.name == "CylinderRoom"))
         {
             int optionNum = getShapeIndex(e);
+            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().invertHandedness(handedness);
             GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().LightUp();
+        }
+
+        //confirmation selection
+        if (e.target.parent.name == "ConfirmationPlanes")
+        {
+            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ShapeColourGroup>().invertHandedness(handedness);
         }
     }
 
     public void PointerOutside(object sender, PointerEventArgs e)
     {
-        if (e.target.name.Contains("option_shape") && e.target.parent.name == "Display")
+        if (e.target.name.Contains("option_shape") && (e.target.parent.name == "Display" || e.target.parent.name == "CylinderRoom"))
         {
             int optionNum = getShapeIndex(e);
+            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().invertHandedness(handedness);
             GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.Shape>().LightDown();
+        }
+
+        //confirmation selection
+        if (e.target.parent.name == "ConfirmationPlanes")
+        {
+            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ShapeColourGroup>().invertHandedness(handedness);
         }
     }
 }
