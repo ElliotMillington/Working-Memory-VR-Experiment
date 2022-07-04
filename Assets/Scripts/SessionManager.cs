@@ -21,7 +21,7 @@ namespace WorkingMemory
         public void Generate(Session session)
         {
             //Debug.Log(session == null);
-           // makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "circular", 60.0f);
+            makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "circular", 5.0f);
 
             
             int trial_num = 3;
