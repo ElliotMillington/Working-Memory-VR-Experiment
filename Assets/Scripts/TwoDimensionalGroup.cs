@@ -146,7 +146,7 @@ namespace WorkingMemory
         public void Confirm()
         {
             //If not in trial, do nothing
-            if (currentTrial.session.InTrial) return;
+            if (!currentTrial.session.InTrial) return;
 
             trialEndTime = System.DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
@@ -174,8 +174,8 @@ namespace WorkingMemory
             
 
             print("Trial took " + trialTime + " seconds. " + mistakes + " mistakes were made.");
-            currentTrial.End();
-            currentTrial.session.NextTrial.Begin();
+            Session.instance.CurrentTrial.End();
+            Session.instance.Invoke("BeginNextTrialSafe", 5);
         }
 
         public int getSelectedSize()
