@@ -22,10 +22,18 @@ namespace WorkingMemory
         {
             //Debug.Log(session == null);
 
+            ArrayList avaiable_colours =  new ArrayList();
+            avaiable_colours.Add("Hello");
+
+
+
+            ArrayList avaiable_shapes =  new ArrayList();
+            avaiable_shapes.Add("Hello");
+            
 
             //makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "grid", 5.0f);
             //makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "circular", 5.0f);
-            makeBlock(session, 3, "Two_Dimensional", "Shapes_Colours_2d", 9, 3, null , 1.0f);
+            makeBlock(session, 3, "Two_Dimensional", "Shapes_Colours_2d", 9, 3, null , 1.0f, avaiable_colours, avaiable_shapes);
 
             //also do circular
 
@@ -45,15 +53,18 @@ namespace WorkingMemory
 
         }
 
-        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time)
+        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time, ArrayList avaiable_colours, ArrayList avaiable_shapes)
         {
             Block block = session.CreateBlock(trial_num);
+
             block.settings.SetValue("scene_type", scene_type);
             block.settings.SetValue("scene_name", scene_name);
 
             block.settings.SetValue("option_num", option_num);
             block.settings.SetValue("target_num", target_num);
             block.settings.SetValue("delay_time", delay_time);
+            block.settings.SetValue("availbale_colours", avaiable_colours);
+            block.settings.SetValue("avaiable_shapes", avaiable_shapes);
 
             if (scene_type == "Three_Dimensional")
             {

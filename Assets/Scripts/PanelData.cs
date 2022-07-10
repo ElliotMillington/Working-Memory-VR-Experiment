@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PanelData
+public class PanelData : MonoBehaviour
 {
     public int dimension;
     public int targetNum;
@@ -14,10 +14,5 @@ public class PanelData
 
     //selected colours
     //selected shapes
-
-    public PanelData (PanelObject panel)
-    {
-
-    }
 
 }

@@ -6,6 +6,13 @@ using WorkingMemory;
 
 public class TrialManager : MonoBehaviour
 {
+
+    void Awake()
+    {
+        //This means that the object will persist between scenes.
+        DontDestroyOnLoad(gameObject);
+    }
+    
     public void BlockSetUp(Block block)
     {
         switch (block.settings.GetString("scene_type"))

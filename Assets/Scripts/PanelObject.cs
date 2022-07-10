@@ -17,6 +17,8 @@ public class PanelObject : MonoBehaviour
     public Text badgeText;
     public GameObject deleteSign;
 
+    public PanelData dataObject;
+
     private void Start() {
         PanelGroup script = this.transform.GetComponentInParent<PanelGroup>();
     }
