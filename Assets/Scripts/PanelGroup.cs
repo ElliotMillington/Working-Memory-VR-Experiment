@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+namespace WorkingMemory
+{
 public class PanelGroup : MonoBehaviour
 {
     
@@ -150,4 +152,5 @@ public class PanelGroup : MonoBehaviour
         enforceMove("enforce");
     }
 
+}
 }
