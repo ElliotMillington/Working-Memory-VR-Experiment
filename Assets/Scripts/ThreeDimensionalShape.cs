@@ -10,7 +10,7 @@ namespace WorkingMemory {
         private bool lightOn;
         public int listPosition;
         public ThreeDimensionalGroup group;
-        private float clickedSize;
+        public float clickedSize;
 
         public GameObject scriptObj;
 
@@ -25,15 +25,6 @@ namespace WorkingMemory {
             lightOn = false;
             Outline script = scriptObj.GetComponent<Outline>();
             Destroy(scriptObj.GetComponent<Outline>());
-
-            if(transform.parent.name == "Display")
-            {
-                clickedSize = 50f;
-            }
-            else
-            {
-                clickedSize = 0.7f;
-            }
         }
 
         public void invertHandedness(String handedness)

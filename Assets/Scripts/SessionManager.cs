@@ -101,11 +101,11 @@ namespace WorkingMemory
 
             if (scene_type != "Two_Dimensional")
             {
-                string option_string = trial.settings.GetObject("option_distro").ToString();
+                string option_string = trial.settings.GetObject("option_distro").ToString().ToLower();
                 
                 if(option_string != "grid")
                 {
-                    GameObject wallObj = GameObject.Find("/TrialManager/Wall");
+                    GameObject wallObj = GameObject.FindGameObjectWithTag("wall");
                     wallObj.SetActive(false);
                 }
             }

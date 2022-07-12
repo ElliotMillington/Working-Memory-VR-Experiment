@@ -45,16 +45,13 @@ namespace WorkingMemory
 
         public int targetNum; 
 
-        private void Start()
-        {
-            targetStand = GameObject.Find("Stand");
-            optionDisplay = GameObject.Find("Display");
-            roomObj = GameObject.Find("CylinderRoom");
-        }
-
         public IEnumerator CreateShapes(Trial trial)
         {
             yield return new WaitForSeconds(0.25f);
+
+            targetStand = GameObject.FindGameObjectWithTag("stand");
+            optionDisplay = GameObject.FindGameObjectWithTag("display");
+            roomObj = GameObject.FindGameObjectWithTag("room");
 
             int optionNum = trial.settings.GetInt("option_num");
 
@@ -67,7 +64,7 @@ namespace WorkingMemory
 
             //Generate option positions
             Vector3[] positions = new Vector3[optionNum];
-            option_string = trial.settings.GetObject("option_distro").ToString();
+            option_string = trial.settings.GetObject("option_distro").ToString().ToLower();
             switch (option_string)
             {
                 case "grid":
@@ -107,12 +104,16 @@ namespace WorkingMemory
                 switch (option_string)
                 {
                     case "grid":
-                        newShape.transform.parent = optionDisplay.transform;
+                        newShape.transform.SetParent(optionDisplay.transform, false);
+                        Debug.Log(newShape.transform.parent.name);
                         newShape.transform.localScale = new Vector3(100, 100, 100);
+                        newShape.clickedSize = 50f;
                         break;
                     case "circular":
-                        newShape.transform.parent = roomObj.transform;
+                        newShape.transform.SetParent(roomObj.transform, false);
+                        Debug.Log(newShape.transform.parent.name);
                         newShape.transform.localScale = new Vector3(1, 1, 1);
+                        newShape.clickedSize = 0.7f;
                         break;
                 }
                 newShape.transform.localPosition = positions[i];
@@ -159,7 +160,7 @@ namespace WorkingMemory
                 newShape.listPosition = copyIndex;
 
                 //Set transform properties
-                newShape.transform.parent = targetStand.transform;
+                newShape.transform.SetParent(targetStand.transform, false);
                 newShape.transform.localPosition = new Vector3(0, 1.2f, zPos[i]);
                 newShape.transform.localScale = new Vector3(100, 100, 100);
 
@@ -186,9 +187,6 @@ namespace WorkingMemory
             //Start timing the trial
             trialStartTime = System.DateTime.Now;
             //Show confirm button
-            //confirmButton.gameObject.SetActive(true);
-
-            Debug.Log("Target Shapes: " + String.Join(" ", targetIndexes.ToArray()));
         }
 
         public void RegisterSelect(int index, bool selected)
@@ -250,7 +248,6 @@ namespace WorkingMemory
             Trial trial = Session.instance.CurrentTrial;
             trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
 
-            //confirmButton.gameObject.SetActive(false);
             foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
             if (option_string != "grid")
             {

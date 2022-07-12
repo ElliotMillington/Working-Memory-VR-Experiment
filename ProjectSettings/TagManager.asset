@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - panelGroup
+  - stand
+  - display
+  - room
+  - wall
   layers:
   - Default
   - TransparentFX
