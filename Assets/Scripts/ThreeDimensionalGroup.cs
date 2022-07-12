@@ -20,7 +20,6 @@ namespace WorkingMemory
         GameObject roomObj;
 
         public ThreeDimensionalShape optionPrefab;
-        public Button confirmButton;
 
         public Mesh[] possibleShapes; //Array of potential shape meshes
         public Material[] possibleColours; //Array of potential colours

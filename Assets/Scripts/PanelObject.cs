@@ -86,6 +86,7 @@ public class PanelObject : MonoBehaviour
     // elements visable when 2d option
     public GameObject twoDisplayObj;
 
+    [HideInInspector]
     public PanelGroup groupScript;
 
 

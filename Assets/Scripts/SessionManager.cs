@@ -20,40 +20,42 @@ namespace WorkingMemory
         // Called for when session starts.
         public void Generate(Session session)
         {
-            //Debug.Log(session == null);
-
-            ArrayList avaiable_colours =  new ArrayList();
-            avaiable_colours.Add("Hello");
-
-
-
-            ArrayList avaiable_shapes =  new ArrayList();
-            avaiable_shapes.Add("Hello");
+            // get PanelGroup script
+            PanelGroup groupScript = GameObject.FindGameObjectWithTag("panelGroup").GetComponent<PanelGroup>();
             
 
-            //makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "grid", 5.0f);
-            //makeBlock(session, 3, "Three_Dimensional", "Shapes_Colours_3d", 9, 3, "circular", 5.0f);
-            makeBlock(session, 3, "Two_Dimensional", "Shapes_Colours_2d", 9, 3, null , 1.0f, avaiable_colours, avaiable_shapes);
+            //ArrayList avaiable_colours =  new ArrayList();
+            //avaiable_colours.Add("Hello");
 
-            //also do circular
+            foreach (PanelObject obj in groupScript.panelGroup)
+            {
+                PanelData dataObj = obj.gameObject.GetComponent<PanelData>();
 
-            /*
-            int trial_num = 3;
-            string scene_type = "Two_Dimensional";
-            int option_num = 16;
-            int target_num = 3;
-            string option_distro = null; //not relevant for 2D
-            float delay_time = 1.0f;
+                int trial_num = dataObj.numberOfTrials;
+                int target_num = dataObj.targetNum;
+                float delay_time = dataObj.delay_time;
 
-            string scene_name = (scene_type == "Two_Dimensional" ? "Shapes_Colours_2d" : "Shapes_Colours_3d");
-            makeBlock(session, trial_num, scene_type, scene_name , option_num, target_num, option_distro, delay_time);
-
-            */
-
-
+                string option_distro;
+                string scene_type;
+                int option_num;
+                string scene_name;
+                if (dataObj.dimension == 2)
+                {
+                    option_num = dataObj.twoDisplayNum;
+                    option_distro = null; //not relevant for 2D
+                    scene_type = "Two_Dimensional";
+                    scene_name = "Shapes_Colours_2d";
+                }else{
+                    option_num = dataObj.threeDisplayNum;
+                    option_distro = dataObj.optionDistro; //not relevant for 2D
+                    scene_type = "Three_Dimensional";
+                    scene_name = "Shapes_Colours_3d";
+                }
+                makeBlock(session, trial_num, scene_type, scene_name, option_num, target_num, option_distro, delay_time);
+            }
         }
 
-        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time, ArrayList avaiable_colours, ArrayList avaiable_shapes)
+        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time)
         {
             Block block = session.CreateBlock(trial_num);
 
@@ -63,8 +65,8 @@ namespace WorkingMemory
             block.settings.SetValue("option_num", option_num);
             block.settings.SetValue("target_num", target_num);
             block.settings.SetValue("delay_time", delay_time);
-            block.settings.SetValue("availbale_colours", avaiable_colours);
-            block.settings.SetValue("avaiable_shapes", avaiable_shapes);
+            block.settings.SetValue("availbale_colours", 1);
+            block.settings.SetValue("avaiable_shapes", 2);
 
             if (scene_type == "Three_Dimensional")
             {

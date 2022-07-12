@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 namespace WorkingMemory
 {
 public class PanelGroup : MonoBehaviour
 {
-    
-    private List<PanelObject> panelGroup;
+    [HideInInspector]
+    public List<PanelObject> panelGroup;
 
     public GameObject PanelPrefab;
     public GameObject moveSign;
@@ -16,10 +17,25 @@ public class PanelGroup : MonoBehaviour
 
     public GameObject confirmSign;
 
+    public GameObject confirmText;
+
+    public GameObject UXFRig;
+    public GameObject UXFPanel;
+
     private bool move;
     private bool delete;
 
     public bool allValid;
+
+    public Color confirmValidColor;
+
+    public Color confirmInvalidColor;
+
+    public Texture confirmOriginalTexture;
+
+    public Texture confirmInvalidTexture;
+
+    public Color whiteColour;
 
     private void Start() {
         move = false;
@@ -31,16 +47,6 @@ public class PanelGroup : MonoBehaviour
         this.enforceMove("enforce");
         enforceTitle();
     }
-
-    private void Update() {
-        
-        if (panelGroup.Count > 0 && allValid){
-            confirmSign.SetActive(true);
-        }else{
-            confirmSign.SetActive(false);
-        }
-    }
-
 
     public void enforceMove(string statement)
     {
@@ -74,10 +80,12 @@ public class PanelGroup : MonoBehaviour
         if (panelGroup.Count > 0)
         {
             deleteSign.SetActive(true);
+            confirmSign.SetActive(true);
         }
         else
         {
             deleteSign.SetActive(false);
+            confirmSign.SetActive(false);
         }
 
     }
@@ -159,6 +167,38 @@ public class PanelGroup : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void confirmMouseOver()
+    {
+        if (allValid)
+        {
+            //colour is green
+            confirmSign.GetComponent<RawImage>().color = confirmValidColor;
+            confirmSign.GetComponent<RawImage>().texture = confirmOriginalTexture;
+
+        }else{
+            // colour is red and show text
+            confirmText.SetActive(true);
+            confirmSign.GetComponent<RawImage>().color = confirmInvalidColor;
+            confirmSign.GetComponent<RawImage>().texture = confirmInvalidTexture;
+        }
+    }
+
+    public void confirmMouseLeave()
+    {
+        confirmSign.GetComponent<RawImage>().color = whiteColour;
+        confirmSign.GetComponent<RawImage>().texture = confirmOriginalTexture;
+        confirmText.SetActive(false);
+    }
+
+    public void confirmMouseDown()
+    {
+        if (allValid)
+        {
+            UXFPanel.SetActive(true);
+            UXFRig.SetActive(true);
+        }
     }
 }
 
