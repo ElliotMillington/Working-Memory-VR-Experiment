@@ -156,6 +156,7 @@ public class PanelGroup : MonoBehaviour
 
         enforceTitle();
         enforceMove("enforce");
+        allValid = checkAllValid();
     }
 
     public bool checkAllValid()
