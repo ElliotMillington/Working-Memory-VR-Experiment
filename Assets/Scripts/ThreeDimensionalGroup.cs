@@ -104,13 +104,13 @@ namespace WorkingMemory
                 switch (option_string)
                 {
                     case "grid":
-                        newShape.transform.SetParent(optionDisplay.transform, false);
+                        newShape.transform.SetParent(optionDisplay.transform, true);
                         Debug.Log(newShape.transform.parent.name);
                         newShape.transform.localScale = new Vector3(100, 100, 100);
                         newShape.clickedSize = 50f;
                         break;
                     case "circular":
-                        newShape.transform.SetParent(roomObj.transform, false);
+                        newShape.transform.SetParent(roomObj.transform, true);
                         Debug.Log(newShape.transform.parent.name);
                         newShape.transform.localScale = new Vector3(1, 1, 1);
                         newShape.clickedSize = 0.7f;
@@ -160,7 +160,7 @@ namespace WorkingMemory
                 newShape.listPosition = copyIndex;
 
                 //Set transform properties
-                newShape.transform.SetParent(targetStand.transform, false);
+                newShape.transform.SetParent(targetStand.transform, true);
                 newShape.transform.localPosition = new Vector3(0, 1.2f, zPos[i]);
                 newShape.transform.localScale = new Vector3(100, 100, 100);
 
