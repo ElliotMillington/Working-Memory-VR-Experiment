@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
@@ -38,20 +39,58 @@ public class PanelObject : MonoBehaviour
     public GameObject down;
 
     public Transform panel;
-    public string currentDimension;
 
     public Text panelTitle;
     public Text badgeText;
     public GameObject deleteSign;
 
-    public Text sliderValue;
-
-    public Slider slider;
-
+    // reference to script holding trial data
     public PanelData dataObject;
 
+    // the following are references information about the trial
+    public InputField trialInputField;
+
+    public Text dimensionBadgeText;
+
+    public Dropdown targetNumDrop;
+    public Dropdown threeDisplayDrop;
+    public Dropdown twoDisplayDrop;
+    public Dropdown threeLayout;
+
+    public Slider delaySlider;
+
+    public Text sliderValue;
+
+    // The following variables indicate if trial information is valid 
+    public bool isValid;
+
+    public GameObject validIcon;
+    public GameObject validText;
+
+    public GameObject validQuestionMark;
+    public Color validTrialColour;
+    public Color invalidTrialColour;
+
+    public Texture validTrialTexture;
+    public Texture invalidTrialTexture;
+
+    public GameObject validPanel;
+
+    public GameObject shapeAndColourReason;
+    public GameObject trialNumReason;
+
+    // elements visable when 3d option
+    public GameObject threeDisplayObj;
+    public GameObject threeLayoutObj;
+
+    // elements visable when 2d option
+    public GameObject twoDisplayObj;
+
+    public PanelGroup groupScript;
+
+
     private void Start() {
-        PanelGroup script = this.transform.GetComponentInParent<PanelGroup>();
+        groupScript = this.transform.GetComponentInParent<PanelGroup>();
 
         colourToggle.onValueChanged.AddListener(delegate{
             togglePanel(colourToggle, "colour");
@@ -81,6 +120,102 @@ public class PanelObject : MonoBehaviour
             toggle.onValueChanged.AddListener(delegate{
             this.gameObject.GetComponent<PanelData>().updateShape(toggle, toggle.isOn);
             });
+        }
+
+        checkValidity();
+
+        if (dataObject.dimension == 2)
+        {   
+            threeDisplayObj.SetActive(true);
+            threeLayoutObj.SetActive(true);
+
+            twoDisplayObj.SetActive(false);
+        } 
+        else
+        {
+            twoDisplayObj.SetActive(true);
+
+            threeDisplayObj.SetActive(false);
+            threeLayoutObj.SetActive(false);
+        }
+    }
+
+    public void checkValidity()
+    {
+        // check if cardinality of (Shapes X Colours) > Number of Display
+        // check that all fields have a value (mainly input field for number of trials)
+        int cardinality = (dataObject.selectedColours.Count * dataObject.selectedTextures.Count);
+
+        int dimensionalDisplay = (dataObject.dimension == 2 ? dataObject.twoDisplayNum : dataObject.threeDisplayNum);
+
+        if (cardinality >= dimensionalDisplay && dataObject.numberOfTrials > 0)
+        {
+            isValid = true;
+            validIcon.GetComponent<RawImage>().color = validTrialColour;
+            validIcon.GetComponent<RawImage>().texture = validTrialTexture;
+
+            validText.GetComponent<Text>().text = "Valid Trial";
+            validPanel.SetActive(false);
+        }else{
+            isValid = false;
+            validIcon.GetComponent<RawImage>().color = invalidTrialColour;
+            validIcon.GetComponent<RawImage>().texture = invalidTrialTexture;
+
+            validText.GetComponent<Text>().text = "Invalid Trial";
+
+            if (!(cardinality >= dimensionalDisplay))
+            {
+                shapeAndColourReason.SetActive(true);
+            }else{
+                shapeAndColourReason.SetActive(false);
+            }
+
+            if (!(dataObject.numberOfTrials > 0))
+            {
+                trialNumReason.SetActive(true);
+            }else{
+                trialNumReason.SetActive(false);
+            }
+        }
+
+        groupScript.allValid = groupScript.checkAllValid();
+
+    }
+
+    public void validMouseOver()
+    {
+        
+        if (isValid)
+        {
+            // if valid then only show the text
+            validText.SetActive(true);
+        }else{
+            // if invalid then show text and hide icon and show question mark
+            validText.SetActive(true);
+            validIcon.SetActive(false);
+            validQuestionMark.SetActive(true);
+        }
+    }
+
+    public void validMouseLeave()
+    {
+        if (isValid)
+        {
+            // if valid then hide the text
+            validText.SetActive(false);
+        }else{
+            // if invalid then hide text and show icon and hide question mark
+            validText.SetActive(false);
+            validIcon.SetActive(true);
+            validQuestionMark.SetActive(false);
+        }
+    }
+
+    public void validMouseDown()
+    {
+        if (!isValid)
+        {
+            validPanel.SetActive(true);
         }
     }
 
@@ -153,11 +288,6 @@ public class PanelObject : MonoBehaviour
         }
     }
 
-    public void updateSliderValue()
-    {
-        sliderValue.text = slider.value.ToString();
-    }
-
     public int getPanelIndex()
     {
         return panel.transform.GetSiblingIndex();
@@ -228,27 +358,31 @@ public class PanelObject : MonoBehaviour
 
     public void invertDimension()
     {
-        if (currentDimension == "2D")
+        if (dataObject.dimension == 2)
         {
-            currentDimension = "3D";
-            badgeText.text = currentDimension;
+            dataObject.dimension = 3;
+            badgeText.text = "3D";
+
+            threeDisplayObj.SetActive(true);
+            threeLayoutObj.SetActive(true);
+
+            twoDisplayObj.SetActive(false);
         } 
         else
         {
-            currentDimension = "2D";
-            badgeText.text = currentDimension;
-        }
-    }
+            dataObject.dimension = 2;
+            badgeText.text = "2D";
 
-    public string getDimension()
-    {
-        return currentDimension;
+            twoDisplayObj.SetActive(true);
+
+            threeDisplayObj.SetActive(false);
+            threeLayoutObj.SetActive(false);
+        }
     }
 
     public void deletePanel()
     {
-        PanelGroup script = this.transform.GetComponentInParent<PanelGroup>();
-        script.removeIndex(getPanelIndex());
+        groupScript.removeIndex(getPanelIndex());
     }
 
     public void setDelete(bool value)

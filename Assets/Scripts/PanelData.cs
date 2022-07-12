@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace WorkingMemory
 {
@@ -9,12 +10,18 @@ namespace WorkingMemory
     public class PanelData : MonoBehaviour
     {
         public int dimension;
+        public int numberOfTrials;
         public int targetNum;
-        public int optionNum;
+
+        public int threeDisplayNum;
+
+        public int twoDisplayNum;
 
         public string optionDistro;
         public float delay_time;
 
+
+        // Following taken from the TrialManager
         public List<Texture> selectedTextures;
 
         public List<Color> selectedColours;
@@ -29,7 +36,6 @@ namespace WorkingMemory
         private List<Mesh> allMeshes; 
         private List<Material> allMaterials;
 
-
         private void Start() {
 
             GameObject trialManager = GameObject.Find("TrialManager");
@@ -39,6 +45,43 @@ namespace WorkingMemory
             allMaterials = selectedMaterials = new List<Material>(trialManager.GetComponent<ThreeDimensionalGroup>().possibleColours);
             allMeshes = selectedMeshes = new List<Mesh>(trialManager.GetComponent<ThreeDimensionalGroup>().possibleShapes);
 
+            // gather variable information from panel
+            dimension = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().dimensionBadgeText.text[0].ToString());
+
+            numberOfTrials = 0; // starts empty
+
+            targetNum = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().targetNumDrop.options[this.gameObject.GetComponent<PanelObject>().targetNumDrop.value].text);
+            threeDisplayNum = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().threeDisplayDrop.options[this.gameObject.GetComponent<PanelObject>().threeDisplayDrop.value].text);
+            twoDisplayNum = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().twoDisplayDrop.options[this.gameObject.GetComponent<PanelObject>().twoDisplayDrop.value].text);
+            optionDistro = this.gameObject.GetComponent<PanelObject>().threeLayout.options[this.gameObject.GetComponent<PanelObject>().threeLayout.value].text;
+
+            delay_time = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().delaySlider.value);
+        }
+
+        public void setTrialNum(Text textInput)
+        {
+            numberOfTrials = Convert.ToInt32(textInput.text);
+            this.gameObject.GetComponent<PanelObject>().checkValidity();
+        }
+
+        public void setTargetNum(Dropdown targetInput)
+        {
+            targetNum = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().targetNumDrop.options[this.gameObject.GetComponent<PanelObject>().targetNumDrop.value].text);
+        }
+
+        public void set3dDisplayNum(Dropdown displayInput)
+        {
+            threeDisplayNum = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().threeDisplayDrop.options[this.gameObject.GetComponent<PanelObject>().threeDisplayDrop.value].text);
+        }
+
+        public void set2dDisplayNum(Dropdown displayInput)
+        {
+            twoDisplayNum = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().twoDisplayDrop.options[this.gameObject.GetComponent<PanelObject>().twoDisplayDrop.value].text);
+        }
+
+        public void setOptionDistro(Dropdown displayInput)
+        {
+            optionDistro = this.gameObject.GetComponent<PanelObject>().threeLayout.options[this.gameObject.GetComponent<PanelObject>().threeLayout.value].text;
         }
 
         public void colourReset()
@@ -57,6 +100,9 @@ namespace WorkingMemory
         {
             selectedTextures = new List<Texture>();
             selectedMeshes = new List<Mesh>();
+
+        
+            this.gameObject.GetComponent<PanelObject>().checkValidity();
         }
 
         public void updateColour(Toggle toggle, bool isAdded)
@@ -70,6 +116,7 @@ namespace WorkingMemory
                 selectedColours.Remove(toggle.GetComponent<ColourToggle>().colour);
                 selectedMaterials.Remove(toggle.GetComponent<ColourToggle>().material);
             }
+            this.gameObject.GetComponent<PanelObject>().checkValidity();
         }
 
         public void updateShape(Toggle toggle, bool isAdded)
@@ -84,9 +131,14 @@ namespace WorkingMemory
                 selectedMeshes.Remove(toggle.GetComponent<ShapeToggle>().mesh);
             }
 
-            Debug.Log(selectedTextures.Count + " " + selectedMeshes.Count);
+            this.gameObject.GetComponent<PanelObject>().checkValidity();
         }
 
+        public void updateSliderValue()
+        {   
+            this.gameObject.GetComponent<PanelObject>().sliderValue.text = this.gameObject.GetComponent<PanelObject>().delaySlider.value.ToString();
+            delay_time = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().delaySlider.value);
+        }
     }
 
 }

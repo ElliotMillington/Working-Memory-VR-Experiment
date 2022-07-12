@@ -19,49 +19,28 @@ public class PanelGroup : MonoBehaviour
     private bool move;
     private bool delete;
 
+    public bool allValid;
+
     private void Start() {
         move = false;
         delete = false;
+
+        allValid = false;
 
         panelGroup = new List<PanelObject>(this.gameObject.GetComponentsInChildren<PanelObject>());
         this.enforceMove("enforce");
         enforceTitle();
     }
 
-    private void Update()
-    {
-        if (panelGroup.Count > 1)
-        {
-            moveSign.SetActive(true);
-        }
-        else
-        {
-            moveSign.SetActive(false);
-        }
-
-        if (panelGroup.Count > 0)
-        {
-            deleteSign.SetActive(true);
+    private void Update() {
+        
+        if (panelGroup.Count > 0 && allValid){
             confirmSign.SetActive(true);
-        }
-        else
-        {
-            deleteSign.SetActive(false);
+        }else{
             confirmSign.SetActive(false);
         }
-
     }
 
-    public void confirm()
-    {
-        //turn group of panels into parsable information
-        string ap = "";
-        foreach(PanelObject x in panelGroup)
-        {
-            ap = ap + "|" + x.getDimension();
-        }
-        Debug.Log(ap);
-    }
 
     public void enforceMove(string statement)
     {
@@ -82,6 +61,25 @@ public class PanelGroup : MonoBehaviour
                 panel.negateMovement();
             }
         }
+
+        if (panelGroup.Count > 1)
+        {
+            moveSign.SetActive(true);
+        }
+        else
+        {
+            moveSign.SetActive(false);
+        }
+
+        if (panelGroup.Count > 0)
+        {
+            deleteSign.SetActive(true);
+        }
+        else
+        {
+            deleteSign.SetActive(false);
+        }
+
     }
 
     public void enforceTitle()
@@ -152,5 +150,16 @@ public class PanelGroup : MonoBehaviour
         enforceMove("enforce");
     }
 
+    public bool checkAllValid()
+    {
+        foreach (PanelObject obj in panelGroup){
+            if (!obj.isValid)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
+
 }
