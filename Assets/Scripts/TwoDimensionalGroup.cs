@@ -28,11 +28,13 @@ namespace WorkingMemory
         public GameObject targetShapePrefab;
         public GameObject optionShapePrefab;
 
+        [HideInInspector]
         public GameObject displayGridContainer;
+        [HideInInspector]
         public GameObject targetGridContainer;
-
+        [HideInInspector]
         public GameObject displayGrid; 
-
+        [HideInInspector]
         public GameObject targetGrid; 
 
         
@@ -44,6 +46,17 @@ namespace WorkingMemory
 
         public IEnumerator CreateShapes(Trial trial)
         {
+
+            targetGrid = GameObject.FindGameObjectWithTag("targetGrid");
+            targetGridContainer = GameObject.FindGameObjectWithTag("targetContainer");
+            displayGrid = GameObject.FindGameObjectWithTag("displayGrid");
+            displayGridContainer = GameObject.FindGameObjectWithTag("displayContainer");
+
+            targetGrid.SetActive(false);
+            targetGridContainer.SetActive(false);
+            displayGrid.SetActive(false);
+            displayGridContainer.SetActive(false);
+        
             currentTrial = trial;
 
             yield return new WaitForSeconds(0.25f);
@@ -65,7 +78,7 @@ namespace WorkingMemory
             for (int i = 0; i < optionNum; i++)
             {
                 GameObject newShape = (GameObject) PrefabUtility.InstantiatePrefab(optionShapePrefab);
-                newShape.transform.parent = displayGrid.transform;
+                newShape.transform.SetParent(displayGrid.transform, true);
                 newShape.name = "option_shape" + i;
                 optionShapes.Add(newShape.GetComponent<TwoDimensionalShape>());
                 newShape.GetComponent<TwoDimensionalShape>().group = this;

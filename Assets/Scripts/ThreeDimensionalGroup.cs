@@ -105,7 +105,6 @@ namespace WorkingMemory
                 {
                     case "grid":
                         newShape.transform.SetParent(optionDisplay.transform, true);
-                        Debug.Log(newShape.transform.parent.name);
                         newShape.transform.localScale = new Vector3(100, 100, 100);
                         newShape.clickedSize = 50f;
                         break;

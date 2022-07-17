@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 namespace WorkingMemory
 {
@@ -37,6 +38,9 @@ public class PanelGroup : MonoBehaviour
 
     public Color whiteColour;
 
+    [HideInInspector]
+    public bool headsetActive;
+
     private void Start() {
         move = false;
         delete = false;
@@ -46,6 +50,27 @@ public class PanelGroup : MonoBehaviour
         panelGroup = new List<PanelObject>(this.gameObject.GetComponentsInChildren<PanelObject>());
         this.enforceMove("enforce");
         enforceTitle();
+
+    }
+
+    
+    private void Awake() {
+        headsetActive = isPresent();
+        Debug.Log("Do we have an Active Display? " + headsetActive.ToString());
+    }
+
+    public static bool isPresent()
+    {
+        var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+        SubsystemManager.GetInstances<XRDisplaySubsystem>(xrDisplaySubsystems);
+        foreach (var xrDisplay in xrDisplaySubsystems)
+        {
+            if (xrDisplay.running)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void enforceMove(string statement)

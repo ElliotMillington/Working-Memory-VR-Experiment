@@ -9,6 +9,10 @@ TagManager:
   - display
   - room
   - wall
+  - displayContainer
+  - targetContainer
+  - displayGrid
+  - targetGrid
   layers:
   - Default
   - TransparentFX

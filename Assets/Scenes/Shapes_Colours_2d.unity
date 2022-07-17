@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 411614492}
   m_Layer: 5
   m_Name: TargetGrid
-  m_TagString: Untagged
+  m_TagString: targetGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -312,11 +312,11 @@ GameObject:
   - component: {fileID: 560966810}
   m_Layer: 5
   m_Name: DisplayGridContainer
-  m_TagString: Untagged
+  m_TagString: displayContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &560966809
 RectTransform:
   m_ObjectHideFlags: 0
@@ -519,11 +519,11 @@ GameObject:
   - component: {fileID: 978619107}
   m_Layer: 5
   m_Name: TargetContainer
-  m_TagString: Untagged
+  m_TagString: targetContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &978619106
 RectTransform:
   m_ObjectHideFlags: 0
@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 1624248082}
   m_Layer: 5
   m_Name: DisplayGrid
-  m_TagString: Untagged
+  m_TagString: displayGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
