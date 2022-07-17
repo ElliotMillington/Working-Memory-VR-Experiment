@@ -41,7 +41,8 @@ public class PanelObject : MonoBehaviour
     public Transform panel;
 
     public Text panelTitle;
-    public Text badgeText;
+
+    public Color invertEnabledColour;
     public GameObject deleteSign;
 
     // reference to script holding trial data
@@ -51,6 +52,10 @@ public class PanelObject : MonoBehaviour
     public InputField trialInputField;
 
     public Text dimensionBadgeText;
+
+    public GameObject dimensionBadgeObj;
+
+    public Text dimensionBadgeTitle;
 
     public Dropdown targetNumDrop;
     public Dropdown threeDisplayDrop;
@@ -78,6 +83,8 @@ public class PanelObject : MonoBehaviour
 
     public GameObject shapeAndColourReason;
     public GameObject trialNumReason;
+
+    public GameObject vrReason;
 
     // elements visable when 3d option
     public GameObject threeDisplayObj;
@@ -141,6 +148,60 @@ public class PanelObject : MonoBehaviour
         }
     }
 
+    public void mouseOverBadge()
+    {
+        if (dataObject.dimension == 3)
+        {
+            dimensionBadgeObj.GetComponent<RawImage>().color = invertEnabledColour;
+            dimensionBadgeTitle.text = (groupScript.headsetActive ? "Invert" : "Invert for Validity");
+            dimensionBadgeTitle.fontSize = (groupScript.headsetActive ? 14 : 12);
+
+            dimensionBadgeTitle.gameObject.SetActive(true);
+        }else{
+            // if VR is enbaled then change to purple, set dimension text
+            if (groupScript.headsetActive)
+            {
+                dimensionBadgeObj.GetComponent<RawImage>().color = invertEnabledColour;
+                dimensionBadgeTitle.text = "Invert";
+                dimensionBadgeTitle.fontSize = 14;
+
+                dimensionBadgeTitle.gameObject.SetActive(true);
+            }else
+            {
+                dimensionBadgeObj.GetComponent<RawImage>().color = invalidTrialColour;
+                dimensionBadgeTitle.text = "Connect VR to enable 3D.";
+                dimensionBadgeTitle.fontSize = 10;
+
+                dimensionBadgeTitle.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void mouseDownBadge()
+    {
+        if (dataObject.dimension == 3)
+        {
+            invertDimension();
+            if(!groupScript.headsetActive)
+            {
+                dimensionBadgeObj.GetComponent<RawImage>().color = invalidTrialColour;
+                dimensionBadgeTitle.text = "Connect VR to enable 3D.";
+                dimensionBadgeTitle.fontSize = 10;
+            }
+        }else{
+            if (groupScript.headsetActive)
+            {
+                invertDimension();
+            }
+        }
+    }
+
+    public void mouseExitBadge()
+    {
+        dimensionBadgeObj.GetComponent<RawImage>().color = new Color(1,1,1,1);
+        dimensionBadgeTitle.gameObject.SetActive(false);
+    }
+
     public void checkValidity()
     {
         // check if cardinality of (Shapes X Colours) > Number of Display
@@ -149,7 +210,9 @@ public class PanelObject : MonoBehaviour
 
         int dimensionalDisplay = (dataObject.dimension == 2 ? dataObject.twoDisplayNum : dataObject.threeDisplayNum);
 
-        if (cardinality >= dimensionalDisplay && dataObject.numberOfTrials > 0)
+        bool isDimenaionCompatible = (dataObject.dimension == 3 && !groupScript.headsetActive ? false : true);
+
+        if (cardinality >= dimensionalDisplay && dataObject.numberOfTrials > 0 && isDimenaionCompatible)
         {
             isValid = true;
             validIcon.GetComponent<RawImage>().color = validTrialColour;
@@ -177,6 +240,13 @@ public class PanelObject : MonoBehaviour
             }else{
                 trialNumReason.SetActive(false);
             }
+
+            if(!isDimenaionCompatible)
+            {
+                vrReason.SetActive(true);
+            }else{
+                vrReason.SetActive(false);
+            }   
         }
 
         groupScript.allValid = groupScript.checkAllValid();
@@ -362,7 +432,7 @@ public class PanelObject : MonoBehaviour
         if (dataObject.dimension == 2)
         {
             dataObject.dimension = 3;
-            badgeText.text = "3D";
+            dimensionBadgeText.text = "3D";
 
             threeDisplayObj.SetActive(true);
             threeLayoutObj.SetActive(true);
@@ -372,13 +442,15 @@ public class PanelObject : MonoBehaviour
         else
         {
             dataObject.dimension = 2;
-            badgeText.text = "2D";
+            dimensionBadgeText.text = "2D";
 
             twoDisplayObj.SetActive(true);
 
             threeDisplayObj.SetActive(false);
             threeLayoutObj.SetActive(false);
         }
+
+        checkValidity();
     }
 
     public void deletePanel()

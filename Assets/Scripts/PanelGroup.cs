@@ -38,7 +38,6 @@ public class PanelGroup : MonoBehaviour
 
     public Color whiteColour;
 
-    [HideInInspector]
     public bool headsetActive;
 
     private void Start() {
