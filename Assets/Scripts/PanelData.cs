@@ -36,7 +36,7 @@ namespace WorkingMemory
         private List<Mesh> allMeshes; 
         private List<Material> allMaterials;
 
-        private void Start() {
+        public void populateNew() {
 
             GameObject trialManager = GameObject.Find("TrialManager");
 

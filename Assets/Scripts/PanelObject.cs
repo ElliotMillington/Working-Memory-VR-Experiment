@@ -96,6 +96,8 @@ public class PanelObject : MonoBehaviour
     [HideInInspector]
     public PanelGroup groupScript;
 
+    public GameObject duplicateButton;
+
 
     private void Start() {
         groupScript = this.transform.GetComponentInParent<PanelGroup>();
@@ -130,7 +132,11 @@ public class PanelObject : MonoBehaviour
             });
         }
 
-        checkValidity();
+        if (groupScript != null)
+        {   
+            //would be null if duplicated
+            checkValidity();
+        }
 
         if (dataObject.dimension == 2)
         {   
@@ -146,6 +152,16 @@ public class PanelObject : MonoBehaviour
             threeDisplayObj.SetActive(false);
             threeLayoutObj.SetActive(false);
         }
+    }
+
+    public void duplicateMouseOver()
+    {
+        duplicateButton.GetComponent<RawImage>().color = invertEnabledColour;
+    }
+
+    public void duplicateMouseExit()
+    {
+        duplicateButton.GetComponent<RawImage>().color = new Color(1,1,1,1);
     }
 
     public void mouseOverBadge()
@@ -462,5 +478,18 @@ public class PanelObject : MonoBehaviour
     {
         deleteSign.SetActive(value);
     }
-}
+
+    public void duplicate()
+    {
+        GameObject newObj = Instantiate(this.gameObject);
+        newObj.transform.SetParent(this.gameObject.transform.parent);
+        newObj.transform.SetSiblingIndex(this.gameObject.transform.GetSiblingIndex()+1);
+        newObj.transform.localScale = new Vector3(1,1,1);
+
+        newObj.GetComponent<PanelObject>().groupScript = this.transform.GetComponentInParent<PanelGroup>();
+        newObj.GetComponent<PanelObject>().duplicateMouseExit();
+        groupScript.duplationAtIndex(this.gameObject.transform.GetSiblingIndex(), newObj.GetComponent<PanelObject>());
+    }
+
+    }
 }

@@ -40,6 +40,8 @@ public class PanelGroup : MonoBehaviour
 
     public bool headsetActive;
 
+    public GameObject VRErrorBadge;
+
     private void Start() {
         move = false;
         delete = false;
@@ -52,13 +54,17 @@ public class PanelGroup : MonoBehaviour
 
     }
 
+    //private void Update() {
+    //    headsetActive = isPresent();
+    //}
+
     
     private void Awake() {
         headsetActive = isPresent();
         Debug.Log("Do we have an Active Display? " + headsetActive.ToString());
     }
 
-    public static bool isPresent()
+    public bool isPresent()
     {
         var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
         SubsystemManager.GetInstances<XRDisplaySubsystem>(xrDisplaySubsystems);
@@ -66,9 +72,12 @@ public class PanelGroup : MonoBehaviour
         {
             if (xrDisplay.running)
             {
+                VRErrorBadge.SetActive(true);
                 return true;
             }
         }
+
+        VRErrorBadge.SetActive(true);
         return false;
     }
 
@@ -134,6 +143,7 @@ public class PanelGroup : MonoBehaviour
     public void createPanel()
     {
         GameObject newPanel = (GameObject) PrefabUtility.InstantiatePrefab(PanelPrefab, this.transform);
+        newPanel.GetComponent<PanelData>().populateNew();
         newPanel.transform.localScale = new Vector3(1,1,1);
         newPanel.transform.SetSiblingIndex((this.transform.childCount)-2);
 
@@ -148,6 +158,7 @@ public class PanelGroup : MonoBehaviour
     {
         GameObject newPanel = (GameObject) PrefabUtility.InstantiatePrefab(PanelPrefab, this.transform);
         newPanel.transform.localScale = new Vector3(1,1,1);
+        newPanel.GetComponent<PanelData>().populateNew();
         newPanel.transform.SetSiblingIndex(pos);
 
         panelGroup[pos] = newPanel.GetComponent<PanelObject>();
@@ -224,6 +235,26 @@ public class PanelGroup : MonoBehaviour
             UXFPanel.SetActive(true);
             UXFRig.SetActive(true);
         }
+    }
+
+    public void duplationAtIndex(int index, PanelObject newObj)
+    {
+        List<PanelObject> newGrouping = new List<PanelObject>();
+        for(int i = 0; i < index; i++)
+        {
+            newGrouping.Add(panelGroup[i]);
+        }
+        newGrouping.Add(newObj);
+        for(int j = index; j < panelGroup.Count; j++)
+        {
+            newGrouping.Add(panelGroup[j]);
+        }
+
+        panelGroup = newGrouping;
+
+        enforceTitle();
+        enforceMove("enforce");
+
     }
 }
 
