@@ -49,6 +49,8 @@ namespace WorkingMemory
         {
             yield return new WaitForSeconds(0.25f);
 
+            Debug.Log(trial.number);
+
             targetStand = GameObject.FindGameObjectWithTag("stand");
             optionDisplay = GameObject.FindGameObjectWithTag("display");
             roomObj = GameObject.FindGameObjectWithTag("room");
