@@ -5,9 +5,10 @@ namespace WorkingMemory
 {
 
     [System.Serializable]
-    public class PanelDataGroup : MonoBehaviour
+    public class SaveScript : MonoBehaviour
     {
-        public List<PanelData> panelDataCollection;
+        // The collection that shall be saved 
+       public List<PanelData> panelDataCollection;
 
         public void collectAllData()
         {
@@ -19,6 +20,10 @@ namespace WorkingMemory
             }
         }
 
+        
+
     }
+
+    
 
 }
