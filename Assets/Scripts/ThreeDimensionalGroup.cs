@@ -29,6 +29,17 @@ namespace WorkingMemory
         List<ThreeDimensionalShape> optionShapes;
         List<ThreeDimensionalShape> targetShapes;
 
+
+
+        List<Mesh> selectedMeshes;
+        List<Material> selectedMaterials;
+
+
+
+
+
+
+
         bool[] isTarget; //Records whether the shape is a target
         bool[] isSelected; //Records which shapes have been selected
 
@@ -56,6 +67,22 @@ namespace WorkingMemory
             roomObj = GameObject.FindGameObjectWithTag("room");
 
             int optionNum = trial.settings.GetInt("option_num");
+
+
+            //meshes and materials passed by the user
+            selectedMeshes = (List<Mesh>)trial.settings.GetObject("selected_meshes");
+            selectedMaterials = (List<Material>)trial.settings.GetObject("selected_materials");
+
+            List <(Mesh, Material)> possibleCombinations = new List <(Mesh,Material)>();
+            foreach(Mesh meshItem in selectedMeshes)
+            {
+                foreach(Material materialItem in selectedMaterials)
+                {
+                    possibleCombinations.Add((meshItem, materialItem));
+                }
+            }
+            Debug.Log(possibleCombinations.Count);
+
 
             isTarget = new bool[optionNum];
             isSelected = new bool[optionNum];

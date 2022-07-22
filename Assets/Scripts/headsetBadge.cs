@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace WorkingMemory
 {
     
-    public class headsetBadge : MonoBehaviour
+    public class HeadsetBadge : MonoBehaviour
     {
 
         private bool isPulsing;

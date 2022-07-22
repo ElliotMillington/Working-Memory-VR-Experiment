@@ -479,6 +479,11 @@ public class PanelObject : MonoBehaviour
         deleteSign.SetActive(value);
     }
 
+    public void setDuplicate(bool value)
+    {
+        duplicateButton.SetActive(value);
+    }
+
     public void duplicate()
     {
         GameObject newObj = Instantiate(this.gameObject);

@@ -23,9 +23,7 @@ namespace WorkingMemory
             // get PanelGroup script
             PanelGroup groupScript = GameObject.FindGameObjectWithTag("panelGroup").GetComponent<PanelGroup>();
             
-
-            //ArrayList avaiable_colours =  new ArrayList();
-            //avaiable_colours.Add("Hello");
+            
 
             foreach (PanelObject obj in groupScript.panelGroup)
             {
@@ -39,6 +37,14 @@ namespace WorkingMemory
                 string scene_type;
                 int option_num;
                 string scene_name;
+
+                List<Color> selectedColours = dataObj.selectedColours;
+                List<Material> selectedMaterials = dataObj.selectedMaterials;
+
+                List<Mesh> selectedMeshes = dataObj.selectedMeshes;
+                List<Texture> selectedTextures = dataObj.selectedTextures;
+
+
                 if (dataObj.dimension == 2)
                 {
                     option_num = dataObj.twoDisplayNum;
@@ -51,11 +57,11 @@ namespace WorkingMemory
                     scene_type = "Three_Dimensional";
                     scene_name = "Shapes_Colours_3d";
                 }
-                makeBlock(session, trial_num, scene_type, scene_name, option_num, target_num, option_distro, delay_time);
+                makeBlock(session, trial_num, scene_type, scene_name, option_num, target_num, option_distro, delay_time, selectedColours, selectedMaterials, selectedMeshes, selectedTextures);
             }
         }
 
-        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time)
+        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time, List<Color> selectedColours, List<Material> selectedMaterials, List<Mesh> selectedMeshes, List<Texture> selectedTextures)
         {
             Block block = session.CreateBlock(trial_num);
 
@@ -65,12 +71,20 @@ namespace WorkingMemory
             block.settings.SetValue("option_num", option_num);
             block.settings.SetValue("target_num", target_num);
             block.settings.SetValue("delay_time", delay_time);
-            block.settings.SetValue("availbale_colours", 1);
-            block.settings.SetValue("avaiable_shapes", 2);
-
+            
             if (scene_type == "Three_Dimensional")
             {
                 block.settings.SetValue("option_distro", option_distro);
+
+                //pass in approriate meshes/textures or colour/material depening on scene
+                //Mesh and Materical
+                block.settings.SetValue("selected_meshes", selectedMeshes);
+                block.settings.SetValue("selected_materials", selectedMaterials);
+
+            }else{
+                //Texture and Color
+                block.settings.SetValue("selected_colours", selectedColours);
+                block.settings.SetValue("selected_textures", selectedTextures);
             }
         }
 

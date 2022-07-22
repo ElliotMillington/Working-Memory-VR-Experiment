@@ -16,6 +16,8 @@ public class PanelGroup : MonoBehaviour
     public GameObject moveSign;
     public GameObject deleteSign;
 
+    public GameObject duplicateSign;
+
     public GameObject confirmSign;
 
     public GameObject confirmText;
@@ -25,6 +27,8 @@ public class PanelGroup : MonoBehaviour
 
     private bool move;
     private bool delete;
+
+    private bool duplicate;
 
     public bool allValid;
 
@@ -45,7 +49,8 @@ public class PanelGroup : MonoBehaviour
     private void Start() {
         move = false;
         delete = false;
-
+        duplicate = false;
+        
         allValid = false;
 
         panelGroup = new List<PanelObject>(this.gameObject.GetComponentsInChildren<PanelObject>());
@@ -114,11 +119,13 @@ public class PanelGroup : MonoBehaviour
         {
             deleteSign.SetActive(true);
             confirmSign.SetActive(true);
+            duplicateSign.SetActive(true);
         }
         else
         {
             deleteSign.SetActive(false);
             confirmSign.SetActive(false);
+            duplicateSign.SetActive(false);
         }
 
     }
@@ -137,6 +144,15 @@ public class PanelGroup : MonoBehaviour
         foreach (PanelObject obj in panelGroup)
         {
             obj.setDelete(delete);
+        }
+    }
+
+    public void toogleDuplicate()
+    {
+        duplicate = !duplicate;
+        foreach (PanelObject obj in panelGroup)
+        {
+            obj.setDuplicate(duplicate);
         }
     }
 
@@ -236,6 +252,7 @@ public class PanelGroup : MonoBehaviour
             UXFRig.SetActive(true);
         }
     }
+
 
     public void duplationAtIndex(int index, PanelObject newObj)
     {
