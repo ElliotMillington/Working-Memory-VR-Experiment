@@ -14,7 +14,6 @@ public class SceneHandler : MonoBehaviour
 
     private int getShapeIndex(PointerEventArgs e)
     {
-
         int num = int.Parse(e.target.name.Remove(e.target.name.IndexOf("option_shape"), "option_shape".Length));
         return num;
     }

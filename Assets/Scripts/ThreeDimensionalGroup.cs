@@ -21,30 +21,21 @@ namespace WorkingMemory
 
         public ThreeDimensionalShape optionPrefab;
 
+        //passed into from the inspector (all meshes and materials)
         public Mesh[] possibleShapes; //Array of potential shape meshes
         public Material[] possibleColours; //Array of potential colours
-        List<GameObject> targets; //Array of target objects
-        List<GameObject> shapeOptions; //Array of shape option objects
+
 
         List<ThreeDimensionalShape> optionShapes;
         List<ThreeDimensionalShape> targetShapes;
 
 
-
+        // passed for the trial from the panel
         List<Mesh> selectedMeshes;
         List<Material> selectedMaterials;
 
-
-
-
-
-
-
-        bool[] isTarget; //Records whether the shape is a target
-        bool[] isSelected; //Records which shapes have been selected
-
-        ArrayList targetIndexes = new ArrayList();
-        ArrayList selectedIndexes = new ArrayList();
+        public List<int> selectedIndexes;
+        public List<int> targetIndexes;
 
         private DateTime trialStartTime;
         private DateTime trialEndTime;
@@ -56,10 +47,18 @@ namespace WorkingMemory
 
         public int targetNum; 
 
+        public bool startWaitToggle;
+
+        public bool getWaitBool()
+        {
+            return startWaitToggle;
+        }
+
         public IEnumerator CreateShapes(Trial trial)
         {
             yield return new WaitForSeconds(0.25f);
 
+            //TODO: if trial number is 1 then need to yield return new WaitUntil(getWaitBool);
             Debug.Log(trial.number);
 
             targetStand = GameObject.FindGameObjectWithTag("stand");
@@ -78,19 +77,12 @@ namespace WorkingMemory
             {
                 foreach(Material materialItem in selectedMaterials)
                 {
+                    // will hold all possible tuples of mesh and material
                     possibleCombinations.Add((meshItem, materialItem));
                 }
             }
-            Debug.Log(possibleCombinations.Count);
 
-
-            isTarget = new bool[optionNum];
-            isSelected = new bool[optionNum];
-            for (int i = 0; i < isSelected.Length; i++) {
-                isTarget[i] = false;
-                isSelected[i] = false;
-            }
-
+            
             //Generate option positions
             Vector3[] positions = new Vector3[optionNum];
             option_string = trial.settings.GetObject("option_distro").ToString().ToLower();
@@ -100,36 +92,42 @@ namespace WorkingMemory
                     int nrow = Convert.ToInt32(Math.Ceiling(Mathf.Sqrt(optionNum)));
     
                     List<float> posStep = new List<float>(new float [] {0.25f,0f,-0.25f});
-                    for (int i = 0; i < positions.Length; i++)
+                    for (int x = 0; x < positions.Length; x++)
                     {
-                        int row = i % nrow;
-                        int column = i / nrow;
-                        positions[i] = new Vector3(posStep[row], posStep[column], -0.1f);
+                        int row = x % nrow;
+                        int column = x / nrow;
+                        positions[x] = new Vector3(posStep[row], posStep[column], -0.1f);
                     }
                     break;
                 case "circular":
-                    for (var i = 0; i < positions.Length; i++)      
+                    for (var y = 0; y < positions.Length; y++)      
                     {
                         float radius = 0.008f;
-                        var angle = i * Mathf.PI * 2 / positions.Length;
-                        positions[i] = (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius) - new Vector3(0,0,-0.0035f);
+                        var angle = y * Mathf.PI * 2 / positions.Length;
+                        positions[y] = (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius) - new Vector3(0,0,-0.0035f);
                     }
                     break;
             };
 
+
             //Set up option shapes.
             optionShapes = new List<ThreeDimensionalShape>();
-            List<int[]> selectedCombo = new List<int[]>();
+            List<(Mesh, Material)> selectedCombinations = new List<(Mesh, Material)>();
 
-            for (int i = 0; i < positions.Length; i++)
+            int i = 0;
+            while (optionShapes.Count < optionNum)
             {
+                //new shape created, renamed and placed into list for grouping
                 ThreeDimensionalShape newShape = Instantiate(optionPrefab);
                 newShape.name = "option_shape" + i;
                 optionShapes.Add(newShape);
                 newShape.group = this;
                 newShape.listPosition = i;
 
+
+
                 //Set transform properties
+                // TODO: remove/edit as part of placement
                 switch (option_string)
                 {
                     case "grid":
@@ -147,60 +145,72 @@ namespace WorkingMemory
                 newShape.transform.localPosition = positions[i];
                 newShape.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(-180, 180), 0));
 
-                //Set mesh
-                //First value is the mesh, the second value is the material
-                int[] comboID = {UnityEngine.Random.Range(0, possibleShapes.Length), UnityEngine.Random.Range(0, possibleColours.Length)};
-                //Ensures that no shape/colour combo is repeated
-                while (selectedCombo.Contains(comboID))
-                {
-                    comboID = new int[]{UnityEngine.Random.Range(0, possibleShapes.Length), UnityEngine.Random.Range(0, possibleColours.Length)};
-                    print("Duplicate detected");
-                }
-                selectedCombo.Add(comboID);
 
-                Mesh randomMesh = possibleShapes[comboID[0]];
-                newShape.GetComponent<MeshFilter>().mesh = randomMesh;
-                newShape.GetComponent<MeshCollider>().sharedMesh = randomMesh;
+                // pop random combination from the list and add to selected List for later
+                int removeIndex = UnityEngine.Random.Range(0, possibleCombinations.Count);
+                (Mesh, Material) combo = possibleCombinations[removeIndex];
+                possibleCombinations.RemoveAt(removeIndex);
+                newShape.meshMaterialCombo = combo;
+
+                // add the removed options to add to display later
+                selectedCombinations.Add(combo);
+
+                //assign mesh and material to newShape
+                newShape.GetComponent<MeshFilter>().mesh = combo.Item1;
+                newShape.GetComponent<MeshCollider>().sharedMesh = combo.Item1;
 
                 //Set material
-                newShape.GetComponent<Renderer>().material = possibleColours[comboID[1]];
+                newShape.GetComponent<Renderer>().material = combo.Item2;
 
+                
                 //Hide shape until trial start
                 newShape.clickable = true;
                 newShape.gameObject.SetActive(false);
+                i++;
             }
+
 
             //Set up target shapes
             targetNum = trial.settings.GetInt("target_num");
-            List<int> targetShapesIndex = HelperMethods.GenRandomInts(0, optionNum, targetNum);
+            targetShapes = new List<ThreeDimensionalShape>();
+
             zPos = HelperMethods.Seq(targetNum, -targetZRange, targetZRange);
 
-            targetShapes = new List<ThreeDimensionalShape>(targetNum);
-
+            int k = 0;
             //Set up target shape objects
-            for (int i = 0; i < targetNum; i++)
+            while (targetShapes.Count < targetNum)
             {
-                ThreeDimensionalShape newShape = Instantiate(optionPrefab);
-                targetShapes.Add(newShape);
-                newShape.group = this;
 
-                int copyIndex = targetShapesIndex[i];
-                newShape.listPosition = copyIndex;
+                // chose a random shape in options to become target (i.e isTarget == true)
+                int possibleTargetIndex = UnityEngine.Random.Range(0, optionShapes.Count);
+                if (!optionShapes[possibleTargetIndex].isTarget)
+                {
+                    //make the option shape a target
+                    optionShapes[possibleTargetIndex].isTarget = true;
 
-                //Set transform properties
-                newShape.transform.SetParent(targetStand.transform, true);
-                newShape.transform.localPosition = new Vector3(0, 1.2f, zPos[i]);
-                newShape.transform.localScale = new Vector3(100, 100, 100);
+                    //create display shape
+                    ThreeDimensionalShape newShape = Instantiate(optionPrefab);
+                    targetShapes.Add(newShape);
+                    newShape.group = this;
 
-                //Set mesh
-                newShape.GetComponent<MeshFilter>().mesh = optionShapes[copyIndex].GetComponent<MeshFilter>().mesh;
-                newShape.GetComponent<Renderer>().material = optionShapes[copyIndex].GetComponent<Renderer>().material;
+                    //save its mesh and material, and index
+                    (Mesh, Material) targetCombo  = optionShapes[possibleTargetIndex].meshMaterialCombo;
+                    newShape.listPosition = possibleTargetIndex;
 
-                newShape.clickable = false;
-                isTarget[copyIndex] = true;
+                    //Set transform properties
+                    newShape.transform.SetParent(targetStand.transform, true);
+                    newShape.transform.localPosition = new Vector3(0, 1.2f, zPos[k]);
+                    newShape.transform.localScale = new Vector3(100, 100, 100);
 
-                targetIndexes.Add(copyIndex);
+                    //Set mesh
+                    newShape.GetComponent<MeshFilter>().mesh = targetCombo.Item1;
+                    newShape.GetComponent<Renderer>().material = targetCombo.Item2;
+
+                    newShape.clickable = false;
+                    k++;
+                }
             }
+
             targetStand.SetActive(true);
 
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
@@ -219,7 +229,6 @@ namespace WorkingMemory
 
         public void RegisterSelect(int index, bool selected)
         {
-            isSelected[index] = selected;
             Debug.Log("Shape " + index + " was " + (selected==true? "selected.": "deselected."));
 
             if (selected==true)
@@ -265,9 +274,10 @@ namespace WorkingMemory
             
 
             int mistakes = 0;
-            for (int i = 0; i < isSelected.Length; i++)
+            foreach (ThreeDimensionalShape shape in optionShapes)
             {
-                if (isSelected[i] != isTarget[i])
+                //if selected but not target
+                if (shape.selected && !shape.isTarget)
                 {
                     mistakes++;
                 }
@@ -290,4 +300,5 @@ namespace WorkingMemory
             Session.instance.Invoke("BeginNextTrialSafe", 5);
         }
     }
+
 }

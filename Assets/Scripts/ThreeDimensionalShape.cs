@@ -17,8 +17,11 @@ namespace WorkingMemory {
         private bool leftHand = false;
         private bool rightHand = false;
 
-        private bool selected = false;
+        public bool selected = false;
 
+        public bool isTarget = false;
+
+        public (Mesh, Material) meshMaterialCombo;
 
         private void Start()
         {
