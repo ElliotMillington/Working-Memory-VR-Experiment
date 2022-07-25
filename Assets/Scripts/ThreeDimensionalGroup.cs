@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UXF;
+using UnityEditor;
 
 namespace WorkingMemory
 {
@@ -19,7 +20,13 @@ namespace WorkingMemory
 
         GameObject roomObj;
 
+        GameObject targetGrid;
+
+        GameObject displayGrid;
+
         public ThreeDimensionalShape optionPrefab;
+
+        public GameObject displayGridPrefab;
 
         //passed into from the inspector (all meshes and materials)
         public Mesh[] possibleShapes; //Array of potential shape meshes
@@ -64,6 +71,9 @@ namespace WorkingMemory
             targetStand = GameObject.FindGameObjectWithTag("stand");
             optionDisplay = GameObject.FindGameObjectWithTag("display");
             roomObj = GameObject.FindGameObjectWithTag("room");
+
+            targetGrid = GameObject.FindGameObjectWithTag("targetGrid");
+            displayGrid = GameObject.FindGameObjectWithTag("displayGrid");
 
             int optionNum = trial.settings.GetInt("option_num");
 
@@ -172,9 +182,6 @@ namespace WorkingMemory
             targetNum = trial.settings.GetInt("target_num");
             targetShapes = new List<ThreeDimensionalShape>();
 
-            zPos = HelperMethods.Seq(targetNum, -targetZRange, targetZRange);
-
-            int k = 0;
             //Set up target shape objects
             while (targetShapes.Count < targetNum)
             {
@@ -187,25 +194,22 @@ namespace WorkingMemory
                     optionShapes[possibleTargetIndex].isTarget = true;
 
                     //create display shape
-                    ThreeDimensionalShape newShape = Instantiate(optionPrefab);
-                    targetShapes.Add(newShape);
-                    newShape.group = this;
+                    GameObject newDisplayObj = (GameObject) PrefabUtility.InstantiatePrefab(displayGridPrefab, targetGrid.transform);
+                    targetShapes.Add(newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>());
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
 
                     //save its mesh and material, and index
                     (Mesh, Material) targetCombo  = optionShapes[possibleTargetIndex].meshMaterialCombo;
-                    newShape.listPosition = possibleTargetIndex;
-
-                    //Set transform properties
-                    newShape.transform.SetParent(targetStand.transform, true);
-                    newShape.transform.localPosition = new Vector3(0, 1.2f, zPos[k]);
-                    newShape.transform.localScale = new Vector3(100, 100, 100);
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = possibleTargetIndex;
 
                     //Set mesh
-                    newShape.GetComponent<MeshFilter>().mesh = targetCombo.Item1;
-                    newShape.GetComponent<Renderer>().material = targetCombo.Item2;
+                    newDisplayObj.GetComponentInChildren<MeshFilter>().mesh = targetCombo.Item1;
+                    newDisplayObj.GetComponentInChildren<Renderer>().material = targetCombo.Item2;
 
-                    newShape.clickable = false;
-                    k++;
+                    //set a random rotation for the child shape
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().setRandomRotation();
+
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = false;
                 }
             }
 

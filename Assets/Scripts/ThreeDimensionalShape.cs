@@ -29,6 +29,11 @@ namespace WorkingMemory {
             Destroy(scriptObj.GetComponent<Outline>());
         }
 
+        public void setRandomRotation()
+        {
+            transform.rotation = UnityEngine.Random.rotation;
+        }
+
         public void invertHandedness(String handedness)
         {
             if (handedness == "right")

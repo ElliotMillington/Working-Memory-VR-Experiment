@@ -21,7 +21,7 @@ namespace WorkingMemory
             currColour.a = 1;
             buttonShape.color = currColour;
         }
-        
+
         
         public  void OnMouseDown()
         {
