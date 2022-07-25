@@ -52,9 +52,12 @@ public class SceneHandler : MonoBehaviour
         }
 
         //confirmation selection
-        if (e.target.parent.name == "ConfirmationPlanes")
+        if (e.target.parent != null)
         {
-            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+            if (e.target.parent.name == "ConfirmationPlanes")
+            {
+                GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+            }
         }
     }
 
@@ -68,9 +71,12 @@ public class SceneHandler : MonoBehaviour
         }
 
         //confirmation selection
-        if (e.target.parent.name == "ConfirmationPlanes")
+        if (e.target.parent != null)
         {
-            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+            if (e.target.parent.name == "ConfirmationPlanes")
+            {
+                GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+            }
         }
     }
 }

@@ -10,7 +10,6 @@ namespace WorkingMemory {
         private bool lightOn;
         public int listPosition;
         public ThreeDimensionalGroup group;
-        public float clickedSize;
 
         public GameObject scriptObj;
 
@@ -46,7 +45,6 @@ namespace WorkingMemory {
         {
             if (!lightOn && (leftHand || rightHand))
             {
-                transform.localScale += new Vector3(clickedSize, clickedSize, clickedSize);
                 lightOn = !lightOn;
             }
         }
@@ -55,7 +53,6 @@ namespace WorkingMemory {
         {
             if (lightOn && (!leftHand && !rightHand) && !selected)
             {
-                transform.localScale -= new Vector3(clickedSize, clickedSize, clickedSize);
                 lightOn = !lightOn;
             }
             

@@ -133,13 +133,11 @@ namespace WorkingMemory
                     case "grid":
                         newShape.transform.SetParent(optionDisplay.transform, true);
                         newShape.transform.localScale = new Vector3(100, 100, 100);
-                        newShape.clickedSize = 50f;
                         break;
                     case "circular":
                         newShape.transform.SetParent(roomObj.transform, true);
                         Debug.Log(newShape.transform.parent.name);
                         newShape.transform.localScale = new Vector3(1, 1, 1);
-                        newShape.clickedSize = 0.7f;
                         break;
                 }
                 newShape.transform.localPosition = positions[i];
@@ -216,7 +214,6 @@ namespace WorkingMemory
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
 
             foreach (ThreeDimensionalShape shape in targetShapes) shape.gameObject.SetActive(false);
-            if (option_string != "circular") targetStand.SetActive(false);
             foreach (ThreeDimensionalShape shape in optionShapes)
             {
                 shape.gameObject.SetActive(true);
