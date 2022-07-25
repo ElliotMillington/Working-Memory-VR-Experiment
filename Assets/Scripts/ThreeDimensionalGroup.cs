@@ -26,6 +26,8 @@ namespace WorkingMemory
 
         public ThreeDimensionalShape optionPrefab;
 
+        public GameObject targetGridPrefab;
+
         public GameObject displayGridPrefab;
 
         //passed into from the inspector (all meshes and materials)
@@ -76,6 +78,7 @@ namespace WorkingMemory
             displayGrid = GameObject.FindGameObjectWithTag("displayGrid");
 
             int optionNum = trial.settings.GetInt("option_num");
+            option_string = trial.settings.GetObject("option_distro").ToString().ToLower();
 
 
             //meshes and materials passed by the user
@@ -92,10 +95,9 @@ namespace WorkingMemory
                 }
             }
 
-            
+            /*
             //Generate option positions
             Vector3[] positions = new Vector3[optionNum];
-            option_string = trial.settings.GetObject("option_distro").ToString().ToLower();
             switch (option_string)
             {
                 case "grid":
@@ -118,6 +120,7 @@ namespace WorkingMemory
                     }
                     break;
             };
+            */
 
 
             //Set up option shapes.
@@ -128,16 +131,18 @@ namespace WorkingMemory
             while (optionShapes.Count < optionNum)
             {
                 //new shape created, renamed and placed into list for grouping
-                ThreeDimensionalShape newShape = Instantiate(optionPrefab);
-                newShape.name = "option_shape" + i;
-                optionShapes.Add(newShape);
-                newShape.group = this;
-                newShape.listPosition = i;
+                GameObject newDisplayObj = (GameObject) PrefabUtility.InstantiatePrefab(displayGridPrefab, displayGrid.transform);
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().name = "option_shape" + i;
+                optionShapes.Add(newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>());
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = i;
 
-
+                //newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.rotation = UnityEngine.Random.rotation;
 
                 //Set transform properties
                 // TODO: remove/edit as part of placement
+
+                /*
                 switch (option_string)
                 {
                     case "grid":
@@ -150,30 +155,34 @@ namespace WorkingMemory
                         newShape.transform.localScale = new Vector3(1, 1, 1);
                         break;
                 }
+                
                 newShape.transform.localPosition = positions[i];
                 newShape.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(-180, 180), 0));
+
+                */
 
 
                 // pop random combination from the list and add to selected List for later
                 int removeIndex = UnityEngine.Random.Range(0, possibleCombinations.Count);
                 (Mesh, Material) combo = possibleCombinations[removeIndex];
                 possibleCombinations.RemoveAt(removeIndex);
-                newShape.meshMaterialCombo = combo;
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().meshMaterialCombo = combo;
 
                 // add the removed options to add to display later
                 selectedCombinations.Add(combo);
 
                 //assign mesh and material to newShape
-                newShape.GetComponent<MeshFilter>().mesh = combo.Item1;
-                newShape.GetComponent<MeshCollider>().sharedMesh = combo.Item1;
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<MeshFilter>().mesh = combo.Item1;
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<MeshCollider>().sharedMesh = combo.Item1;
 
                 //Set material
-                newShape.GetComponent<Renderer>().material = combo.Item2;
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<Renderer>().material = combo.Item2;
 
                 
                 //Hide shape until trial start
-                newShape.clickable = true;
-                newShape.gameObject.SetActive(false);
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = true;
+                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().gameObject.SetActive(false);
+
                 i++;
             }
 
@@ -194,22 +203,22 @@ namespace WorkingMemory
                     optionShapes[possibleTargetIndex].isTarget = true;
 
                     //create display shape
-                    GameObject newDisplayObj = (GameObject) PrefabUtility.InstantiatePrefab(displayGridPrefab, targetGrid.transform);
-                    targetShapes.Add(newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>());
-                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
+                    GameObject newTargetObj = (GameObject) PrefabUtility.InstantiatePrefab(targetGridPrefab, targetGrid.transform);
+                    targetShapes.Add(newTargetObj.GetComponentInChildren<ThreeDimensionalShape>());
+                    newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
 
                     //save its mesh and material, and index
                     (Mesh, Material) targetCombo  = optionShapes[possibleTargetIndex].meshMaterialCombo;
-                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = possibleTargetIndex;
+                    newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = possibleTargetIndex;
 
                     //Set mesh
-                    newDisplayObj.GetComponentInChildren<MeshFilter>().mesh = targetCombo.Item1;
-                    newDisplayObj.GetComponentInChildren<Renderer>().material = targetCombo.Item2;
+                    newTargetObj.GetComponentInChildren<MeshFilter>().mesh = targetCombo.Item1;
+                    newTargetObj.GetComponentInChildren<Renderer>().material = targetCombo.Item2;
 
                     //set a random rotation for the child shape
-                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().setRandomRotation();
+                    newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().setRandomRotation();
 
-                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = false;
+                    newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = false;
                 }
             }
 
@@ -218,10 +227,7 @@ namespace WorkingMemory
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
 
             foreach (ThreeDimensionalShape shape in targetShapes) shape.gameObject.SetActive(false);
-            foreach (ThreeDimensionalShape shape in optionShapes)
-            {
-                shape.gameObject.SetActive(true);
-            }
+            foreach (ThreeDimensionalShape shape in optionShapes) shape.gameObject.SetActive(true);
 
             //Start timing the trial
             trialStartTime = System.DateTime.Now;
