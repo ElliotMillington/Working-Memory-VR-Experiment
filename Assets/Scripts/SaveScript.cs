@@ -8,8 +8,8 @@ namespace WorkingMemory
     public class SaveScript : MonoBehaviour
     {
         // The collection that shall be saved 
-       public List<PanelData> panelDataCollection;
-
+        private List<PanelData> panelDataCollection;
+       
         public void collectAllData()
         {
             List<PanelData> newData = new List<PanelData>();

@@ -25,6 +25,7 @@ namespace WorkingMemory
 
         private float expansionRate = 0.25f;
 
+        [HideInInspector]
         public PanelGroup script;
         
         private void Start() {

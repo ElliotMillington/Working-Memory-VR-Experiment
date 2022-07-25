@@ -278,6 +278,16 @@ public class PanelGroup : MonoBehaviour
     {
         headsetActive = !headsetActive;
     }
+
+    public void deleteAll()
+    {
+        foreach(PanelObject panelObj in panelGroup)
+        {
+            Destroy(panelObj.gameObject);
+        }
+        panelGroup = new List<PanelObject>();
+        enforceMove("enforce");
+    }
 }
 
 }
