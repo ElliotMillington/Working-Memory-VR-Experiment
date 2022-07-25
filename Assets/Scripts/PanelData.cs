@@ -29,21 +29,33 @@ namespace WorkingMemory
         public List<Mesh> selectedMeshes; 
         public List<Material> selectedMaterials;
 
-        private List<Texture> allTextures;
+        [HideInInspector]
+        public List<Texture> allTextures;
         
-        private List<Color> allColours;
+        [HideInInspector]
+        public List<Color> allColours;
 
-        private List<Mesh> allMeshes; 
-        private List<Material> allMaterials;
+        [HideInInspector]
+        public List<Mesh> allMeshes; 
+
+        [HideInInspector]
+        public List<Material> allMaterials;
 
         public void populateNew() {
 
             GameObject trialManager = GameObject.Find("TrialManager");
 
-            allColours = selectedColours = new List<Color>(trialManager.GetComponent<TwoDimensionalGroup>().possibleColours);
-            allTextures = selectedTextures = new List<Texture> (trialManager.GetComponent<TwoDimensionalGroup>().possibleShapes);
-            allMaterials = selectedMaterials = new List<Material>(trialManager.GetComponent<ThreeDimensionalGroup>().possibleColours);
-            allMeshes = selectedMeshes = new List<Mesh>(trialManager.GetComponent<ThreeDimensionalGroup>().possibleShapes);
+            selectedColours = new List<Color>(trialManager.GetComponent<TwoDimensionalGroup>().possibleColours);
+            allColours = new List<Color>(trialManager.GetComponent<TwoDimensionalGroup>().possibleColours);
+
+            allTextures = new List<Texture> (trialManager.GetComponent<TwoDimensionalGroup>().possibleShapes);
+            selectedTextures = new List<Texture> (trialManager.GetComponent<TwoDimensionalGroup>().possibleShapes);
+
+            allMaterials = new List<Material>(trialManager.GetComponent<ThreeDimensionalGroup>().possibleColours);
+            selectedMaterials = new List<Material>(trialManager.GetComponent<ThreeDimensionalGroup>().possibleColours);
+
+            allMeshes = new List<Mesh>(trialManager.GetComponent<ThreeDimensionalGroup>().possibleShapes);
+            selectedMeshes = new List<Mesh>(trialManager.GetComponent<ThreeDimensionalGroup>().possibleShapes);
 
             // gather variable information from panel
             dimension = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().dimensionBadgeText.text[0].ToString());

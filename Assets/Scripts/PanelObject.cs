@@ -62,9 +62,12 @@ public class PanelObject : MonoBehaviour
     public Dropdown twoDisplayDrop;
     public Dropdown threeLayout;
 
+    public Dropdown optionDistroDrop;
+
     public Slider delaySlider;
 
     public Text sliderValue;
+
 
     // The following variables indicate if trial information is valid 
     public bool isValid;
@@ -140,17 +143,17 @@ public class PanelObject : MonoBehaviour
 
         if (dataObject.dimension == 2)
         {   
-            threeDisplayObj.SetActive(true);
-            threeLayoutObj.SetActive(true);
+            threeDisplayObj.SetActive(false);
+            threeLayoutObj.SetActive(false);
 
-            twoDisplayObj.SetActive(false);
+            twoDisplayObj.SetActive(true);
         } 
         else
         {
-            twoDisplayObj.SetActive(true);
+            twoDisplayObj.SetActive(false);
 
-            threeDisplayObj.SetActive(false);
-            threeLayoutObj.SetActive(false);
+            threeDisplayObj.SetActive(true);
+            threeLayoutObj.SetActive(true);
         }
     }
 
@@ -469,6 +472,31 @@ public class PanelObject : MonoBehaviour
         checkValidity();
     }
 
+    public void setDimension(int newDimension)
+    {
+        if (newDimension == 3)
+        {
+            dataObject.dimension = 3;
+            dimensionBadgeText.text = "3D";
+
+            threeDisplayObj.SetActive(true);
+            threeLayoutObj.SetActive(true);
+
+            twoDisplayObj.SetActive(false);
+        } 
+        else
+        {
+            dataObject.dimension = 2;
+            dimensionBadgeText.text = "2D";
+
+            twoDisplayObj.SetActive(true);
+
+            threeDisplayObj.SetActive(false);
+            threeLayoutObj.SetActive(false);
+        }
+
+    }
+
     public void deletePanel()
     {
         groupScript.removeIndex(getPanelIndex());
@@ -495,6 +523,90 @@ public class PanelObject : MonoBehaviour
         newObj.GetComponent<PanelObject>().duplicateMouseExit();
         groupScript.duplationAtIndex(this.gameObject.transform.GetSiblingIndex(), newObj.GetComponent<PanelObject>());
     }
+
+    public void swapScripts(PanelData newDataScript)
+    {
+        // change all values in the created scipt to reflect the passed script
+        // also select those values in the appropriate part of the panel
+
+        //setting dimension
+        setDimension(newDataScript.dimension);
+
+        //ensure correct options are displayed suitable to the dimension
+        if (dataObject.dimension == 2)
+        {   
+            threeDisplayObj.SetActive(false);
+            threeLayoutObj.SetActive(false);
+
+            twoDisplayObj.SetActive(true);
+        } 
+        else
+        {
+            twoDisplayObj.SetActive(false);
+
+            threeDisplayObj.SetActive(true);
+            threeLayoutObj.SetActive(true);
+        }
+
+        //settting trial number
+        trialInputField.SetTextWithoutNotify(newDataScript.numberOfTrials.ToString());
+        dataObject.numberOfTrials = newDataScript.numberOfTrials;
+
+        //setting target shape dropdown
+        selectDropdownValue(targetNumDrop, newDataScript.targetNum.ToString());
+
+        //setting target shape dropdown
+        selectDropdownValue(twoDisplayDrop, newDataScript.twoDisplayNum.ToString());
+
+        //setting target shape dropdown
+        selectDropdownValue(threeDisplayDrop, newDataScript.threeDisplayNum.ToString());
+
+        //setting optionDistro dropdown
+        selectDropdownValue(optionDistroDrop, newDataScript.optionDistro.ToString());
+
+        // setting colours/Materials
+        if (newDataScript.selectedColours.Count < newDataScript.allColours.Count)
+        {
+            colourToggle.isOn = false;
+            foreach (Toggle toggle in colourToggles)
+            {
+                toggle.gameObject.GetComponent<ColourToggle>().correctToggle(newDataScript);
+            }
+        }
+
+
+        // setting shapes
+        if (newDataScript.selectedTextures.Count < newDataScript.allTextures.Count)
+        {
+            shapeToggle.isOn = false;
+            foreach (Toggle toggle in shapeToggles)
+            {
+                toggle.gameObject.GetComponent<ShapeToggle>().correctToggle(newDataScript);
+            }
+        }
+
+        // set delay slider
+        delaySlider.value = newDataScript.delay_time;
+
+
+    }
+
+    public void selectDropdownValue(Dropdown dropdownToChange, string valueToFind)
+    {
+        // find the option with the given value
+        int index = 0;
+        for(int x = 0; x < dropdownToChange.options.Count; x++)
+        {
+            if (dropdownToChange.options[x].text == valueToFind)
+            {
+                index = x;
+            }
+        }
+
+        //now select the cell in that dropdown
+        dropdownToChange.value = index;
+    }
+
 
     }
 }

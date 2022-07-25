@@ -273,6 +273,11 @@ public class PanelGroup : MonoBehaviour
         enforceMove("enforce");
 
     }
+
+    public void toggleVRHeadset()
+    {
+        headsetActive = !headsetActive;
+    }
 }
 
 }

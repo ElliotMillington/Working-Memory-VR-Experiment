@@ -20,13 +20,15 @@ namespace WorkingMemory
             toggleObj = this.gameObject.GetComponent<Toggle>();
         }
 
-        public void correctToggle()
+        public void correctToggle(PanelData switchPanel)
         {
-            if (dataObj.GetComponent<PanelData>().selectedColours.Contains(colour))
+            toggleObj = this.gameObject.GetComponent<Toggle>();
+            if (!switchPanel.selectedColours.Contains(colour))
+            {
+                toggleObj.isOn = false;
+            }else
             {
                 toggleObj.isOn = true;
-            }else{
-                toggleObj.isOn = false;
             }
         }
 
