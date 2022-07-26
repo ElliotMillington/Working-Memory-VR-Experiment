@@ -98,6 +98,15 @@ public class PanelObject : MonoBehaviour
     public GameObject duplicateButton;
 
 
+    public Toggle confirmStartToggle;
+    public Toggle targetRandToggle;
+
+    public GameObject targetRandObj;
+    public Toggle displayRandToggle;
+
+    public GameObject displayRandObj;
+
+
     private void Start() {
         groupScript = this.transform.GetComponentInParent<PanelGroup>();
 
@@ -130,6 +139,20 @@ public class PanelObject : MonoBehaviour
             this.gameObject.GetComponent<PanelData>().updateShape(toggle, toggle.isOn);
             });
         }
+
+
+        confirmStartToggle.onValueChanged.AddListener(delegate{
+            simpleToggle(confirmStartToggle, "confirm");
+            });
+        
+        displayRandToggle.onValueChanged.AddListener(delegate{
+            simpleToggle(displayRandToggle, "displayRand");
+            });
+        
+        targetRandToggle.onValueChanged.AddListener(delegate{
+            simpleToggle(targetRandToggle, "targetRand");
+            });
+
 
         if (groupScript != null)
         {   
@@ -451,6 +474,8 @@ public class PanelObject : MonoBehaviour
 
             threeDisplayObj.SetActive(true);
             threeLayoutObj.SetActive(true);
+            displayRandObj.SetActive(true);
+            targetRandObj.SetActive(true);
 
             twoDisplayObj.SetActive(false);
         } 
@@ -463,6 +488,8 @@ public class PanelObject : MonoBehaviour
 
             threeDisplayObj.SetActive(false);
             threeLayoutObj.SetActive(false);
+            displayRandObj.SetActive(false);
+            targetRandObj.SetActive(false);
         }
 
         checkValidity();
@@ -477,6 +504,8 @@ public class PanelObject : MonoBehaviour
 
             threeDisplayObj.SetActive(true);
             threeLayoutObj.SetActive(true);
+            displayRandObj.SetActive(true);
+            targetRandObj.SetActive(true);
 
             twoDisplayObj.SetActive(false);
         } 
@@ -489,6 +518,8 @@ public class PanelObject : MonoBehaviour
 
             threeDisplayObj.SetActive(false);
             threeLayoutObj.SetActive(false);
+            displayRandObj.SetActive(false);
+            targetRandObj.SetActive(false);
         }
 
     }
@@ -584,6 +615,15 @@ public class PanelObject : MonoBehaviour
         // set delay slider
         delaySlider.value = newDataScript.delay_time;
 
+        //set confirm start toggle
+        confirmStartToggle.isOn = newDataScript.confirmStart;
+
+        //set tagetRand toggle
+        targetRandToggle.isOn = newDataScript.targetRand;
+
+        //set displayRand toggle
+        displayRandToggle.isOn = newDataScript.displayRand;
+
 
     }
 
@@ -601,6 +641,24 @@ public class PanelObject : MonoBehaviour
 
         //now select the cell in that dropdown
         dropdownToChange.value = index;
+    }
+
+    public void simpleToggle(Toggle baseToggle, string modifier)
+    {
+        switch (modifier)
+        {
+            case "confirm":
+                dataObject.confirmStart = baseToggle.isOn;
+                break;
+
+            case "targetRand":
+                dataObject.targetRand = baseToggle.isOn;
+                break;
+            
+            case "displayRand":
+                dataObject.displayRand = baseToggle.isOn;
+                break;
+        }
     }
 
 

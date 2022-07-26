@@ -54,6 +54,11 @@ namespace WorkingMemory
         private bool leftHand = false;
         private bool rightHand = false;
 
+        private bool confirm_start;
+        private bool display_random;
+        private bool target_random;
+
+
         public int targetNum; 
 
         public bool startWaitToggle;
@@ -67,8 +72,7 @@ namespace WorkingMemory
         {
             yield return new WaitForSeconds(0.25f);
 
-            //TODO: if trial number is 1 then need to yield return new WaitUntil(getWaitBool);
-            Debug.Log(trial.number);
+            confirm_start = trial.settings.GetBool("confirm_start");
 
             targetStand = GameObject.FindGameObjectWithTag("stand");
             optionDisplay = GameObject.FindGameObjectWithTag("display");
@@ -79,7 +83,10 @@ namespace WorkingMemory
 
             int optionNum = trial.settings.GetInt("option_num");
             option_string = trial.settings.GetObject("option_distro").ToString().ToLower();
+            display_random = trial.settings.GetBool("display_random");
+            target_random = trial.settings.GetBool("target_random");
 
+            if (confirm_start) yield return new WaitUntil(getWaitBool);
 
             //meshes and materials passed by the user
             selectedMeshes = (List<Mesh>)trial.settings.GetObject("selected_meshes");
@@ -137,7 +144,7 @@ namespace WorkingMemory
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = i;
 
-                //newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.rotation = UnityEngine.Random.rotation;
+                if (display_random) newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.rotation = UnityEngine.Random.rotation;
 
                 //Set transform properties
                 // TODO: remove/edit as part of placement
@@ -216,7 +223,7 @@ namespace WorkingMemory
                     newTargetObj.GetComponentInChildren<Renderer>().material = targetCombo.Item2;
 
                     //set a random rotation for the child shape
-                    newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().setRandomRotation();
+                    if (target_random) newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().setRandomRotation();
 
                     newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = false;
                 }

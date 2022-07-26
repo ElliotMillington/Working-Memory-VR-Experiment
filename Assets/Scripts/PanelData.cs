@@ -20,6 +20,10 @@ namespace WorkingMemory
         public string optionDistro;
         public float delay_time;
 
+        public bool confirmStart;
+        public bool targetRand;
+        public bool displayRand;
+
 
         // Following taken from the TrialManager
         public List<Texture> selectedTextures;
@@ -68,6 +72,10 @@ namespace WorkingMemory
             optionDistro = this.gameObject.GetComponent<PanelObject>().threeLayout.options[this.gameObject.GetComponent<PanelObject>().threeLayout.value].text;
 
             delay_time = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().delaySlider.value);
+
+            confirmStart = this.gameObject.GetComponent<PanelObject>().confirmStartToggle.isOn;
+            targetRand = this.gameObject.GetComponent<PanelObject>().targetRandToggle.isOn;
+            displayRand = this.gameObject.GetComponent<PanelObject>().displayRandToggle.isOn;
         }
 
         public void setTrialNum(Text textInput)

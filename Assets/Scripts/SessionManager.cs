@@ -38,6 +38,10 @@ namespace WorkingMemory
                 int option_num;
                 string scene_name;
 
+                bool confirm_start = dataObj.confirmStart;
+                bool display_random;
+                bool target_random;
+
                 List<Color> selectedColours = dataObj.selectedColours;
                 List<Material> selectedMaterials = dataObj.selectedMaterials;
 
@@ -48,20 +52,26 @@ namespace WorkingMemory
                 if (dataObj.dimension == 2)
                 {
                     option_num = dataObj.twoDisplayNum;
-                    option_distro = null; //not relevant for 2D
                     scene_type = "Two_Dimensional";
                     scene_name = "Shapes_Colours_2d";
+
+                    //not relevant for 2D
+                    option_distro = null; 
+                    display_random = false; //false but not user for 2d
+                    target_random = false;
                 }else{
                     option_num = dataObj.threeDisplayNum;
-                    option_distro = dataObj.optionDistro; //not relevant for 2D
+                    option_distro = dataObj.optionDistro;
                     scene_type = "Three_Dimensional";
                     scene_name = "Shapes_Colours_3d";
+                    display_random = dataObj.displayRand; 
+                    target_random = dataObj.targetRand;
                 }
-                makeBlock(session, trial_num, scene_type, scene_name, option_num, target_num, option_distro, delay_time, selectedColours, selectedMaterials, selectedMeshes, selectedTextures);
+                makeBlock(session, trial_num, scene_type, scene_name, option_num, target_num, option_distro, delay_time, selectedColours, selectedMaterials, selectedMeshes, selectedTextures, confirm_start, display_random, target_random);
             }
         }
 
-        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time, List<Color> selectedColours, List<Material> selectedMaterials, List<Mesh> selectedMeshes, List<Texture> selectedTextures)
+        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time, List<Color> selectedColours, List<Material> selectedMaterials, List<Mesh> selectedMeshes, List<Texture> selectedTextures, bool confirm_start, bool display_random, bool target_random)
         {
             Block block = session.CreateBlock(trial_num);
 
@@ -71,10 +81,14 @@ namespace WorkingMemory
             block.settings.SetValue("option_num", option_num);
             block.settings.SetValue("target_num", target_num);
             block.settings.SetValue("delay_time", delay_time);
+
+            block.settings.SetValue("confirm_start", confirm_start);
             
             if (scene_type == "Three_Dimensional")
             {
                 block.settings.SetValue("option_distro", option_distro);
+                block.settings.SetValue("display_random", display_random);
+                block.settings.SetValue("target_random", target_random);
 
                 //pass in approriate meshes/textures or colour/material depening on scene
                 //Mesh and Materical
