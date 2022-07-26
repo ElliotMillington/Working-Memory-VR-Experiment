@@ -80,13 +80,21 @@ namespace WorkingMemory
 
             targetGrid = GameObject.FindGameObjectWithTag("targetGrid");
             displayGrid = GameObject.FindGameObjectWithTag("displayGrid");
+            GameObject startButton = GameObject.FindGameObjectWithTag("startButton");
+            GameObject startText = GameObject.FindGameObjectWithTag("textHolder");
 
             int optionNum = trial.settings.GetInt("option_num");
             option_string = trial.settings.GetObject("option_distro").ToString().ToLower();
             display_random = trial.settings.GetBool("display_random");
             target_random = trial.settings.GetBool("target_random");
 
-            if (confirm_start) yield return new WaitUntil(getWaitBool);
+            if (confirm_start && trial.numberInBlock == 1)
+            {
+                yield return new WaitUntil(getWaitBool);
+            }else{
+                startButton.SetActive(false);
+                startText.SetActive(false);
+            }
 
             //meshes and materials passed by the user
             selectedMeshes = (List<Mesh>)trial.settings.GetObject("selected_meshes");

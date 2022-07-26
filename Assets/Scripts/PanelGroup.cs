@@ -23,7 +23,6 @@ public class PanelGroup : MonoBehaviour
     public GameObject confirmText;
 
     public GameObject UXFRig;
-    public GameObject UXFPanel;
 
     private bool move;
     private bool delete;
@@ -248,7 +247,6 @@ public class PanelGroup : MonoBehaviour
     {
         if (allValid)
         {
-            UXFPanel.SetActive(true);
             UXFRig.SetActive(true);
         }
     }
