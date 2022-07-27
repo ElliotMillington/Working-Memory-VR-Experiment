@@ -37,6 +37,10 @@ public class SceneHandler : MonoBehaviour
                     GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().Confirm();
                 }
             }
+        }else{
+            if (e.target.name.Contains("StartButton")){
+                script.startWaitToggle = true;
+            }
         }
     }
 
