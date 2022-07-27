@@ -90,9 +90,12 @@ namespace WorkingMemory
             if (confirm_start && trial.numberInBlock == 1)
             {
                 yield return new WaitUntil(getWaitBool);
-            }else{
-                startButton.SetActive(false);
                 startText.SetActive(false);
+                startButton.SetActive(false);
+            }
+            else{
+                if (startButton != null) startButton.SetActive(false);
+                if (startText != null) startText.SetActive(false);
             }
 
             //meshes and materials passed by the user
@@ -151,7 +154,14 @@ namespace WorkingMemory
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = i;
 
-                if (display_random) newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.rotation = UnityEngine.Random.rotation;
+                if (display_random)
+                {
+                    Vector3 scaleBefore = newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.localScale;
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.rotation = UnityEngine.Random.rotation;
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.localScale = scaleBefore;
+                }
+                
+          
 
                 //Set transform properties
                 // TODO: remove/edit as part of placement
@@ -305,13 +315,15 @@ namespace WorkingMemory
             Trial trial = Session.instance.CurrentTrial;
             trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
 
-            foreach (Transform child in targetStand.transform) Destroy(child.gameObject);
+            foreach (Transform child in targetGrid.transform) Destroy(child.gameObject);
+
+            //TODO: Need to change this for circular
             if (option_string != "grid")
             {
                 foreach (Transform child in roomObj.transform) if (child.name != "ConfirmationPlanes") Destroy(child.gameObject);
             }else
             {
-                foreach (Transform child in optionDisplay.transform) Destroy(child.gameObject);
+                foreach (Transform child in displayGrid.transform) Destroy(child.gameObject);
             }
 
             print("Trial took " + trialTime + " seconds. " + mistakes + " mistakes were made.");

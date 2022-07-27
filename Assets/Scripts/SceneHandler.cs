@@ -24,7 +24,8 @@ public class SceneHandler : MonoBehaviour
     {
         //check not in the waiting phase
         WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
-        if (!(script.confirm_start && script.startWaitToggle))
+
+        if (!script.confirm_start ||(script.confirm_start && script.startWaitToggle))
         {
             //shape selection
             if (e.target.name.Contains("option_shape"))
@@ -48,7 +49,7 @@ public class SceneHandler : MonoBehaviour
     {
         //check not in the waiting phase
         WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
-        if (!(script.confirm_start && script.startWaitToggle))
+        if (!script.confirm_start || (script.confirm_start && script.startWaitToggle))
         {
             if (e.target.name.Contains("option_shape"))
             {
@@ -71,7 +72,7 @@ public class SceneHandler : MonoBehaviour
     {
         //check not in the waiting phase
         WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
-        if (!(script.confirm_start && script.startWaitToggle))
+        if (!script.confirm_start || (script.confirm_start && script.startWaitToggle))
         {
 
             if (e.target.name.Contains("option_shape"))
