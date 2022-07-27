@@ -14,16 +14,16 @@ namespace WorkingMemory
         public Color[] possibleColours;
         public string[] colorNames;
 
-        bool[] isTarget; //Records whether the shape is a target
-        bool[] isSelected; //Records which shapes have been selected
+        bool[] targetList; //Records whether the shape is a target
+        bool[] selectedList; //Records which shapes have been selected
 
         public int targetNum;
 
         List<TwoDimensionalShape> optionShapes;
         List<TwoDimensionalShape> targetShapes;
 
-        ArrayList targetIndexes = new ArrayList();
-        ArrayList selectedIndexes = new ArrayList();
+        List<Texture> selectedTextures;
+        List<Color> selectedColours;
 
         public GameObject targetShapePrefab;
         public GameObject optionShapePrefab;
@@ -37,43 +37,73 @@ namespace WorkingMemory
         [HideInInspector]
         public GameObject targetGrid; 
 
-        
-        public Trial currentTrial;
+        [HideInInspector]
+        public GameObject coverObj;
+
+        [HideInInspector]
+        public GameObject startButton;
+
+        [HideInInspector]
+        public GameObject confirmButton;
 
         private DateTime trialStartTime;
         private DateTime trialEndTime;
+
+        private bool confirm_start;
+
+        private bool startWaitToggle = false;
             
 
         public IEnumerator CreateShapes(Trial trial)
         {
-
+            coverObj = GameObject.Find("coverPanel");
             targetGrid = GameObject.FindGameObjectWithTag("targetGrid");
             targetGridContainer = GameObject.FindGameObjectWithTag("targetContainer");
             displayGrid = GameObject.FindGameObjectWithTag("displayGrid");
             displayGridContainer = GameObject.FindGameObjectWithTag("displayContainer");
+            startButton = GameObject.FindGameObjectWithTag("startButton");
+            confirmButton = GameObject.FindGameObjectWithTag("confirmButton");
 
-            targetGrid.SetActive(false);
+            coverObj.SetActive(false);
             targetGridContainer.SetActive(false);
-            displayGrid.SetActive(false);
-            displayGridContainer.SetActive(false);
-        
-            currentTrial = trial;
+            displayGridContainer.SetActive(false);  
+            confirmButton.SetActive(false); 
 
-            yield return new WaitForSeconds(0.25f);
-
+            confirm_start = trial.settings.GetBool("confirm_start");
             int optionNum = trial.settings.GetInt("option_num");
 
-            isTarget = new bool[optionNum];
-            isSelected = new bool[optionNum];
-            for (int i = 0; i < isSelected.Length; i++)
+            if (confirm_start && trial.numberInBlock == 1)
             {
-                isTarget[i] = false;
-                isSelected[i] = false;
+                startButton.GetComponent<Button>().onClick.AddListener(delegate{toggleWait();});
+                yield return new WaitUntil(getWaitBool);
+            }
+            startButton.SetActive(false);
+
+            confirmButton.GetComponent<Button>().onClick.AddListener(delegate{Confirm();});
+
+            //meshes and materials passed by the user
+            selectedTextures = (List<Texture>)trial.settings.GetObject("selected_textures");
+            selectedColours = (List<Color>)trial.settings.GetObject("selected_colours");
+
+            List <(Texture, Color)> possibleCombinations = new List <(Texture,Color)>();
+            foreach(Texture textureItem in selectedTextures)
+            {
+                foreach(Color colourItem in selectedColours)
+                {
+                    // will hold all possible tuples of mesh and material
+                    possibleCombinations.Add((textureItem, colourItem));
+                }
+            }
+
+            targetList = new bool[optionNum];
+            selectedList = new bool[optionNum];
+            for (int i = 0; i < selectedList.Length; i++)
+            {
+                targetList[i] = false;
+                selectedList[i] = false;
             }
 
             optionShapes = new List<TwoDimensionalShape>();
-            List<int[]> selectedCombo = new List<int[]>();
-
 
             for (int i = 0; i < optionNum; i++)
             {
@@ -84,22 +114,16 @@ namespace WorkingMemory
                 newShape.GetComponent<TwoDimensionalShape>().group = this;
                 newShape.GetComponent<TwoDimensionalShape>().listPosition = i;
 
-                //Set texture
-                //First value is the texture, the second value is the colour
-                int[] comboID = {UnityEngine.Random.Range(0, possibleShapes.Length), UnityEngine.Random.Range(0, possibleColours.Length)};
-                //Ensures that no shape/colour combo is repeated
-                while (selectedCombo.Contains(comboID))
-                {
-                    comboID = new int[]{UnityEngine.Random.Range(0, possibleShapes.Length), UnityEngine.Random.Range(0, possibleColours.Length)};
-                    print("Duplicate detected");
-                }
-                selectedCombo.Add(comboID);
+                int removeIndex = UnityEngine.Random.Range(0, possibleCombinations.Count);
+                (Texture, Color) combo = possibleCombinations[removeIndex];
+                possibleCombinations.RemoveAt(removeIndex);
+                newShape.GetComponentInChildren<TwoDimensionalShape>().textureColourCombo = combo;
 
-                Texture randomTexture = possibleShapes[comboID[0]];
-                newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = randomTexture;
+                //set texture
+                newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = combo.Item1;;
 
-                //Set texture
-                newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().color = possibleColours[comboID[1]];
+                //Set colour
+                newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().color = combo.Item2;
             }
             // set grid to be invisible
             displayGridContainer.SetActive(false);
@@ -107,93 +131,102 @@ namespace WorkingMemory
 
             //Set up target shapes
             targetNum = trial.settings.GetInt("target_num");
-            List<int> targetShapesIndex = HelperMethods.GenRandomInts(0, optionNum, targetNum);
-
-            targetShapes = new List<TwoDimensionalShape>(targetNum);
+            targetShapes = new List<TwoDimensionalShape>();
 
             //Set up target shape objects
-            for (int i = 0; i < targetNum; i++)
+            while (targetShapes.Count < targetNum)
             {
-                GameObject newShape = (GameObject) PrefabUtility.InstantiatePrefab(targetShapePrefab);
-                newShape.transform.parent = targetGrid.transform;
-                targetShapes.Add(newShape.GetComponent<TwoDimensionalShape>());
-                newShape.GetComponent<TwoDimensionalShape>().group = this;
+                // chose a random shape in options to become target (i.e targetList == true)
+                int possibleTargetIndex = UnityEngine.Random.Range(0, optionShapes.Count);
+                if (!optionShapes[possibleTargetIndex].isTarget)
+                {
+                    //make the option shape a target
+                    optionShapes[possibleTargetIndex].isTarget = true;
 
-                int copyIndex = targetShapesIndex[i];
-                newShape.GetComponent<TwoDimensionalShape>().listPosition = copyIndex;
+                    GameObject newTargetObj = (GameObject) PrefabUtility.InstantiatePrefab(targetShapePrefab);
+                    newTargetObj.transform.parent = targetGrid.transform;
+                    targetShapes.Add(newTargetObj.GetComponent<TwoDimensionalShape>());
+                    newTargetObj.GetComponent<TwoDimensionalShape>().group = this;
 
-                newShape.GetComponent<RawImage>().texture = optionShapes[copyIndex].transform.GetChild(0).gameObject.GetComponent<RawImage>().texture;
-                newShape.GetComponent<RawImage>().color = optionShapes[copyIndex].transform.GetChild(0).gameObject.gameObject.GetComponent<RawImage>().color;
+                    //save its texture and colour, and index
+                    (Texture, Color) targetCombo  = optionShapes[possibleTargetIndex].textureColourCombo;
+                    newTargetObj.GetComponent<TwoDimensionalShape>().listPosition = possibleTargetIndex;
 
-                isTarget[copyIndex] = true;
-
-                targetIndexes.Add(copyIndex);
+                    //Set texture and colours
+                    newTargetObj.GetComponent<RawImage>().texture = targetCombo.Item1;
+                    newTargetObj.GetComponent<RawImage>().color = targetCombo.Item2;
+                }
             }
-            targetGridContainer.SetActive(true);
 
+            //show target shapes for the specified time
+            targetGridContainer.SetActive(true);
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
             targetGridContainer.SetActive(false);
 
-
+            // show the shapes to tbe selected
             displayGridContainer.SetActive(true);
+            confirmButton.SetActive(true);
+
+            //record time for later
             trialStartTime = System.DateTime.Now;
-
-            Debug.Log("Target Shapes: " + String.Join(" ", targetIndexes.ToArray()));
         }
 
-        public void RegisterSelect(int index, bool selected)
-        {
-            isSelected[index] = selected;
-            Debug.Log("Shape " + index + " was " + (selected==true? "selected.": "deselected."));
-
-            if (selected==true)
-            {
-                selectedIndexes.Add(index);
-            }
-            else
-            {
-                selectedIndexes.Remove(index);
-            }
-        }
-
+        
         public void Confirm()
         {
             //If not in trial, do nothing
-            if (!currentTrial.session.InTrial) return;
+            if (!Session.instance.InTrial) return;
 
             trialEndTime = System.DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
-
-            Debug.Log("Selected shapes at end: " + String.Join(" ", selectedIndexes.ToArray()));
-
-            //reset 
-            selectedIndexes.Clear();
-            targetIndexes.Clear();
-            
-
+    
             int mistakes = 0;
-            for (int i = 0; i < isSelected.Length; i++)
+            foreach (TwoDimensionalShape shape in optionShapes)
             {
-                if (isSelected[i] != isTarget[i])
+                //if selected but not target
+                if (shape.selected && !shape.isTarget)
                 {
                     mistakes++;
                 }
             }
 
-            currentTrial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
+            Trial trial = Session.instance.CurrentTrial;
+            trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
 
             foreach (Transform child in targetGrid.transform) Destroy(child.gameObject);
             foreach (Transform child in displayGrid.transform) Destroy(child.gameObject);
-            
 
             print("Trial took " + trialTime + " seconds. " + mistakes + " mistakes were made.");
             Session.instance.CurrentTrial.End();
             Session.instance.Invoke("BeginNextTrialSafe", 5);
+
+            coverObj.SetActive(true);
+            targetGrid.SetActive(true);
+            targetGridContainer.SetActive(true);
+            displayGrid.SetActive(true);
+            displayGridContainer.SetActive(true);
+            startButton.SetActive(true);
+            confirmButton.SetActive(true);
         }
 
         public int getSelectedSize()
         {
-            return selectedIndexes.Count;
+            int counter = 0;
+            foreach (TwoDimensionalShape shape in optionShapes)
+            {
+                if (shape.selected) counter++;
+            }
+            return counter;
+        }
+
+        public bool getWaitBool()
+        {
+            return startWaitToggle;
+        }
+
+        public void toggleWait()
+        {
+            startWaitToggle = !startWaitToggle;
         }
 
     }

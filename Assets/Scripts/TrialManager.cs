@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UXF;
 using WorkingMemory;
+using UnityEngine.SceneManagement;
 
 public class TrialManager : MonoBehaviour
 {

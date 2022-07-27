@@ -125,11 +125,11 @@ namespace WorkingMemory
             }
             manager.TrialSetUp(trial);
 
-            string scene_type = trial.settings.GetObject("scene_type").ToString();
+            string scene_type = trial.settings.GetString("scene_type");
 
             if (scene_type != "Two_Dimensional")
             {
-                string option_string = trial.settings.GetObject("option_distro").ToString().ToLower();
+                string option_string = trial.settings.GetString("option_distro").ToLower();
                 
                 if(option_string != "grid")
                 {
@@ -140,8 +140,16 @@ namespace WorkingMemory
             
         }
 
+        public void SceneSpecificClean(Trial trial)
+        {
+
+        }
+
         public void CleanUpTrial(Trial trial)
         {
+
+
+
             //Record results
 
 

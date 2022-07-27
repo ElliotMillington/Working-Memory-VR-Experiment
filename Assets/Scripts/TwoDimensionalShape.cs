@@ -12,9 +12,13 @@ namespace WorkingMemory
         [HideInInspector]
         public int listPosition;
 
-        private bool selected = false;
+        public bool selected = false;
+
+        public bool isTarget = false;
 
         public RawImage buttonShape;
+
+        public (Texture, Color) textureColourCombo;
 
         private void Start() {
             Color currColour = buttonShape.color;
@@ -28,7 +32,6 @@ namespace WorkingMemory
             if (selected)
             {
                 //already selected and need to unselect
-                group.RegisterSelect(listPosition, false);
                 selected = !selected;
 
                 Color currColour = buttonShape.color;
@@ -43,7 +46,6 @@ namespace WorkingMemory
 
                 if (group.getSelectedSize() < group.targetNum)
                 {
-                    group.RegisterSelect(listPosition, true);
                     selected = !selected;
 
                     Color currColour = buttonShape.color;

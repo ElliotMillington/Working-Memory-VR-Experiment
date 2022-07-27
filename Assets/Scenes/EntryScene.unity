@@ -1167,7 +1167,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1877837186}
         m_TargetAssemblyTypeName: 
-        m_MethodName: toggleVRHeadset
+        m_MethodName: toggleVROverwite
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5140,6 +5140,7 @@ MonoBehaviour:
   whiteColour: {r: 1, g: 1, b: 1, a: 1}
   headsetActive: 0
   VRErrorBadge: {fileID: 1521797477}
+  headsetOverwrite: 0
 --- !u!114 &1877837187
 MonoBehaviour:
   m_ObjectHideFlags: 0

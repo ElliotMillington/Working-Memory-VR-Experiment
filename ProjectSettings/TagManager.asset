@@ -15,6 +15,7 @@ TagManager:
   - targetGrid
   - startButton
   - textHolder
+  - confirmButton
   layers:
   - Default
   - TransparentFX

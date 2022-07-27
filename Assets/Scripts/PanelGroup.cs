@@ -45,6 +45,8 @@ public class PanelGroup : MonoBehaviour
 
     public GameObject VRErrorBadge;
 
+    public bool headsetOverwrite;
+
     private void Start() {
         move = false;
         delete = false;
@@ -58,14 +60,18 @@ public class PanelGroup : MonoBehaviour
 
     }
 
-    //private void Update() {
-    //    headsetActive = isPresent();
-    //}
+    private void Update() {
+        if (!headsetOverwrite)
+        {
+            headsetActive = isPresent();
+        }else{
+            VRErrorBadge.SetActive(false);
+        }
+    }
 
     
     private void Awake() {
         headsetActive = isPresent();
-        Debug.Log("Do we have an Active Display? " + headsetActive.ToString());
     }
 
     public bool isPresent()
@@ -272,8 +278,9 @@ public class PanelGroup : MonoBehaviour
 
     }
 
-    public void toggleVRHeadset()
+    public void toggleVROverwite()
     {
+        headsetOverwrite = !headsetOverwrite;
         headsetActive = !headsetActive;
     }
 

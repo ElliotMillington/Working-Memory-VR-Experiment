@@ -44,7 +44,6 @@ namespace WorkingMemory
         List<Material> selectedMaterials;
 
         public List<int> selectedIndexes;
-        public List<int> targetIndexes;
 
         private DateTime trialStartTime;
         private DateTime trialEndTime;
@@ -292,9 +291,7 @@ namespace WorkingMemory
 
             //reset 
             selectedIndexes.Clear();
-            targetIndexes.Clear();
             
-
             int mistakes = 0;
             foreach (ThreeDimensionalShape shape in optionShapes)
             {
