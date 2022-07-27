@@ -22,10 +22,11 @@ namespace WorkingMemory
         private void Start() {
             script = GameObject.FindGameObjectWithTag("panelGroup").GetComponent<PanelGroup>();
 
-            if(script.headsetActive)
+            if (script.headsetActive)
             {
                 VRBadge.SetActive(false);
-            }else{
+            }
+            else{
                 VRBadge.SetActive(true);
             }
         }

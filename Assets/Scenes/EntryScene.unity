@@ -1864,8 +1864,9 @@ MonoBehaviour:
   targetGridContainer: {fileID: 0}
   displayGrid: {fileID: 0}
   targetGrid: {fileID: 0}
-  currentTrial:
-    status: 0
+  coverObj: {fileID: 0}
+  startButton: {fileID: 0}
+  confirmButton: {fileID: 0}
 --- !u!4 &535844566
 Transform:
   m_ObjectHideFlags: 0
@@ -1931,7 +1932,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 26f632a31867fd94eade5a9a2b2547d9, type: 2}
   - {fileID: 2100000, guid: f08dddb9bfc6f2c4d848b902c14369d9, type: 2}
   selectedIndexes: 
-  targetIndexes: 
   targetNum: 0
   startWaitToggle: 0
 --- !u!1 &611715949
@@ -4280,7 +4280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1521797478
 RectTransform:
   m_ObjectHideFlags: 0

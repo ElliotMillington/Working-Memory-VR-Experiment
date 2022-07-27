@@ -60,15 +60,11 @@ public class PanelGroup : MonoBehaviour
 
     }
 
+    
     private void Update() {
-        if (!headsetOverwrite)
-        {
-            headsetActive = isPresent();
-        }else{
-            VRErrorBadge.SetActive(false);
-        }
+        headsetActive = isPresent();
     }
-
+   
     
     private void Awake() {
         headsetActive = isPresent();
@@ -82,7 +78,7 @@ public class PanelGroup : MonoBehaviour
         {
             if (xrDisplay.running)
             {
-                VRErrorBadge.SetActive(true);
+                VRErrorBadge.SetActive(false);
                 return true;
             }
         }
