@@ -6,17 +6,12 @@ using UnityEngine.UI;
 using Valve.VR.Extras;
 using System;
 
+
 public class SceneHandler : MonoBehaviour
 {
     public SteamVR_LaserPointer laserPointer;
 
     public String handedness;
-
-    private int getShapeIndex(PointerEventArgs e)
-    {
-        int num = int.Parse(e.target.name.Remove(e.target.name.IndexOf("option_shape"), "option_shape".Length));
-        return num;
-    }
 
     void Awake()
     {
@@ -27,55 +22,67 @@ public class SceneHandler : MonoBehaviour
 
     public void PointerClick(object sender, PointerEventArgs e)
     {
-        //shape selection
-        if (e.target.name.Contains("option_shape") && (e.target.parent.name == "Display" || e.target.parent.name== "CylinderRoom"))
+        //check not in the waiting phase
+        WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
+        if (!(script.confirm_start && script.startWaitToggle))
         {
-
-            int optionNum = getShapeIndex(e);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().OnMouseDown();
-        }
-
-        //confirmation selection
-        if (e.target.parent.name == "ConfirmationPlanes")
-        {
-            GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().Confirm();
+            //shape selection
+            if (e.target.name.Contains("option_shape"))
+            {
+                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().OnMouseDown();
+            }else{
+                //confirmation selection
+                if (e.target.parent.name == "ConfirmationPlanes")
+                {
+                    GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().Confirm();
+                }
+            }
         }
     }
 
     public void PointerInside(object sender, PointerEventArgs e)
     {
-        if (e.target.name.Contains("option_shape") && (e.target.parent.name == "Display" || e.target.parent.name == "CylinderRoom"))
+        //check not in the waiting phase
+        WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
+        if (!(script.confirm_start && script.startWaitToggle))
         {
-            int optionNum = getShapeIndex(e);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().invertHandedness(handedness);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().LightUp();
-        }
-
-        //confirmation selection
-        if (e.target.parent != null)
-        {
-            if (e.target.parent.name == "ConfirmationPlanes")
+            if (e.target.name.Contains("option_shape"))
             {
-                GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().invertHandedness(handedness);
+                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().LightUp();
+            }else{
+                //confirmation selection
+                if (e.target.parent != null)
+                {
+                    if (e.target.parent.name == "ConfirmationPlanes")
+                    {
+                        GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+                    }
+                }
             }
         }
     }
 
     public void PointerOutside(object sender, PointerEventArgs e)
     {
-        if (e.target.name.Contains("option_shape") && (e.target.parent.name == "Display" || e.target.parent.name == "CylinderRoom"))
+        //check not in the waiting phase
+        WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
+        if (!(script.confirm_start && script.startWaitToggle))
         {
-            int optionNum = getShapeIndex(e);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().invertHandedness(handedness);
-            GameObject.Find("option_shape" + optionNum).GetComponent<WorkingMemory.ThreeDimensionalShape>().LightDown();
-        }
 
-        //confirmation selection
-        if (e.target.parent != null)
-        {
-            if (e.target.parent.name == "ConfirmationPlanes")
+            if (e.target.name.Contains("option_shape"))
             {
-                GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().invertHandedness(handedness);
+                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().LightDown();
+            }else{
+                //confirmation selection
+                if (e.target.parent != null)
+                {
+                    if (e.target.parent.name == "ConfirmationPlanes")
+                    {
+                        GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+                    }
+                }
             }
         }
     }

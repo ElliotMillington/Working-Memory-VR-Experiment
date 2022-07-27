@@ -53,7 +53,7 @@ namespace WorkingMemory
         private bool leftHand = false;
         private bool rightHand = false;
 
-        private bool confirm_start;
+        public bool confirm_start;
         private bool display_random;
         private bool target_random;
 
