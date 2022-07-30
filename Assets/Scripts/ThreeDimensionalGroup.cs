@@ -248,9 +248,13 @@ namespace WorkingMemory
 
             targetStand.SetActive(true);
 
-            yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
+            yield return new WaitForSeconds(trial.settings.GetFloat("shape_display_time"));
 
             foreach (ThreeDimensionalShape shape in targetShapes) shape.gameObject.SetActive(false);
+
+            //make time in between taking away target and the display of the shapes
+            yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
+
             foreach (ThreeDimensionalShape shape in optionShapes) shape.gameObject.SetActive(true);
 
             //Start timing the trial

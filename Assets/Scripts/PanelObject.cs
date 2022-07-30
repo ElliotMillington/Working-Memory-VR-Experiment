@@ -60,9 +60,13 @@ public class PanelObject : MonoBehaviour
 
     public Dropdown optionDistroDrop;
 
-    public Slider delaySlider;
+    public Slider displayTimeSlider;
 
-    public Text sliderValue;
+    public Slider displayDelaySlider;
+
+    public Text displaySliderValue;
+
+    public Text delaySliderValue;
 
 
     // The following variables indicate if trial information is valid 
@@ -612,8 +616,11 @@ public class PanelObject : MonoBehaviour
             }
         }
 
-        // set delay slider
-        delaySlider.value = newDataScript.delay_time;
+        // set display time slider
+        displayTimeSlider.value = newDataScript.shapeDisplayTime;
+
+        // set display time slider
+        displayDelaySlider.value = newDataScript.targetToDisplayDelay;
 
         //set confirm start toggle
         confirmStartToggle.isOn = newDataScript.confirmStart;

@@ -160,8 +160,11 @@ namespace WorkingMemory
 
             //show target shapes for the specified time
             targetGridContainer.SetActive(true);
-            yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
+            yield return new WaitForSeconds(trial.settings.GetFloat("shape_display_time"));
             targetGridContainer.SetActive(false);
+
+            //make time in between taking away target and the display of the shapes
+            yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
 
             // show the shapes to tbe selected
             displayGridContainer.SetActive(true);

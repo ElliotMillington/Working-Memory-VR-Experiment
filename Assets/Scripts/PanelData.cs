@@ -18,7 +18,9 @@ namespace WorkingMemory
         public int twoDisplayNum;
 
         public string optionDistro;
-        public float delay_time;
+        public float shapeDisplayTime;
+
+        public float targetToDisplayDelay;
 
         public bool confirmStart;
         public bool targetRand;
@@ -71,8 +73,9 @@ namespace WorkingMemory
             twoDisplayNum = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().twoDisplayDrop.options[this.gameObject.GetComponent<PanelObject>().twoDisplayDrop.value].text);
             optionDistro = this.gameObject.GetComponent<PanelObject>().threeLayout.options[this.gameObject.GetComponent<PanelObject>().threeLayout.value].text;
 
-            delay_time = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().delaySlider.value);
-
+            shapeDisplayTime = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().displayTimeSlider.value);
+            targetToDisplayDelay = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().displayDelaySlider.value);
+            
             confirmStart = this.gameObject.GetComponent<PanelObject>().confirmStartToggle.isOn;
             targetRand = this.gameObject.GetComponent<PanelObject>().targetRandToggle.isOn;
             displayRand = this.gameObject.GetComponent<PanelObject>().displayRandToggle.isOn;
@@ -154,10 +157,20 @@ namespace WorkingMemory
             this.gameObject.GetComponent<PanelObject>().checkValidity();
         }
 
-        public void updateSliderValue()
-        {   
-            this.gameObject.GetComponent<PanelObject>().sliderValue.text = this.gameObject.GetComponent<PanelObject>().delaySlider.value.ToString();
-            delay_time = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().delaySlider.value);
+        public void updateSliderValue(string name)
+        {
+            switch(name)
+            {
+                case "display_time":
+                    this.gameObject.GetComponent<PanelObject>().displaySliderValue.text = this.gameObject.GetComponent<PanelObject>().displayTimeSlider.value.ToString();
+                    shapeDisplayTime = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().displayTimeSlider.value);
+                    break;
+
+                case "delay_time":
+                    this.gameObject.GetComponent<PanelObject>().delaySliderValue.text = this.gameObject.GetComponent<PanelObject>().displayDelaySlider.value.ToString();
+                    targetToDisplayDelay = Convert.ToInt32(this.gameObject.GetComponent<PanelObject>().displayDelaySlider.value);
+                    break;
+            }
         }
     }
 

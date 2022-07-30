@@ -31,7 +31,8 @@ namespace WorkingMemory
 
                 int trial_num = dataObj.numberOfTrials;
                 int target_num = dataObj.targetNum;
-                float delay_time = dataObj.delay_time;
+                float shape_display_time = dataObj.shapeDisplayTime;
+                float delay_time = dataObj.targetToDisplayDelay;
 
                 string option_distro;
                 string scene_type;
@@ -67,11 +68,11 @@ namespace WorkingMemory
                     display_random = dataObj.displayRand; 
                     target_random = dataObj.targetRand;
                 }
-                makeBlock(session, trial_num, scene_type, scene_name, option_num, target_num, option_distro, delay_time, selectedColours, selectedMaterials, selectedMeshes, selectedTextures, confirm_start, display_random, target_random);
+                makeBlock(session, trial_num, scene_type, scene_name, option_num, target_num, option_distro, shape_display_time, delay_time, selectedColours, selectedMaterials, selectedMeshes, selectedTextures, confirm_start, display_random, target_random);
             }
         }
 
-        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float delay_time, List<Color> selectedColours, List<Material> selectedMaterials, List<Mesh> selectedMeshes, List<Texture> selectedTextures, bool confirm_start, bool display_random, bool target_random)
+        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float shape_display_time, float delay_time, List<Color> selectedColours, List<Material> selectedMaterials, List<Mesh> selectedMeshes, List<Texture> selectedTextures, bool confirm_start, bool display_random, bool target_random)
         {
             Block block = session.CreateBlock(trial_num);
 
@@ -80,7 +81,10 @@ namespace WorkingMemory
 
             block.settings.SetValue("option_num", option_num);
             block.settings.SetValue("target_num", target_num);
+            block.settings.SetValue("shape_display_time", shape_display_time);
             block.settings.SetValue("delay_time", delay_time);
+
+            //delay_time;
 
             block.settings.SetValue("confirm_start", confirm_start);
             
