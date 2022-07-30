@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: f3d3e0151b2387c4c8430225401b02bd, type: 3}
+  m_Texture: {fileID: 2800000, guid: 004f46e1d6ccae44c984f1156afa2523, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -108,4 +108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group: {fileID: 0}
   listPosition: 0
+  selected: 0
+  isTarget: 0
   buttonShape: {fileID: 8700538965285944551}

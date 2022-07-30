@@ -18,7 +18,7 @@ namespace WorkingMemory
 
         public RawImage buttonShape;
 
-        public (Texture, Color) textureColourCombo;
+        public (Texture, (Color, string)) textureColourCombo;
 
         private void Start() {
             Color currColour = buttonShape.color;
@@ -34,6 +34,9 @@ namespace WorkingMemory
                 //already selected and need to unselect
                 selected = !selected;
 
+                //remove from selected
+                group.selectedShapes.Remove(this);
+
                 Color currColour = buttonShape.color;
                 currColour.a = 1;
                 buttonShape.color = currColour;
@@ -47,6 +50,8 @@ namespace WorkingMemory
                 if (group.getSelectedSize() < group.targetNum)
                 {
                     selected = !selected;
+
+                    group.selectedShapes.Add(this);
 
                     Color currColour = buttonShape.color;
                     currColour.a = 0.5f;

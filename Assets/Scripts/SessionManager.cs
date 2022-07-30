@@ -43,7 +43,7 @@ namespace WorkingMemory
                 bool display_random;
                 bool target_random;
 
-                List<Color> selectedColours = dataObj.selectedColours;
+                List<(Color, string)> selectedColours = dataObj.selectedColours;
                 List<Material> selectedMaterials = dataObj.selectedMaterials;
 
                 List<Mesh> selectedMeshes = dataObj.selectedMeshes;
@@ -72,7 +72,7 @@ namespace WorkingMemory
             }
         }
 
-        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float shape_display_time, float delay_time, List<Color> selectedColours, List<Material> selectedMaterials, List<Mesh> selectedMeshes, List<Texture> selectedTextures, bool confirm_start, bool display_random, bool target_random)
+        private void makeBlock(Session session, int trial_num, string scene_type, string scene_name, int option_num, int target_num, string option_distro, float shape_display_time, float delay_time, List<(Color,string)> selectedColours, List<Material> selectedMaterials, List<Mesh> selectedMeshes, List<Texture> selectedTextures, bool confirm_start, bool display_random, bool target_random)
         {
             Block block = session.CreateBlock(trial_num);
 

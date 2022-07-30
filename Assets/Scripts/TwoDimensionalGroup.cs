@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using UXF;
+using UnityEngine.EventSystems;
 
 namespace WorkingMemory
 {
@@ -23,7 +24,7 @@ namespace WorkingMemory
         List<TwoDimensionalShape> targetShapes;
 
         List<Texture> selectedTextures;
-        List<Color> selectedColours;
+        List<(Color,string)> selectedColours;
 
         public GameObject targetShapePrefab;
         public GameObject optionShapePrefab;
@@ -52,6 +53,9 @@ namespace WorkingMemory
         private bool confirm_start;
 
         private bool startWaitToggle = false;
+
+        [HideInInspector]
+        public List<TwoDimensionalShape> selectedShapes;
             
 
         public IEnumerator CreateShapes(Trial trial)
@@ -79,19 +83,25 @@ namespace WorkingMemory
             }
             startButton.SetActive(false);
 
-            confirmButton.GetComponent<Button>().onClick.AddListener(delegate{Confirm();});
+            
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerClick;
+            entry.callback.AddListener( (eventData) => { Confirm(); } );
+            confirmButton.GetComponent<EventTrigger>().triggers.Add(entry);
 
             //meshes and materials passed by the user
             selectedTextures = (List<Texture>)trial.settings.GetObject("selected_textures");
-            selectedColours = (List<Color>)trial.settings.GetObject("selected_colours");
 
-            List <(Texture, Color)> possibleCombinations = new List <(Texture,Color)>();
+            //TODO:
+            selectedColours = (List<(Color,string)>)trial.settings.GetObject("selected_colours");
+
+            List <(Texture, (Color, string))> possibleCombinations = new List <(Texture,(Color, string))>();
             foreach(Texture textureItem in selectedTextures)
             {
-                foreach(Color colourItem in selectedColours)
+                foreach((Color colourItem, string colourName) in selectedColours)
                 {
                     // will hold all possible tuples of mesh and material
-                    possibleCombinations.Add((textureItem, colourItem));
+                    possibleCombinations.Add((textureItem, (colourItem, colourName)));
                 }
             }
 
@@ -115,15 +125,17 @@ namespace WorkingMemory
                 newShape.GetComponent<TwoDimensionalShape>().listPosition = i;
 
                 int removeIndex = UnityEngine.Random.Range(0, possibleCombinations.Count);
-                (Texture, Color) combo = possibleCombinations[removeIndex];
+                (Texture, (Color, string)) combo = possibleCombinations[removeIndex];
                 possibleCombinations.RemoveAt(removeIndex);
                 newShape.GetComponentInChildren<TwoDimensionalShape>().textureColourCombo = combo;
 
                 //set texture
-                newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = combo.Item1;;
+                newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = combo.Item1;
 
                 //Set colour
-                newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().color = combo.Item2;
+                newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().color = combo.Item2.Item1;
+
+                Debug.Log(combo.Item1.name + " " + combo.Item2.Item2);
             }
             // set grid to be invisible
             displayGridContainer.SetActive(false);
@@ -149,12 +161,12 @@ namespace WorkingMemory
                     newTargetObj.GetComponent<TwoDimensionalShape>().group = this;
 
                     //save its texture and colour, and index
-                    (Texture, Color) targetCombo  = optionShapes[possibleTargetIndex].textureColourCombo;
+                    (Texture, (Color, string)) targetCombo  = optionShapes[possibleTargetIndex].textureColourCombo;
                     newTargetObj.GetComponent<TwoDimensionalShape>().listPosition = possibleTargetIndex;
 
                     //Set texture and colours
                     newTargetObj.GetComponent<RawImage>().texture = targetCombo.Item1;
-                    newTargetObj.GetComponent<RawImage>().color = targetCombo.Item2;
+                    newTargetObj.GetComponent<RawImage>().color = targetCombo.Item2.Item1;
                 }
             }
 
@@ -183,6 +195,7 @@ namespace WorkingMemory
             trialEndTime = System.DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
     
+            // not really measuring mistakes
             int mistakes = 0;
             foreach (TwoDimensionalShape shape in optionShapes)
             {
@@ -192,6 +205,9 @@ namespace WorkingMemory
                     mistakes++;
                 }
             }
+
+            //TODO: if mistakes are greater than 0
+            // remember selectedShapes which has textureColourCombo which has name of colour
 
             Trial trial = Session.instance.CurrentTrial;
             trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
@@ -214,12 +230,7 @@ namespace WorkingMemory
 
         public int getSelectedSize()
         {
-            int counter = 0;
-            foreach (TwoDimensionalShape shape in optionShapes)
-            {
-                if (shape.selected) counter++;
-            }
-            return counter;
+            return selectedShapes.Count;
         }
 
         public bool getWaitBool()

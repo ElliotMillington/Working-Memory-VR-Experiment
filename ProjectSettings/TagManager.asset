@@ -16,6 +16,7 @@ TagManager:
   - startButton
   - textHolder
   - confirmButton
+  - confirmation_plane
   layers:
   - Default
   - TransparentFX

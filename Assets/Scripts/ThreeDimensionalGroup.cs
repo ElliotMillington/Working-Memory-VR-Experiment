@@ -20,11 +20,19 @@ namespace WorkingMemory
 
         GameObject roomObj;
 
+        GameObject confirmationObj;
+
+        public Material confirmationPlaneDefault;
+        public Material confirmationPlaneReady;
+
+
         GameObject targetGrid;
 
         GameObject displayGrid;
 
         public ThreeDimensionalShape optionPrefab;
+
+        
 
         public GameObject targetGridPrefab;
 
@@ -42,6 +50,8 @@ namespace WorkingMemory
         // passed for the trial from the panel
         List<Mesh> selectedMeshes;
         List<Material> selectedMaterials;
+        
+        public List<ThreeDimensionalShape> selectedShapes;
 
         public List<int> selectedIndexes;
 
@@ -57,6 +67,7 @@ namespace WorkingMemory
         private bool display_random;
         private bool target_random;
 
+        
 
         public int targetNum; 
 
@@ -76,6 +87,7 @@ namespace WorkingMemory
             targetStand = GameObject.FindGameObjectWithTag("stand");
             optionDisplay = GameObject.FindGameObjectWithTag("display");
             roomObj = GameObject.FindGameObjectWithTag("room");
+            confirmationObj = GameObject.FindGameObjectWithTag("confirmation_plane");
 
             targetGrid = GameObject.FindGameObjectWithTag("targetGrid");
             displayGrid = GameObject.FindGameObjectWithTag("displayGrid");
@@ -201,7 +213,6 @@ namespace WorkingMemory
 
                 //Set material
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<Renderer>().material = combo.Item2;
-
                 
                 //Hide shape until trial start
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = true;
@@ -262,23 +273,36 @@ namespace WorkingMemory
             //Show confirm button
         }
 
-        public void RegisterSelect(int index, bool selected)
+        public void RegisterSelect(ThreeDimensionalShape shape, int index, bool selected)
         {
             Debug.Log("Shape " + index + " was " + (selected==true? "selected.": "deselected."));
 
             if (selected==true)
             {
                 selectedIndexes.Add(index);
+                selectedShapes.Add(shape);
             }
             else
             {
                 selectedIndexes.Remove(index);
+                selectedShapes.Remove(shape);
+            }
+
+            //make ceiling green
+            if (selectedIndexes.Count == targetNum)
+            {
+                //make green
+                confirmationObj.GetComponentInChildren<Renderer>().material = confirmationPlaneReady;
+            }else
+            {
+                //else make grey
+                confirmationObj.GetComponentInChildren<Renderer>().material = confirmationPlaneDefault;
             }
         }
 
         public int getSelectedSize()
         {
-            return selectedIndexes.Count;
+            return selectedShapes.Count;
         }
 
         public void invertHandedness(String handedness)
@@ -297,6 +321,9 @@ namespace WorkingMemory
         {
             //If not in trial, do nothing
             if (!Session.instance.InTrial) return;
+
+            //need to have the right number to confirm
+            if(getSelectedSize() != targetNum) return;
 
             trialEndTime = System.DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;

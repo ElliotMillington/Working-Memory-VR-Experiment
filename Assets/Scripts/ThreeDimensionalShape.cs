@@ -83,7 +83,7 @@ namespace WorkingMemory {
                 if (selected)
                 {
                     //already selected and need to unselect
-                    group.RegisterSelect(listPosition, false);
+                    group.RegisterSelect(this, listPosition, false);
                     selected = !selected;
                     invertOutline(selected);
                 } else
@@ -94,7 +94,7 @@ namespace WorkingMemory {
 
                     if (group.getSelectedSize() < group.targetNum)
                     {
-                        group.RegisterSelect(listPosition, true);
+                        group.RegisterSelect(this, listPosition, true);
                         selected = !selected;
                         invertOutline(selected);
                     }

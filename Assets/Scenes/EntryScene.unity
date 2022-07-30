@@ -1859,7 +1859,7 @@ MonoBehaviour:
   - yellow
   targetNum: 0
   targetShapePrefab: {fileID: 8700538965285944545, guid: f1b8cd891cdd904489b7f3ba3caee120, type: 3}
-  optionShapePrefab: {fileID: 7494475344024024178, guid: 6031a80d83c2b2643a1edb212a7d24e3, type: 3}
+  optionShapePrefab: {fileID: 8650035356811404619, guid: 6031a80d83c2b2643a1edb212a7d24e3, type: 3}
   displayGridContainer: {fileID: 0}
   targetGridContainer: {fileID: 0}
   displayGrid: {fileID: 0}
@@ -1867,6 +1867,7 @@ MonoBehaviour:
   coverObj: {fileID: 0}
   startButton: {fileID: 0}
   confirmButton: {fileID: 0}
+  selectedShapes: []
 --- !u!4 &535844566
 Transform:
   m_ObjectHideFlags: 0
@@ -1893,6 +1894,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a5751d5232db94f91df7cf7c2b7407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  confirmationPlaneDefault: {fileID: 2100000, guid: 2bd9a60062e6e20499c6b13e5c4925d7, type: 2}
+  confirmationPlaneReady: {fileID: 2100000, guid: f631fe306a676d445bc41a0ee402f902, type: 2}
   optionPrefab: {fileID: 3304377847723472915, guid: 0c0b146cbc9223442b68aff5dbb3ed88, type: 3}
   targetGridPrefab: {fileID: 8090047928143706092, guid: 9a460eca67996cc4bb7a18adc834c359, type: 3}
   displayGridPrefab: {fileID: 1859669904074705234, guid: 87ec726d13888ae44becd5f851ae7934, type: 3}
@@ -1931,6 +1934,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d75ccd7877832ff4cb2ee6c0b74bb8f1, type: 2}
   - {fileID: 2100000, guid: 26f632a31867fd94eade5a9a2b2547d9, type: 2}
   - {fileID: 2100000, guid: f08dddb9bfc6f2c4d848b902c14369d9, type: 2}
+  selectedShapes: []
   selectedIndexes: 
   confirm_start: 0
   targetNum: 0

@@ -30,7 +30,7 @@ namespace WorkingMemory
         // Following taken from the TrialManager
         public List<Texture> selectedTextures;
 
-        public List<Color> selectedColours;
+        public List<(Color, string)> selectedColours;
 
         public List<Mesh> selectedMeshes; 
         public List<Material> selectedMaterials;
@@ -39,7 +39,7 @@ namespace WorkingMemory
         public List<Texture> allTextures;
         
         [HideInInspector]
-        public List<Color> allColours;
+        public List<(Color, string)> allColours;
 
         [HideInInspector]
         public List<Mesh> allMeshes; 
@@ -51,8 +51,17 @@ namespace WorkingMemory
 
             GameObject trialManager = GameObject.Find("TrialManager");
 
-            selectedColours = new List<Color>(trialManager.GetComponent<TwoDimensionalGroup>().possibleColours);
-            allColours = new List<Color>(trialManager.GetComponent<TwoDimensionalGroup>().possibleColours);
+            selectedColours = new List<(Color,string)>();
+            allColours = new List<(Color,string)>();
+
+            List<Color> colourList = new List<Color>(trialManager.GetComponent<TwoDimensionalGroup>().possibleColours);
+            List<string> stringList = new List<string>(trialManager.GetComponent<TwoDimensionalGroup>().colorNames);
+            for (int index = 0; index < colourList.Count; index++)
+            {
+                selectedColours.Add((colourList[index], stringList[index]));
+                allColours.Add((colourList[index], stringList[index]));
+            }
+            
 
             allTextures = new List<Texture> (trialManager.GetComponent<TwoDimensionalGroup>().possibleShapes);
             selectedTextures = new List<Texture> (trialManager.GetComponent<TwoDimensionalGroup>().possibleShapes);
@@ -132,11 +141,11 @@ namespace WorkingMemory
         {
             if (isAdded)
             {
-                selectedColours.Add(toggle.GetComponent<ColourToggle>().colour);
+                selectedColours.Add((toggle.GetComponent<ColourToggle>().colour, toggle.GetComponent<ColourToggle>().name));
                 selectedMaterials.Add(toggle.GetComponent<ColourToggle>().material);
             }
             else{
-                selectedColours.Remove(toggle.GetComponent<ColourToggle>().colour);
+                selectedColours.Remove((toggle.GetComponent<ColourToggle>().colour, toggle.GetComponent<ColourToggle>().name));
                 selectedMaterials.Remove(toggle.GetComponent<ColourToggle>().material);
             }
             this.gameObject.GetComponent<PanelObject>().checkValidity();
