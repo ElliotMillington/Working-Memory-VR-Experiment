@@ -330,19 +330,24 @@ namespace WorkingMemory
 
             Debug.Log("Selected shapes at end: " + String.Join(" ", selectedIndexes.ToArray()));
 
-            //reset 
-            selectedIndexes.Clear();
-            selectedShapes.Clear();
             
-            int mistakes = 0;
-            foreach (ThreeDimensionalShape shape in optionShapes)
+            List<ThreeDimensionalShape> wronglySelected = new List<ThreeDimensionalShape>();
+            List<ThreeDimensionalShape> correctlySelected = new List<ThreeDimensionalShape>();
+            foreach (ThreeDimensionalShape shape in selectedShapes)
             {
                 //if selected but not target
-                if (shape.selected && !shape.isTarget)
+                if (shape.isTarget)
                 {
-                    mistakes++;
+                    correctlySelected.Add(shape);
+                }else{
+                    wronglySelected.Add(shape);
                 }
             }
+
+            Debug.Log(shapesToString(targetShapes));
+            Debug.Log(shapesToString(selectedShapes));
+            Debug.Log(shapesToString(correctlySelected));
+            Debug.Log(shapesToString(wronglySelected));
 
             Trial trial = Session.instance.CurrentTrial;
             trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
@@ -358,10 +363,38 @@ namespace WorkingMemory
                 foreach (Transform child in displayGrid.transform) Destroy(child.gameObject);
             }
 
-            print("Trial took " + trialTime + " seconds. " + mistakes + " mistakes were made.");
+            //reset 
+            selectedIndexes.Clear();
+            selectedShapes.Clear();
+
+            print("Trial took " + trialTime + " seconds. ");
             Session.instance.CurrentTrial.End();
             Session.instance.Invoke("BeginNextTrialSafe", 5);
         }
+
+        public string shapesToString(List<ThreeDimensionalShape> shapes)
+        {
+            List<string> strings = new List<string>();
+            foreach (ThreeDimensionalShape shape in shapes)
+            {
+                char[] whole_shape_name = shape.meshMaterialCombo.Item1.name.ToCharArray();
+                char first_letter_shape = whole_shape_name[0].ToString().ToUpper()[0];
+                whole_shape_name[0] = first_letter_shape;
+
+                char[] whole_colour_name = shape.meshMaterialCombo.Item2.name.ToCharArray();
+                char first_letter_colour = whole_colour_name[0].ToString().ToUpper()[0];
+                whole_colour_name[0] = first_letter_colour;
+
+                string colourString = new string(whole_colour_name);
+                string shapeString = new string(whole_shape_name);
+
+                string newString = colourString + " " + shapeString;
+                strings.Add(newString); 
+            }
+
+            return String.Join(" | ", strings);
+        }
+
     }
 
 }
