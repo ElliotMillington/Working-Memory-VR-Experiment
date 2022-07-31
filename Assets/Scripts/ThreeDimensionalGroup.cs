@@ -359,12 +359,15 @@ namespace WorkingMemory
             string incorrect_shapes = shapesToString(wronglySelected);
             trial.result["Incorrectly_Selected_Shapes"] = incorrect_shapes;
 
+            trial.result["All_Correct"] =  (wronglySelected.Count == 0);
+
             //save another way 
             trial.settings.SetValue("total_time", total_time);
             trial.settings.SetValue("target_shapes", target_shapes);
             trial.settings.SetValue("selected_shapes", selected_shapes);
             trial.settings.SetValue("correct_shapes", correct_shapes);
-            trial.settings.SetValue("incorrect_shapes", incorrect_shapes);  
+            trial.settings.SetValue("incorrect_shapes", incorrect_shapes);
+            trial.settings.SetValue("all_correct", wronglySelected.Count==0);
 
             trial.settings.SetValue("dimension", 3);     
             trial.settings.SetValue("layout", option_string);  

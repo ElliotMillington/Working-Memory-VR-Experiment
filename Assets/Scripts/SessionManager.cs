@@ -166,7 +166,8 @@ namespace WorkingMemory
             surveyResponse.Add(("Target_Shapes", trial.settings.GetString("target_shapes")));
             surveyResponse.Add(("Participant_Selected_Shapes", trial.settings.GetString("selected_shapes")));
             surveyResponse.Add(("Correctly_Selected_Shapes", trial.settings.GetString("correct_shapes")));
-            surveyResponse.Add(("Incorrectly_Selected_Shapes", trial.settings.GetString("incorrect_shapes")));   
+            surveyResponse.Add(("Incorrectly_Selected_Shapes", trial.settings.GetString("incorrect_shapes")));  
+            surveyResponse.Add(("All_Correct", trial.settings.GetBool("all_correct")));   
 
             surveyResponse.Add(("Block_Number", trial.block.number));
             surveyResponse.Add(("Trial_Number", trial.numberInBlock));
@@ -181,7 +182,7 @@ namespace WorkingMemory
             // save output
             if (trial.block.lastTrial == trial)
             {
-                var headers = new string[]{ "Block_Number", "Trial_Number", "Dimension", "Layout", "Total_User_Time_Milliseconds", "Target_Shapes","Participant_Selected_Shapes", "Correctly_Selected_Shapes", "Incorrectly_Selected_Shapes"};
+                var headers = new string[]{ "Block_Number", "Trial_Number", "Dimension", "Layout", "Total_User_Time_Milliseconds", "Target_Shapes","Participant_Selected_Shapes", "Correctly_Selected_Shapes", "Incorrectly_Selected_Shapes", "All_Correct"};
                 var surveyData = new UXF.UXFDataTable(headers); 
                 foreach(UXFDataRow row in responses)
                 {

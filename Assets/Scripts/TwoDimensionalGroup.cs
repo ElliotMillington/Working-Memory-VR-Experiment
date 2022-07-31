@@ -241,6 +241,7 @@ namespace WorkingMemory
             trial.settings.SetValue("selected_shapes", selected_shapes);
             trial.settings.SetValue("correct_shapes", correct_shapes);
             trial.settings.SetValue("incorrect_shapes", incorrect_shapes); 
+            trial.settings.SetValue("all_correct", wronglySelected.Count==0);
 
             trial.settings.SetValue("dimension", 2);     
             trial.settings.SetValue("layout", "N/A"); 
