@@ -169,7 +169,6 @@ namespace WorkingMemory
                     //Set texture and colours
                     newTargetObj.GetComponent<RawImage>().texture = targetCombo.Item1;
                     newTargetObj.GetComponent<RawImage>().color = targetCombo.Item2.Item1;
-                    Debug.Log(targetCombo.Item2.Item2 + " " + targetCombo.Item1.name);
                 }
             }
 
@@ -215,23 +214,41 @@ namespace WorkingMemory
                     wronglySelected.Add(shape);
                 }
             }
-            
-            Debug.Log(shapesToString(targetShapes));
-            Debug.Log(shapesToString(selectedShapes));
-            Debug.Log(shapesToString(correctlySelected));
-            Debug.Log(shapesToString(wronglySelected));
+        
 
             Trial trial = Session.instance.CurrentTrial;
-            trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
+
+            //saved data one way
+            double total_time = (trialEndTime - trialStartTime).TotalMilliseconds;
+            trial.result["Total_User_Time_Milliseconds"] = total_time;
+
+            string target_shapes = shapesToString(targetShapes);
+            trial.result["Target_Shapes"] = target_shapes;
+
+            string selected_shapes = shapesToString(selectedShapes);
+            trial.result["Participant_Selected_Shapes"] = selected_shapes;
+
+            string correct_shapes = shapesToString(correctlySelected);
+            trial.result["Correctly_Selected_Shapes"] = correct_shapes;
+
+            string incorrect_shapes = shapesToString(wronglySelected);
+            trial.result["Incorrectly_Selected_Shapes"] = incorrect_shapes;
+
+
+            //save another way 
+            trial.settings.SetValue("total_time", total_time);
+            trial.settings.SetValue("target_shapes", target_shapes);
+            trial.settings.SetValue("selected_shapes", selected_shapes);
+            trial.settings.SetValue("correct_shapes", correct_shapes);
+            trial.settings.SetValue("incorrect_shapes", incorrect_shapes); 
+
+            trial.settings.SetValue("dimension", 2);     
+            trial.settings.SetValue("layout", "N/A"); 
 
             foreach (Transform child in targetGrid.transform) Destroy(child.gameObject);
             foreach (Transform child in displayGrid.transform) Destroy(child.gameObject);
 
             selectedShapes.Clear();
-
-            print("Trial took " + trialTime + " seconds. ");
-            Session.instance.CurrentTrial.End();
-            Session.instance.Invoke("BeginNextTrialSafe", 5);
 
             coverObj.SetActive(true);
             targetGrid.SetActive(true);
@@ -240,6 +257,21 @@ namespace WorkingMemory
             displayGridContainer.SetActive(true);
             startButton.SetActive(true);
             confirmButton.SetActive(true);
+
+            int numberOfBlocks = Session.instance.blocks.Count;
+            //if last trial in the block
+            if (Session.instance.CurrentTrial == Session.instance.CurrentBlock.lastTrial && Session.instance.blocks[numberOfBlocks-1] == Session.instance.CurrentBlock)
+            {
+                //if last trial in the block and this is the last block
+                Session.instance.CurrentTrial.End();
+                
+                Session.instance.End();
+                GameObject.Find("SessionManager").GetComponent<SessionManager>().moveToGUI(GameObject.Find("TrialManager"), GameObject.Find("[UXF_Rig]"));
+            }else{
+                //else there are more trials in the block to work through
+                Session.instance.CurrentTrial.End();
+                Session.instance.Invoke("BeginNextTrialSafe", 5);
+            }
         }
 
         public int getSelectedSize()

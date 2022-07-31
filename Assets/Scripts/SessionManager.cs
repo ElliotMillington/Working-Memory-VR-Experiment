@@ -151,44 +151,56 @@ namespace WorkingMemory
 
         public void CleanUpTrial(Trial trial)
         {
+            List<UXFDataRow> responses;
+            if (trial.numberInBlock == 1)
+            {
+                responses = new List<UXFDataRow>();
+            }else
+            {
+                responses = (List<UXFDataRow>)trial.block.settings.GetObject("response_list");
+            }
 
-
-
-            //Record results
-
-
-            /*
-            // ~ example show questions and get responses via the UI ~
-            string exampleQuestion1 = "How difficult was the task";
-            string exampleResponse1 = "Easy!";
-
-            string exampleQuestion2 = "How are you feeling today on a scale of 1-7";
-            int exampleResponse2 = 6;
-
-            // ~ example show questions and get responses via the UI ~
             
+            UXFDataRow surveyResponse = new UXF.UXFDataRow();
+            surveyResponse.Add(("Total_User_Time_Milliseconds", trial.settings.GetDouble("total_time")));
+            surveyResponse.Add(("Target_Shapes", trial.settings.GetString("target_shapes")));
+            surveyResponse.Add(("Participant_Selected_Shapes", trial.settings.GetString("selected_shapes")));
+            surveyResponse.Add(("Correctly_Selected_Shapes", trial.settings.GetString("correct_shapes")));
+            surveyResponse.Add(("Incorrectly_Selected_Shapes", trial.settings.GetString("incorrect_shapes")));   
 
-            // questions are headers
-            var headers = new string[]{ exampleQuestion1,  exampleQuestion2 };
-            var surveyData = new UXF.UXFDataTable(headers); 
+            surveyResponse.Add(("Block_Number", trial.block.number));
+            surveyResponse.Add(("Trial_Number", trial.numberInBlock));
+            surveyResponse.Add(("Dimension", trial.settings.GetInt("dimension")));
+            surveyResponse.Add(("Layout", trial.settings.GetString("layout")));
+        
 
-            // one row for the response (only 1 participant here!)
-            var surveyResponse = new UXF.UXFDataRow();
-            surveyResponse.Add((exampleQuestion1, exampleResponse1));
-            surveyResponse.Add((exampleQuestion2, exampleResponse2));
+            responses.Add(surveyResponse);
+            trial.block.settings.SetValue("response_list", responses);
 
-            surveyData.AddCompleteRow(surveyResponse);
 
             // save output
-            UXF.Session.instance.SaveDataTable(surveyData, "survey");
-        }
-            */
+            if (trial.block.lastTrial == trial)
+            {
+                var headers = new string[]{ "Block_Number", "Trial_Number", "Dimension", "Layout", "Total_User_Time_Milliseconds", "Target_Shapes","Participant_Selected_Shapes", "Correctly_Selected_Shapes", "Incorrectly_Selected_Shapes"};
+                var surveyData = new UXF.UXFDataTable(headers); 
+                foreach(UXFDataRow row in responses)
+                {
+                    surveyData.AddCompleteRow(row);
+                }
+                UXF.Session.instance.SaveDataTable(surveyData, "block_results" + trial.block.number);  
+            } 
         }
 
         [SerializeField]
-        private void moveToGUI()
+        public void moveToGUI(GameObject trialManager, GameObject rig)
         {
-            SceneManager.LoadScene("EntryScene");
+            AsyncOperation loadScene = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("EntryScene");
+                loadScene.completed += (op) => 
+                { 
+                    Destroy(trialManager);
+                    Destroy(rig);
+                    Destroy(this.gameObject);
+                };
         }
 
     }

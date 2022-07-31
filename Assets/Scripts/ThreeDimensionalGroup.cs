@@ -187,7 +187,6 @@ namespace WorkingMemory
                         break;
                     case "circular":
                         newShape.transform.SetParent(roomObj.transform, true);
-                        Debug.Log(newShape.transform.parent.name);
                         newShape.transform.localScale = new Vector3(1, 1, 1);
                         break;
                 }
@@ -275,8 +274,6 @@ namespace WorkingMemory
 
         public void RegisterSelect(ThreeDimensionalShape shape, int index, bool selected)
         {
-            Debug.Log("Shape " + index + " was " + (selected==true? "selected.": "deselected."));
-
             if (selected==true)
             {
                 selectedIndexes.Add(index);
@@ -327,10 +324,7 @@ namespace WorkingMemory
 
             trialEndTime = System.DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
-
-            Debug.Log("Selected shapes at end: " + String.Join(" ", selectedIndexes.ToArray()));
-
-            
+        
             List<ThreeDimensionalShape> wronglySelected = new List<ThreeDimensionalShape>();
             List<ThreeDimensionalShape> correctlySelected = new List<ThreeDimensionalShape>();
             foreach (ThreeDimensionalShape shape in selectedShapes)
@@ -344,13 +338,35 @@ namespace WorkingMemory
                 }
             }
 
-            Debug.Log(shapesToString(targetShapes));
-            Debug.Log(shapesToString(selectedShapes));
-            Debug.Log(shapesToString(correctlySelected));
-            Debug.Log(shapesToString(wronglySelected));
-
             Trial trial = Session.instance.CurrentTrial;
-            trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
+
+            //Store one way
+            double total_time = (trialEndTime - trialStartTime).TotalMilliseconds;
+            trial.result["Total_User_Time_Milliseconds"] = total_time;
+
+            string target_shapes = shapesToString(targetShapes);
+            trial.result["Target_Shapes"] = target_shapes;
+
+            string selected_shapes = shapesToString(selectedShapes);
+            trial.result["Participant_Selected_Shapes"] = selected_shapes;
+
+            string correct_shapes = shapesToString(correctlySelected);
+            trial.result["Correctly_Selected_Shapes"] = correct_shapes;
+
+            string incorrect_shapes = shapesToString(wronglySelected);
+            trial.result["Incorrectly_Selected_Shapes"] = incorrect_shapes;
+
+            //save another way 
+            trial.settings.SetValue("total_time", total_time);
+            trial.settings.SetValue("target_shapes", target_shapes);
+            trial.settings.SetValue("selected_shapes", selected_shapes);
+            trial.settings.SetValue("correct_shapes", correct_shapes);
+            trial.settings.SetValue("incorrect_shapes", incorrect_shapes);  
+
+            trial.settings.SetValue("dimension", 3);     
+            trial.settings.SetValue("layout", option_string);  
+
+
 
             foreach (Transform child in targetGrid.transform) Destroy(child.gameObject);
 
@@ -367,9 +383,21 @@ namespace WorkingMemory
             selectedIndexes.Clear();
             selectedShapes.Clear();
 
-            print("Trial took " + trialTime + " seconds. ");
-            Session.instance.CurrentTrial.End();
-            Session.instance.Invoke("BeginNextTrialSafe", 5);
+            int numberOfBlocks = Session.instance.blocks.Count;
+            //if last trial in the block
+            if (Session.instance.CurrentTrial == Session.instance.CurrentBlock.lastTrial && Session.instance.blocks[numberOfBlocks-1] == Session.instance.CurrentBlock)
+            {
+                //if last trial in the block and this is the last block
+                Session.instance.CurrentTrial.End();
+
+                //move to GUI Scene
+                Session.instance.End();
+                GameObject.Find("SessionManager").GetComponent<SessionManager>().moveToGUI(GameObject.Find("TrialManager"), GameObject.Find("[UXF_Rig]"));
+            }else{
+                //else there are more trials in the block to work through
+                Session.instance.CurrentTrial.End();
+                Session.instance.Invoke("BeginNextTrialSafe", 5);
+            }
         }
 
         public string shapesToString(List<ThreeDimensionalShape> shapes)
