@@ -58,6 +58,12 @@ namespace WorkingMemory
                     buttonShape.color = currColour;
                 }
             }
+            if (group.getSelectedSize() == group.targetNum)
+            {
+                group.confirmButton.GetComponent<Image>().color = group.confirmButtonReadyColour;
+            }else{
+                group.confirmButton.GetComponent<Image>().color = group.confirmButtonDefaultColour;
+            }
         }
     }
 }

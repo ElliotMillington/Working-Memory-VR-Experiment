@@ -1868,6 +1868,8 @@ MonoBehaviour:
   startButton: {fileID: 0}
   confirmButton: {fileID: 0}
   selectedShapes: []
+  confirmButtonDefaultColour: {r: 1, g: 1, b: 1, a: 0.14901961}
+  confirmButtonReadyColour: {r: 0.5176471, g: 0.78431374, b: 0.38039216, a: 1}
 --- !u!4 &535844566
 Transform:
   m_ObjectHideFlags: 0

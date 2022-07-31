@@ -56,6 +56,9 @@ namespace WorkingMemory
 
         [HideInInspector]
         public List<TwoDimensionalShape> selectedShapes;
+
+        public Color confirmButtonDefaultColour;
+        public Color confirmButtonReadyColour;
             
 
         public IEnumerator CreateShapes(Trial trial)
@@ -134,8 +137,6 @@ namespace WorkingMemory
 
                 //Set colour
                 newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().color = combo.Item2.Item1;
-
-                Debug.Log(combo.Item1.name + " " + combo.Item2.Item2);
             }
             // set grid to be invisible
             displayGridContainer.SetActive(false);
@@ -163,10 +164,12 @@ namespace WorkingMemory
                     //save its texture and colour, and index
                     (Texture, (Color, string)) targetCombo  = optionShapes[possibleTargetIndex].textureColourCombo;
                     newTargetObj.GetComponent<TwoDimensionalShape>().listPosition = possibleTargetIndex;
+                    newTargetObj.GetComponent<TwoDimensionalShape>().textureColourCombo = targetCombo;
 
                     //Set texture and colours
                     newTargetObj.GetComponent<RawImage>().texture = targetCombo.Item1;
                     newTargetObj.GetComponent<RawImage>().color = targetCombo.Item2.Item1;
+                    Debug.Log(targetCombo.Item2.Item2 + " " + targetCombo.Item1.name);
                 }
             }
 
@@ -192,22 +195,31 @@ namespace WorkingMemory
             //If not in trial, do nothing
             if (!Session.instance.InTrial) return;
 
+            if(getSelectedSize() != targetNum) return;
+
             trialEndTime = System.DateTime.Now;
             double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
+
+            confirmButton.GetComponent<Image>().color = confirmButtonDefaultColour;
     
-            // not really measuring mistakes
-            int mistakes = 0;
-            foreach (TwoDimensionalShape shape in optionShapes)
+            
+            List<TwoDimensionalShape> wronglySelected = new List<TwoDimensionalShape>();
+            List<TwoDimensionalShape> correctlySelected = new List<TwoDimensionalShape>();
+            foreach (TwoDimensionalShape shape in selectedShapes)
             {
                 //if selected but not target
-                if (shape.selected && !shape.isTarget)
+                if (shape.isTarget)
                 {
-                    mistakes++;
+                    correctlySelected.Add(shape);
+                }else{
+                    wronglySelected.Add(shape);
                 }
             }
-
-            //TODO: if mistakes are greater than 0
-            // remember selectedShapes which has textureColourCombo which has name of colour
+            
+            Debug.Log(shapesToString(targetShapes));
+            Debug.Log(shapesToString(selectedShapes));
+            Debug.Log(shapesToString(correctlySelected));
+            Debug.Log(shapesToString(wronglySelected));
 
             Trial trial = Session.instance.CurrentTrial;
             trial.result["Total_Time_Milliseconds"] = (trialEndTime - trialStartTime).TotalMilliseconds;
@@ -215,7 +227,9 @@ namespace WorkingMemory
             foreach (Transform child in targetGrid.transform) Destroy(child.gameObject);
             foreach (Transform child in displayGrid.transform) Destroy(child.gameObject);
 
-            print("Trial took " + trialTime + " seconds. " + mistakes + " mistakes were made.");
+            selectedShapes.Clear();
+
+            print("Trial took " + trialTime + " seconds. ");
             Session.instance.CurrentTrial.End();
             Session.instance.Invoke("BeginNextTrialSafe", 5);
 
@@ -241,6 +255,29 @@ namespace WorkingMemory
         public void toggleWait()
         {
             startWaitToggle = !startWaitToggle;
+        }
+
+        public string shapesToString(List<TwoDimensionalShape> shapes)
+        {
+            List<string> strings = new List<string>();
+            foreach (TwoDimensionalShape shape in shapes)
+            {
+                char[] whole_shape_name = shape.textureColourCombo.Item1.name.ToCharArray();
+                char first_letter_shape = whole_shape_name[0].ToString().ToUpper()[0];
+                whole_shape_name[0] = first_letter_shape;
+
+                char[] whole_colour_name = shape.textureColourCombo.Item2.Item2.ToCharArray();
+                char first_letter_colour = whole_colour_name[0].ToString().ToUpper()[0];
+                whole_colour_name[0] = first_letter_colour;
+
+                string colourString = new string(whole_colour_name);
+                string shapeString = new string(whole_shape_name);
+
+                string newString = colourString + " " + shapeString;
+                strings.Add(newString); 
+            }
+
+            return String.Join(" | ", strings);
         }
 
     }

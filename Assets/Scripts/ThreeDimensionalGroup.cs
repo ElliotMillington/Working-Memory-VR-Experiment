@@ -332,6 +332,7 @@ namespace WorkingMemory
 
             //reset 
             selectedIndexes.Clear();
+            selectedShapes.Clear();
             
             int mistakes = 0;
             foreach (ThreeDimensionalShape shape in optionShapes)

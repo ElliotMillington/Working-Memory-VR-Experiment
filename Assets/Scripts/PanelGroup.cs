@@ -61,17 +61,6 @@ public class PanelGroup : MonoBehaviour
     }
 
     
-    private void Update() {
-        if (!headsetOverwrite)
-        {
-            headsetActive = isPresent();
-        }else{
-            headsetActive = true;
-            VRErrorBadge.SetActive(false);
-        }
-    }
-   
-    
     private void Awake() {
         headsetActive = isPresent();
     }
@@ -283,7 +272,8 @@ public class PanelGroup : MonoBehaviour
     public void toggleVROverwite()
     {
         headsetOverwrite = !headsetOverwrite;
-        headsetActive = !headsetActive;
+        headsetActive = true;
+        VRErrorBadge.SetActive(false);
     }
 
     public void deleteAll()
