@@ -32,6 +32,7 @@ namespace WorkingMemory
 
         public ThreeDimensionalShape optionPrefab;
 
+
         
 
         public GameObject targetGridPrefab;
@@ -160,18 +161,20 @@ namespace WorkingMemory
             while (optionShapes.Count < optionNum)
             {
                 //new shape created, renamed and placed into list for grouping
+                
                 GameObject newDisplayObj = (GameObject) PrefabUtility.InstantiatePrefab(displayGridPrefab, displayGrid.transform);
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().name = "option_shape" + i;
                 optionShapes.Add(newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>());
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
                 newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = i;
 
-                if (display_random)
+                if (display_random && option_string == "grid")
                 {
-                    Vector3 scaleBefore = newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.localScale;
-                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.rotation = UnityEngine.Random.rotation;
-                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().transform.localScale = scaleBefore;
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().gameObject.transform.Rotate(new Vector3(UnityEngine.Random.Range(360f, 0f), 0f , 0f), Space.World);   
                 }
+            
+
+                
                 
           
 
@@ -266,7 +269,7 @@ namespace WorkingMemory
             yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
 
             foreach (ThreeDimensionalShape shape in optionShapes) shape.gameObject.SetActive(true);
-
+            
             //Start timing the trial
             trialStartTime = System.DateTime.Now;
             //Show confirm button
