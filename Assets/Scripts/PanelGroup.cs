@@ -166,6 +166,11 @@ public class PanelGroup : MonoBehaviour
         enforceTitle();
     }
 
+    public GameObject returnNewPanel()
+    {
+        return this.gameObject.GetChildren()[(this.transform.childCount)-2];
+    }
+
     public void createPositionalPanel(string prefabName, int pos)
     {
         GameObject newPanel = (GameObject) PrefabUtility.InstantiatePrefab(PanelPrefab, this.transform);

@@ -423,18 +423,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: setPaused
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &34015432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1901,7 +1889,6 @@ MonoBehaviour:
   optionPrefab: {fileID: 3304377847723472915, guid: 0c0b146cbc9223442b68aff5dbb3ed88, type: 3}
   targetGridPrefab: {fileID: 8090047928143706092, guid: 9a460eca67996cc4bb7a18adc834c359, type: 3}
   displayGridPrefab: {fileID: 1859669904074705234, guid: 87ec726d13888ae44becd5f851ae7934, type: 3}
-  randomDisplayPrefab: {fileID: 7548192369932596368, guid: d9fe83cc66180f0408834ffec9fe1aac, type: 3}
   possibleShapes:
   - {fileID: 4019234525060620036, guid: 1994e79804015a946908564683df43a4, type: 3}
   - {fileID: -3993405297179130717, guid: f1e6b474cb6f5d1438c9382d9e417084, type: 3}
