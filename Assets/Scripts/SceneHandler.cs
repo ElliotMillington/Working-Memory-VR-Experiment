@@ -23,19 +23,19 @@ public class SceneHandler : MonoBehaviour
     public void PointerClick(object sender, PointerEventArgs e)
     {
         //check not in the waiting phase
-        WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
+        ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<ThreeDimensionalGroup>();
 
         if (!script.confirm_start ||(script.confirm_start && script.startWaitToggle))
         {
             //shape selection
             if (e.target.name.Contains("option_shape"))
             {
-                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().OnMouseDown();
+                e.target.gameObject.GetComponent<ThreeDimensionalShape>().OnMouseDown();
             }else{
                 //confirmation selection
                 if (e.target.parent.name == "ConfirmationPlanes")
                 {
-                    GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().Confirm();
+                    GameObject.Find("TrialManager").GetComponent<ThreeDimensionalGroup>().Confirm();
                 }
             }
         }else{
@@ -48,20 +48,20 @@ public class SceneHandler : MonoBehaviour
     public void PointerInside(object sender, PointerEventArgs e)
     {
         //check not in the waiting phase
-        WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
+        ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<ThreeDimensionalGroup>();
         if (!script.confirm_start || (script.confirm_start && script.startWaitToggle))
         {
             if (e.target.name.Contains("option_shape"))
             {
-                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().invertHandedness(handedness);
-                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().LightUp();
+                e.target.gameObject.GetComponent<ThreeDimensionalShape>().invertHandedness(handedness);
+                e.target.gameObject.GetComponent<ThreeDimensionalShape>().LightUp();
             }else{
                 //confirmation selection
                 if (e.target.parent != null)
                 {
                     if (e.target.parent.name == "ConfirmationPlanes")
                     {
-                        GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+                        GameObject.Find("TrialManager").GetComponent<ThreeDimensionalGroup>().invertHandedness(handedness);
                     }
                 }
             }
@@ -71,21 +71,21 @@ public class SceneHandler : MonoBehaviour
     public void PointerOutside(object sender, PointerEventArgs e)
     {
         //check not in the waiting phase
-        WorkingMemory.ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>();
+        ThreeDimensionalGroup script = GameObject.Find("TrialManager").GetComponent<ThreeDimensionalGroup>();
         if (!script.confirm_start || (script.confirm_start && script.startWaitToggle))
         {
 
             if (e.target.name.Contains("option_shape"))
             {
-                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().invertHandedness(handedness);
-                e.target.gameObject.GetComponent<WorkingMemory.ThreeDimensionalShape>().LightDown();
+                e.target.gameObject.GetComponent<ThreeDimensionalShape>().invertHandedness(handedness);
+                e.target.gameObject.GetComponent<ThreeDimensionalShape>().LightDown();
             }else{
                 //confirmation selection
                 if (e.target.parent != null)
                 {
                     if (e.target.parent.name == "ConfirmationPlanes")
                     {
-                        GameObject.Find("TrialManager").GetComponent<WorkingMemory.ThreeDimensionalGroup>().invertHandedness(handedness);
+                        GameObject.Find("TrialManager").GetComponent<ThreeDimensionalGroup>().invertHandedness(handedness);
                     }
                 }
             }

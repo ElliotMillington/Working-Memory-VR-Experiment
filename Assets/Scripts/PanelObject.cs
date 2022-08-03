@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Collections;
+using UnityEditor;
 
-namespace WorkingMemory
-{
 public class PanelObject : MonoBehaviour
 {
 
@@ -246,6 +247,7 @@ public class PanelObject : MonoBehaviour
 
     public void checkValidity()
     {
+        if (groupScript == null) return;
         // check if cardinality of (Shapes X Colours) > Number of Display
         // check that all fields have a value (mainly input field for number of trials)
         int cardinality = (dataObject.selectedColours.Count * dataObject.selectedTextures.Count);
@@ -291,8 +293,7 @@ public class PanelObject : MonoBehaviour
             }   
         }
 
-        groupScript.allValid = groupScript.checkAllValid();
-
+        if (groupScript!=null) groupScript.allValid = groupScript.checkAllValid();
     }
 
     public void validMouseOver()
@@ -496,7 +497,7 @@ public class PanelObject : MonoBehaviour
             targetRandObj.SetActive(false);
         }
 
-        checkValidity();
+        if (groupScript != null) checkValidity();
     }
 
     public void setDimension(int newDimension)
@@ -545,20 +546,27 @@ public class PanelObject : MonoBehaviour
 
     public void duplicate()
     {
-        GameObject newObj = Instantiate(this.gameObject);
+        GameObject newObj = (GameObject) PrefabUtility.InstantiatePrefab(this.groupScript.PanelPrefab);
+        newObj.GetComponent<PanelData>().populateNew();
         newObj.transform.SetParent(this.gameObject.transform.parent);
         newObj.transform.SetSiblingIndex(this.gameObject.transform.GetSiblingIndex()+1);
         newObj.transform.localScale = new Vector3(1,1,1);
 
+        PanelData baseScript = this.gameObject.GetComponent<PanelData>();
+
         newObj.GetComponent<PanelObject>().groupScript = this.transform.GetComponentInParent<PanelGroup>();
         newObj.GetComponent<PanelObject>().duplicateMouseExit();
-        groupScript.duplationAtIndex(this.gameObject.transform.GetSiblingIndex(), newObj.GetComponent<PanelObject>());
+        groupScript.duplicationAtIndex(this.gameObject.transform.GetSiblingIndex(), newObj.GetComponent<PanelObject>());
+
+        StartCoroutine(newObj.GetComponent<PanelObject>().duplicateScript(baseScript));
     }
 
-    public void swapScripts(PanelData newDataScript)
+    public IEnumerator duplicateScript(PanelData newDataScript)
     {
         // change all values in the created scipt to reflect the passed script
         // also select those values in the appropriate part of the panel
+
+        yield return new WaitForSeconds(0.5f);
 
         //setting dimension
         setDimension(newDataScript.dimension);
@@ -601,8 +609,9 @@ public class PanelObject : MonoBehaviour
             colourToggle.isOn = false;
             foreach (Toggle toggle in colourToggles)
             {
-                toggle.gameObject.GetComponent<ColourToggle>().correctToggle(newDataScript);
+                toggle.gameObject.GetComponent<ColourToggle>().correctToggle(newDataScript.selectedColours);
             }
+            togglePanel(colourToggle, "colour");
         }
 
 
@@ -612,8 +621,9 @@ public class PanelObject : MonoBehaviour
             shapeToggle.isOn = false;
             foreach (Toggle toggle in shapeToggles)
             {
-                toggle.gameObject.GetComponent<ShapeToggle>().correctToggle(newDataScript);
+                toggle.gameObject.GetComponent<ShapeToggle>().correctToggle(newDataScript.selectedTextures);
             }
+            togglePanel(shapeToggle, "shape");
         }
 
         // set display time slider
@@ -630,6 +640,90 @@ public class PanelObject : MonoBehaviour
 
         //set displayRand toggle
         displayRandToggle.isOn = newDataScript.displayRand;
+
+
+    }
+
+    public IEnumerator swapScripts(int dimension, int numberOfTrials, int targetNum, int twoDisplayNum, int threeDisplayNum, string optionDistro, List<(Color, string)> selectedColours, List<Texture> selectedTextures, float shapeDisplayTime, float targetToDisplayDelay, bool confirmStart, bool targetRand, bool displayRand)
+    {
+        // change all values in the created scipt to reflect the passed script
+        // also select those values in the appropriate part of the panel
+
+        //setting dimension
+        setDimension(dimension);
+
+        //ensure correct options are displayed suitable to the dimension
+        if (dataObject.dimension == 2)
+        {   
+            threeDisplayObj.SetActive(false);
+            threeLayoutObj.SetActive(false);
+
+            twoDisplayObj.SetActive(true);
+        } 
+        else
+        {
+            twoDisplayObj.SetActive(false);
+
+            threeDisplayObj.SetActive(true);
+            threeLayoutObj.SetActive(true);
+        }
+
+        //settting trial number
+        trialInputField.SetTextWithoutNotify(numberOfTrials.ToString());
+        dataObject.numberOfTrials = numberOfTrials;
+
+        //setting target shape dropdown
+        selectDropdownValue(targetNumDrop, targetNum.ToString());
+
+        //setting target shape dropdown
+        selectDropdownValue(twoDisplayDrop, twoDisplayNum.ToString());
+
+        //setting target shape dropdown
+        selectDropdownValue(threeDisplayDrop, threeDisplayNum.ToString());
+
+        //setting optionDistro dropdown
+        selectDropdownValue(optionDistroDrop, optionDistro.ToString());
+
+        yield return new WaitForSeconds(0.5f);
+
+        // setting colours/Materials
+        if (selectedColours.Count < dataObject.allColours.Count)
+        {
+
+            colourToggle.isOn = false;
+            foreach (Toggle toggle in colourToggles)
+            {
+                toggle.gameObject.GetComponent<ColourToggle>().correctToggle(selectedColours);
+            }
+            togglePanel(colourToggle, "colour");
+        }
+
+        
+        // setting shapes
+        if (selectedTextures.Count < dataObject.allTextures.Count)
+        {
+            shapeToggle.isOn = false;
+            foreach (Toggle toggle in shapeToggles)
+            {
+                toggle.gameObject.GetComponent<ShapeToggle>().correctToggle(selectedTextures);
+            }
+            togglePanel(shapeToggle, "shape");
+        }
+
+        // set display time slider
+        displayTimeSlider.value = shapeDisplayTime;
+
+        // set display time slider
+        displayDelaySlider.value = targetToDisplayDelay;
+
+        //set confirm start toggle
+        confirmStartToggle.isOn = confirmStart;
+
+        //set tagetRand toggle
+        targetRandToggle.isOn = targetRand;
+
+        //set displayRand toggle
+        displayRandToggle.isOn = displayRand;
 
 
     }
@@ -669,5 +763,5 @@ public class PanelObject : MonoBehaviour
     }
 
 
-    }
 }
+

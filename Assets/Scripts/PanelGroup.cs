@@ -5,8 +5,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.XR;
 
-namespace WorkingMemory
-{
+
 public class PanelGroup : MonoBehaviour
 {
     [HideInInspector]
@@ -41,7 +40,7 @@ public class PanelGroup : MonoBehaviour
 
     public Color whiteColour;
 
-    public bool headsetActive;
+    public bool headsetActive = false;
 
     public GameObject VRErrorBadge;
 
@@ -123,6 +122,13 @@ public class PanelGroup : MonoBehaviour
             confirmSign.SetActive(false);
             duplicateSign.SetActive(false);
         }
+
+        
+        foreach (PanelObject panel in panelGroup)
+        {
+            panel.duplicateButton.SetActive(duplicate);
+        }
+    
 
     }
 
@@ -213,6 +219,8 @@ public class PanelGroup : MonoBehaviour
 
     public bool checkAllValid()
     {
+        if(panelGroup.Count ==0) return false;
+
         foreach (PanelObject obj in panelGroup){
             if (!obj.isValid)
             {
@@ -254,7 +262,7 @@ public class PanelGroup : MonoBehaviour
     }
 
 
-    public void duplationAtIndex(int index, PanelObject newObj)
+    public void duplicationAtIndex(int index, PanelObject newObj)
     {
         List<PanelObject> newGrouping = new List<PanelObject>();
         for(int i = 0; i < index; i++)
@@ -290,6 +298,48 @@ public class PanelGroup : MonoBehaviour
         panelGroup = new List<PanelObject>();
         enforceMove("enforce");
     }
-}
+
+    public IEnumerator loadPanalDataCollection(SaveData dataObj)
+    {
+        //delete what was there before
+        deleteAll();
+
+        List<PanelObject> panelObjCollection = new List<PanelObject>();
+        for (int counter = 0; counter < dataObj.panelDataCount; counter++)
+        {
+            createPanel();
+            GameObject createdPanel = returnNewPanel();
+
+            int dimension = dataObj.dimensionList[counter];
+            int numberOfTrials = dataObj.numberOfTrialsList[counter];
+            int targetNum = dataObj.targetNumList[counter];
+            int threeDisplayNum = dataObj.threeDisplayNumList[counter];
+            int twoDisplayNum = dataObj.twoDisplayNumList[counter];
+            string optionDistro = dataObj.optionDistroList[counter];
+            float shapeDisplayTime = dataObj.shapeDisplayTimeList[counter];
+            float targetToDisplayDelay = dataObj.targetToDisplayDelayList[counter];
+            bool confirmStart = dataObj.confirmStartList[counter];
+            bool targetRand = dataObj.targetRandList[counter];
+            bool displayRand = dataObj.displayRandList[counter];
+
+            PanelData panelDataScript = createdPanel.GetComponent<PanelData>();
+
+            panelObjCollection.Add(createdPanel.GetComponent<PanelObject>());
+            List<(Color,string)> selectedColours = panelDataScript.convertFromIndices(dataObj.selectedColoursIndexes[counter], panelDataScript.allColours);
+            List<Texture> selectedTextures = panelDataScript.convertFromIndices(dataObj.selectedTexturesIndexes[counter], panelDataScript.allTextures);
+
+            StartCoroutine(createdPanel.GetComponent<PanelObject>().swapScripts(dimension,numberOfTrials,targetNum,twoDisplayNum,threeDisplayNum,optionDistro,selectedColours,selectedTextures,shapeDisplayTime,targetToDisplayDelay,confirmStart,targetRand,displayRand));
+        }
+
+        foreach (PanelObject panelObjScript in panelObjCollection)
+        {
+            panelObjScript.checkValidity();
+        }
+
+        yield return new WaitForSeconds(0.5f); 
+        enforceTitle();
+        
+    }
+
 
 }
