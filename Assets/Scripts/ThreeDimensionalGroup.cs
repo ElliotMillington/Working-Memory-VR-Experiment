@@ -9,12 +9,14 @@ using UnityEditor;
 
 public class ThreeDimensionalGroup : MonoBehaviour
 {
+
+    float MAXIMUM_CIRCULAR_HEIGHT = -0.004f;
+    float MINIMUM_CIRCULAR_HEIGHT = 0.006f;
+
+    float RADIUS = 0.008f;
+
     //Shape Colour Variables
     GameObject targetStand;
-    float targetZRange = 0.5f;
-
-    float[] zPos;
-
     GameObject optionDisplay;
 
     GameObject roomObj;
@@ -124,103 +126,153 @@ public class ThreeDimensionalGroup : MonoBehaviour
             }
         }
 
-        /*
-        //Generate option positions
-        Vector3[] positions = new Vector3[optionNum];
-        switch (option_string)
-        {
-            case "grid":
-                int nrow = Convert.ToInt32(Math.Ceiling(Mathf.Sqrt(optionNum)));
-
-                List<float> posStep = new List<float>(new float [] {0.25f,0f,-0.25f});
-                for (int x = 0; x < positions.Length; x++)
-                {
-                    int row = x % nrow;
-                    int column = x / nrow;
-                    positions[x] = new Vector3(posStep[row], posStep[column], -0.1f);
-                }
-                break;
-            case "circular":
-                for (var y = 0; y < positions.Length; y++)      
-                {
-                    float radius = 0.008f;
-                    var angle = y * Mathf.PI * 2 / positions.Length;
-                    positions[y] = (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius) - new Vector3(0,0,-0.0035f);
-                }
-                break;
-        };
-        */
-
-
         //Set up option shapes.
         optionShapes = new List<ThreeDimensionalShape>();
         List<(Mesh, Material)> selectedCombinations = new List<(Mesh, Material)>();
+        int optionNumIndex = 0;
 
-        int i = 0;
-        while (optionShapes.Count < optionNum)
+        switch (option_string)
         {
-            //new shape created, renamed and placed into list for grouping
-            
-            GameObject newDisplayObj = (GameObject) PrefabUtility.InstantiatePrefab(displayGridPrefab, displayGrid.transform);
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().name = "option_shape" + i;
-            optionShapes.Add(newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>());
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = i;
+            case "grid":
 
-            if (display_random && option_string == "grid")
-            {
-                newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().gameObject.transform.Rotate(new Vector3(UnityEngine.Random.Range(360f, 0f), 0f , 0f), Space.World);   
-            }
+                while (optionShapes.Count < optionNum)
+                {
+                    //new shape created, renamed and placed into list for grouping
+                    
+                    GameObject newDisplayObj = (GameObject) PrefabUtility.InstantiatePrefab(displayGridPrefab, displayGrid.transform);
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().name = "option_shape" + optionNumIndex;
+                    optionShapes.Add(newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>());
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = optionNumIndex;
+
+                    if (display_random)
+                    {
+                        newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().gameObject.transform.Rotate(new Vector3(UnityEngine.Random.Range(360f, 0f), 0f , 0f), Space.World);   
+                    }
+                
+                    // pop random combination from the list and add to selected List for later
+                    int combinationIndex = UnityEngine.Random.Range(0, possibleCombinations.Count);
+                    (Mesh, Material) combo = possibleCombinations[combinationIndex];
+                    possibleCombinations.RemoveAt(combinationIndex);
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().meshMaterialCombo = combo;
+
+                    // add the removed options to add to display later
+                    selectedCombinations.Add(combo);
+
+                    //assign mesh and material to newShape
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<MeshFilter>().mesh = combo.Item1;
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<MeshCollider>().sharedMesh = combo.Item1;
+
+                    //Set material
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<Renderer>().material = combo.Item2;
+                    
+                    //Hide shape until trial start
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = true;
+                    newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().gameObject.SetActive(false);
+
+                    optionNumIndex++;
+                }
+                break;
+
+            case "circular":
+
+                List<(Vector3, Vector3)> positionsAndRotation = new List<(Vector3, Vector3)>();
+                int SQRT_OPTION = (int) Mathf.Sqrt((float)optionNum);
+
+                // gnerate heights of each ring
+                List<double> heights = new List<double>();
+                for (var heightIndex = 0; heightIndex < SQRT_OPTION; heightIndex++)
+                {
+                    float fraction = (heightIndex * 1.0f)/((SQRT_OPTION * 1.0f)-1);
+                    double value = Mathf.Lerp(MINIMUM_CIRCULAR_HEIGHT, MAXIMUM_CIRCULAR_HEIGHT, fraction);
+                    heights.Add(value);
+                }
+
+                //for each layer
+                foreach(float height in heights)
+                {
+                    bool isAlternate = heights.IndexOf(height) % 2 == 0;
+                    // for each shape in layer
+                    for (var y = 0; y < SQRT_OPTION; y++)      
+                    {
+                        var angle = (isAlternate ? y * Mathf.PI * 2 / SQRT_OPTION : (y * Mathf.PI * 2 / SQRT_OPTION) + (360/SQRT_OPTION*2));
+
+                        // TODO: make shape face the center
+                        Vector3 rotation = new Vector3(0,0,0);
+                        if (display_random)
+                        {
+                            rotation = new Vector3(UnityEngine.Random.Range(-180, 180), UnityEngine.Random.Range(-180, 180), UnityEngine.Random.Range(-180, 180));
+                        }else{
+                            if (Mathf.Sin(angle) > 0 && Mathf.Cos(angle) < 0){
+                                rotation = new Vector3(360 * Mathf.Sin(angle) + angle,0,0);
+                            }else if (Mathf.Sin(angle) > 0 && Mathf.Cos(angle) > 0) {
+                                rotation = new Vector3(0,0,0);
+                            }else if (Mathf.Sin(angle) < 0 && Mathf.Cos(angle) < 0) {
+                                rotation = new Vector3(0,0,0);
+                            }else if (Mathf.Sin(angle) < 0 && Mathf.Cos(angle) > 0) {
+                                rotation = new Vector3(0,0,0);
+                            }
+                        }
+                        
+                        Vector3 position = (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * RADIUS) - new Vector3(0,0, height);
+
+                        positionsAndRotation.Add((position, rotation));
+                    }
+                }
+
+                // create shapes
+                while (optionShapes.Count < optionNum)
+                {
+                    ThreeDimensionalShape newDisplayObj = Instantiate(optionPrefab);
+                    newDisplayObj.transform.SetParent(roomObj.transform, true);
+
+                    newDisplayObj.transform.localScale = new Vector3(1, 1, 1);
+                    newDisplayObj.name = "option_shape" + optionNumIndex;
+                    optionShapes.Add(newDisplayObj);
+                    newDisplayObj.group = this;
+                    newDisplayObj.listPosition = optionNumIndex;
+
+                    // pop random combination from the list and add to selected List for later
+                    int combinationIndex = UnityEngine.Random.Range(0, possibleCombinations.Count);
+                    (Mesh, Material) combo = possibleCombinations[combinationIndex];
+                    possibleCombinations.RemoveAt(combinationIndex);
+                    newDisplayObj.meshMaterialCombo = combo;
+
+                    //TODO: Set positioning
+                    int positionsAndRotationIndex = UnityEngine.Random.Range(0, positionsAndRotation.Count);
+                    (Vector3, Vector3) positionAndRotation = positionsAndRotation[positionsAndRotationIndex];
+                    positionsAndRotation.RemoveAt(positionsAndRotationIndex);
+
+                    newDisplayObj.transform.localPosition = positionAndRotation.Item1;
+                    newDisplayObj.transform.Rotate(positionAndRotation.Item2);
+
+
+                    // add the removed options to add to display later
+                    selectedCombinations.Add(combo);
+
+                    //assign mesh and material to newShape
+                    newDisplayObj.GetComponent<MeshFilter>().mesh = combo.Item1;
+                    newDisplayObj.GetComponent<MeshCollider>().sharedMesh = combo.Item1;
+
+                    //Set material
+                    newDisplayObj.GetComponent<Renderer>().material = combo.Item2;
+                    
+                    //Hide shape until trial start
+                    newDisplayObj.clickable = true;
+                    newDisplayObj.gameObject.SetActive(false);
+
+                    optionNumIndex++;
+
+
+                }
+
+                break;
+
+            default:
+                Debug.LogError(option_string + " is not a recognised shape layout.");
+                break;
+        }   
         
-
-            
-            
-        
-
-            //Set transform properties
-            // TODO: remove/edit as part of placement
-
-            /*
-            switch (option_string)
-            {
-                case "grid":
-                    newShape.transform.SetParent(optionDisplay.transform, true);
-                    newShape.transform.localScale = new Vector3(100, 100, 100);
-                    break;
-                case "circular":
-                    newShape.transform.SetParent(roomObj.transform, true);
-                    newShape.transform.localScale = new Vector3(1, 1, 1);
-                    break;
-            }
-            
-            newShape.transform.localPosition = positions[i];
-            newShape.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(-180, 180), 0));
-
-            */
-
-
-            // pop random combination from the list and add to selected List for later
-            int removeIndex = UnityEngine.Random.Range(0, possibleCombinations.Count);
-            (Mesh, Material) combo = possibleCombinations[removeIndex];
-            possibleCombinations.RemoveAt(removeIndex);
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().meshMaterialCombo = combo;
-
-            // add the removed options to add to display later
-            selectedCombinations.Add(combo);
-
-            //assign mesh and material to newShape
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<MeshFilter>().mesh = combo.Item1;
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<MeshCollider>().sharedMesh = combo.Item1;
-
-            //Set material
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().GetComponent<Renderer>().material = combo.Item2;
-            
-            //Hide shape until trial start
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = true;
-            newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().gameObject.SetActive(false);
-
-            i++;
-        }
 
 
         //Set up target shapes
@@ -257,6 +309,11 @@ public class ThreeDimensionalGroup : MonoBehaviour
                 newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().clickable = false;
             }
         }
+
+
+
+
+
 
         targetStand.SetActive(true);
 
