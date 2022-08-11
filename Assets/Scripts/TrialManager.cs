@@ -26,7 +26,6 @@ public class TrialManager : MonoBehaviour
     {
         StopAllCoroutines();
         print("Started trial");
-
         switch (trial.block.settings.GetString("scene_type"))
         {
             case "Three_Dimensional":
@@ -46,31 +45,8 @@ public class TrialManager : MonoBehaviour
     }
 
 
-    //Shape Colour block methods
-    public void ThreeDimensionalBlockSetUp(Block block)
+    public void exitGame()
     {
-        
-        
-    }
-
-    public void ThreeDimensionalCleanUp(Trial trial)
-    {
-
-    }
-
-    //Visual Search block methods
-    public void TwoDimensionalBlockSetUp(Block block)
-    {
-
-    }
-
-    public void TwoDimensionalTrialSetUp(Trial trial)
-    {
-
-    }
-
-    public void TwoDimensionalCleanUp(Trial trial)
-    {
-
+        Application.Quit();
     }
 }
