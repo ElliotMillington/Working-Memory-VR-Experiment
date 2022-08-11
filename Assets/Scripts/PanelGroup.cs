@@ -179,7 +179,7 @@ public class PanelGroup : MonoBehaviour
 
     public void createPositionalPanel(string prefabName, int pos)
     {
-        GameObject newPanel = (GameObject) PrefabUtility.InstantiatePrefab(PanelPrefab, this.transform);
+        GameObject newPanel = (GameObject) Instantiate(PanelPrefab, this.transform);
         newPanel.transform.localScale = new Vector3(1,1,1);
         newPanel.GetComponent<PanelData>().populateNew();
         newPanel.transform.SetSiblingIndex(pos);
