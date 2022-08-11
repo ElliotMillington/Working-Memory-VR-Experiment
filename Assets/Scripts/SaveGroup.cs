@@ -25,7 +25,7 @@ public class SaveGroup : MonoBehaviour
 
     public void createSavePanel()
     {
-        GameObject newPanel = (GameObject) PrefabUtility.InstantiatePrefab(SavePrefab, this.transform);
+        GameObject newPanel = (GameObject) Instantiate(SavePrefab, this.transform);
         newPanel.transform.SetSiblingIndex((this.transform.childCount)-2); 
     }
 

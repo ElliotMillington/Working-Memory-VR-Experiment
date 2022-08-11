@@ -143,7 +143,7 @@ public class ThreeDimensionalGroup : MonoBehaviour
                 {
                     //new shape created, renamed and placed into list for grouping
                     
-                    GameObject newDisplayObj = (GameObject) PrefabUtility.InstantiatePrefab(displayGridPrefab, displayGrid.transform);
+                    GameObject newDisplayObj = (GameObject) Instantiate(displayGridPrefab, displayGrid.transform);
                     newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().name = "option_shape" + optionNumIndex;
                     optionShapes.Add(newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>());
                     newDisplayObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
@@ -301,7 +301,7 @@ public class ThreeDimensionalGroup : MonoBehaviour
                 optionShapes[possibleTargetIndex].isTarget = true;
 
                 //create display shape
-                GameObject newTargetObj = (GameObject) PrefabUtility.InstantiatePrefab(targetGridPrefab, targetGrid.transform);
+                GameObject newTargetObj = (GameObject) Instantiate(targetGridPrefab, targetGrid.transform);
                 targetShapes.Add(newTargetObj.GetComponentInChildren<ThreeDimensionalShape>());
                 newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().group = this;
 

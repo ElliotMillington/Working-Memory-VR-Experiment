@@ -119,7 +119,7 @@ public class TwoDimensionalGroup : MonoBehaviour
 
         for (int i = 0; i < optionNum; i++)
         {
-            GameObject newShape = (GameObject) PrefabUtility.InstantiatePrefab(optionShapePrefab);
+            GameObject newShape = (GameObject) Instantiate(optionShapePrefab);
             newShape.transform.SetParent(displayGrid.transform, true);
             newShape.name = "option_shape" + i;
             optionShapes.Add(newShape.GetComponent<TwoDimensionalShape>());
@@ -155,8 +155,7 @@ public class TwoDimensionalGroup : MonoBehaviour
                 //make the option shape a target
                 optionShapes[possibleTargetIndex].isTarget = true;
 
-                GameObject newTargetObj = (GameObject) PrefabUtility.InstantiatePrefab(targetShapePrefab);
-                newTargetObj.transform.parent = targetGrid.transform;
+                GameObject newTargetObj = (GameObject) Instantiate(targetShapePrefab, targetGrid.transform);
                 targetShapes.Add(newTargetObj.GetComponent<TwoDimensionalShape>());
                 newTargetObj.GetComponent<TwoDimensionalShape>().group = this;
 

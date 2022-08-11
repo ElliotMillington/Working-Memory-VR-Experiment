@@ -539,9 +539,8 @@ public class PanelObject : MonoBehaviour
 
     public void duplicate()
     {
-        GameObject newObj = (GameObject) PrefabUtility.InstantiatePrefab(this.groupScript.PanelPrefab);
+        GameObject newObj = (GameObject) Instantiate(this.groupScript.PanelPrefab, this.gameObject.transform.parent);
         newObj.GetComponent<PanelData>().populateNew();
-        newObj.transform.SetParent(this.gameObject.transform.parent);
         newObj.transform.SetSiblingIndex(this.gameObject.transform.GetSiblingIndex()+1);
         newObj.transform.localScale = new Vector3(1,1,1);
 

@@ -160,7 +160,7 @@ public class PanelGroup : MonoBehaviour
 
     public void createPanel()
     {
-        GameObject newPanel = (GameObject) PrefabUtility.InstantiatePrefab(PanelPrefab, this.transform);
+        GameObject newPanel = (GameObject) Instantiate(PanelPrefab, this.transform);
         newPanel.GetComponent<PanelData>().populateNew();
         newPanel.transform.localScale = new Vector3(1,1,1);
         newPanel.transform.SetSiblingIndex((this.transform.childCount)-2);
