@@ -17,6 +17,8 @@ TagManager:
   - textHolder
   - confirmButton
   - confirmation_plane
+  - camera_rig
+  - look_at_object
   layers:
   - Default
   - TransparentFX

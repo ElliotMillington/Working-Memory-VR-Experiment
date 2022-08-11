@@ -158,13 +158,6 @@ public class PanelObject : MonoBehaviour
             simpleToggle(targetRandToggle, "targetRand");
             });
 
-
-        if (groupScript != null)
-        {   
-            //would be null if duplicated
-            checkValidity();
-        }
-
         if (dataObject.dimension == 2)
         {   
             threeDisplayObj.SetActive(false);
@@ -245,7 +238,7 @@ public class PanelObject : MonoBehaviour
         dimensionBadgeTitle.gameObject.SetActive(false);
     }
 
-    public void checkValidity()
+    public void checkValidity(string source)
     {
         if (groupScript == null) return;
         // check if cardinality of (Shapes X Colours) > Number of Display
@@ -293,7 +286,7 @@ public class PanelObject : MonoBehaviour
             }   
         }
 
-        if (groupScript!=null) groupScript.allValid = groupScript.checkAllValid();
+        if (source != "groupScript") groupScript.allValid = groupScript.checkAllValid();
     }
 
     public void validMouseOver()
@@ -497,7 +490,7 @@ public class PanelObject : MonoBehaviour
             targetRandObj.SetActive(false);
         }
 
-        if (groupScript != null) checkValidity();
+        if (groupScript != null) checkValidity("panelObjectScript");
     }
 
     public void setDimension(int newDimension)
@@ -641,7 +634,7 @@ public class PanelObject : MonoBehaviour
         //set displayRand toggle
         displayRandToggle.isOn = newDataScript.displayRand;
 
-
+        newDataScript.gameObject.GetComponent<PanelObject>().checkValidity("panelObjectScript");
     }
 
     public IEnumerator swapScripts(int dimension, int numberOfTrials, int targetNum, int twoDisplayNum, int threeDisplayNum, string optionDistro, List<(Color, string)> selectedColours, List<Texture> selectedTextures, float shapeDisplayTime, float targetToDisplayDelay, bool confirmStart, bool targetRand, bool displayRand)

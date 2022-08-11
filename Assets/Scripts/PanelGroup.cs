@@ -222,6 +222,7 @@ public class PanelGroup : MonoBehaviour
         if(panelGroup.Count ==0) return false;
 
         foreach (PanelObject obj in panelGroup){
+            obj.checkValidity("groupScript");
             if (!obj.isValid)
             {
                 return false;
@@ -285,8 +286,15 @@ public class PanelGroup : MonoBehaviour
     public void toggleVROverwite()
     {
         headsetOverwrite = !headsetOverwrite;
-        headsetActive = true;
-        VRErrorBadge.SetActive(false);
+
+        if (headsetOverwrite)
+        {
+            headsetActive = true;
+            VRErrorBadge.SetActive(false);
+        }else{
+            headsetActive = false;
+            VRErrorBadge.SetActive(true);
+        }
     }
 
     public void deleteAll()
@@ -333,7 +341,7 @@ public class PanelGroup : MonoBehaviour
 
         foreach (PanelObject panelObjScript in panelObjCollection)
         {
-            panelObjScript.checkValidity();
+            panelObjScript.checkValidity("groupScript");
         }
 
         yield return new WaitForSeconds(0.5f); 

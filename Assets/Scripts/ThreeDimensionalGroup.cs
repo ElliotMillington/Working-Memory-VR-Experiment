@@ -23,6 +23,8 @@ public class ThreeDimensionalGroup : MonoBehaviour
 
     GameObject confirmationObj;
 
+    GameObject lookAtObj;
+
     public Material confirmationPlaneDefault;
     public Material confirmationPlaneReady;
 
@@ -90,6 +92,8 @@ public class ThreeDimensionalGroup : MonoBehaviour
         optionDisplay = GameObject.FindGameObjectWithTag("display");
         roomObj = GameObject.FindGameObjectWithTag("room");
         confirmationObj = GameObject.FindGameObjectWithTag("confirmation_plane");
+
+        lookAtObj = GameObject.FindGameObjectWithTag("look_at_object");
 
         targetGrid = GameObject.FindGameObjectWithTag("targetGrid");
         displayGrid = GameObject.FindGameObjectWithTag("displayGrid");
@@ -201,7 +205,8 @@ public class ThreeDimensionalGroup : MonoBehaviour
                         Vector3 rotation = new Vector3(0,0,0);
                         if (display_random)
                         {
-                            rotation = new Vector3(UnityEngine.Random.Range(-180, 180), UnityEngine.Random.Range(-180, 180), UnityEngine.Random.Range(-180, 180));
+                            // this value will not be used but needs to be filled
+                            rotation = new Vector3(0,0,0);
                         }else{
                             if (Mathf.Sin(angle) > 0 && Mathf.Cos(angle) < 0){
                                 rotation = new Vector3(360 * Mathf.Sin(angle) + angle,0,0);
@@ -238,15 +243,20 @@ public class ThreeDimensionalGroup : MonoBehaviour
                     possibleCombinations.RemoveAt(combinationIndex);
                     newDisplayObj.meshMaterialCombo = combo;
 
-                    //TODO: Set positioning
                     int positionsAndRotationIndex = UnityEngine.Random.Range(0, positionsAndRotation.Count);
                     (Vector3, Vector3) positionAndRotation = positionsAndRotation[positionsAndRotationIndex];
                     positionsAndRotation.RemoveAt(positionsAndRotationIndex);
 
                     newDisplayObj.transform.localPosition = positionAndRotation.Item1;
-                    newDisplayObj.transform.Rotate(positionAndRotation.Item2);
-
-
+                    if(display_random){
+                        //if random then make random
+                        newDisplayObj.setRandomRotation();
+                    }else{
+                        // if not random look at camera rig
+                        newDisplayObj.transform.LookAt(lookAtObj.transform, Vector3.back);
+                        newDisplayObj.transform.Rotate(new Vector3(90,0,0));
+                    }
+                    
                     // add the removed options to add to display later
                     selectedCombinations.Add(combo);
 

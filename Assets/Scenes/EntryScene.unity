@@ -1083,12 +1083,12 @@ GameObject:
   - component: {fileID: 329067488}
   - component: {fileID: 329067487}
   m_Layer: 5
-  m_Name: Button
+  m_Name: HeadSetOverrideButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &329067486
 RectTransform:
   m_ObjectHideFlags: 0

@@ -108,7 +108,7 @@ public class PanelData : MonoBehaviour
     public void setTrialNum(Text textInput)
     {
         numberOfTrials = Convert.ToInt32(textInput.text);
-        this.gameObject.GetComponent<PanelObject>().checkValidity();
+        this.gameObject.GetComponent<PanelObject>().checkValidity("panelDataScript");
     }
 
     public void setTargetNum(Dropdown targetInput)
@@ -168,7 +168,7 @@ public class PanelData : MonoBehaviour
         selectedMeshes = new List<Mesh>();
 
     
-        this.gameObject.GetComponent<PanelObject>().checkValidity();
+        this.gameObject.GetComponent<PanelObject>().checkValidity("panelDataScript");
     }
 
     public void updateColour(Toggle toggle, bool isAdded)
@@ -185,7 +185,7 @@ public class PanelData : MonoBehaviour
             selectedColours.Remove((toggle.GetComponent<ColourToggle>().colour, toggle.GetComponent<ColourToggle>().name));
             selectedMaterials.Remove(toggle.GetComponent<ColourToggle>().material);
         }
-        this.gameObject.GetComponent<PanelObject>().checkValidity();
+        this.gameObject.GetComponent<PanelObject>().checkValidity("panelDataScript");
     }
 
     public void updateShape(Toggle toggle, bool isAdded)
@@ -203,7 +203,7 @@ public class PanelData : MonoBehaviour
             selectedMeshes.Remove(toggle.GetComponent<ShapeToggle>().mesh);
         }
 
-        this.gameObject.GetComponent<PanelObject>().checkValidity();
+        this.gameObject.GetComponent<PanelObject>().checkValidity("panelDataScript");
     }
 
     public void updateSliderValue(string name)

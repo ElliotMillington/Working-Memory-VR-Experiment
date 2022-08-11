@@ -2175,6 +2175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7624067574284492320}
   - component: {fileID: 3283056756734619722}
+  - component: {fileID: 3098981504095420312}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -2251,7 +2252,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 15
   m_WholeNumbers: 1
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2267,6 +2268,19 @@ MonoBehaviour:
           m_StringArgument: delay_time
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3098981504095420312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690772259823158025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85519ac35f0498a4fbfa9713c176179d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handleValue: {fileID: 534309624996103015}
 --- !u!1 &760385829847538362
 GameObject:
   m_ObjectHideFlags: 0
@@ -6937,6 +6951,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6155762360951560051}
   - component: {fileID: 7783286077478094932}
+  - component: {fileID: 703275090126345949}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -7013,7 +7028,7 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 15
   m_WholeNumbers: 1
-  m_Value: 1
+  m_Value: 3
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -7029,6 +7044,19 @@ MonoBehaviour:
           m_StringArgument: display_time
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &703275090126345949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2381417054681721150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85519ac35f0498a4fbfa9713c176179d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handleValue: {fileID: 2628289079903613164}
 --- !u!1 &2392533625047461875
 GameObject:
   m_ObjectHideFlags: 0
@@ -11479,7 +11507,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 10
 --- !u!1 &4038002847209396336
 GameObject:
   m_ObjectHideFlags: 0
@@ -23659,7 +23687,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 7
 --- !u!1 &8483041110187315890
 GameObject:
   m_ObjectHideFlags: 0
@@ -25031,8 +25059,8 @@ MonoBehaviour:
   threeDisplayNum: 0
   twoDisplayNum: 0
   optionDistro: 
-  shapeDisplayTime: 0
-  targetToDisplayDelay: 0
+  shapeDisplayTime: 7
+  targetToDisplayDelay: 10
   confirmStart: 0
   targetRand: 0
   displayRand: 0

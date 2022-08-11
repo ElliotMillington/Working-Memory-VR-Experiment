@@ -23,9 +23,11 @@ public class HeadsetBadge : MonoBehaviour
         if (script.headsetActive)
         {
             VRBadge.SetActive(false);
+            ErrorMessage.SetActive(false);
         }
         else{
             VRBadge.SetActive(true);
+            ErrorMessage.SetActive(false);
         }
     }
 
@@ -58,6 +60,7 @@ public class HeadsetBadge : MonoBehaviour
             StartCoroutine(showVRErrorText());
         }else{
             script.headsetActive = true;
+            script.checkAllValid();
         }
     }
 
@@ -69,7 +72,9 @@ public class HeadsetBadge : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         ErrorMessage.SetActive(false);
-        VRBadge.SetActive(true);
+        if(!script.headsetOverwrite){
+            VRBadge.SetActive(true);
+        }
         badgeMouseExit();
     }
 
