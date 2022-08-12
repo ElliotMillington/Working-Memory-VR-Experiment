@@ -110,6 +110,7 @@ public class PanelData : MonoBehaviour
         if (textInput.text == "")
         {
             numberOfTrials = 0;
+            this.gameObject.GetComponent<PanelObject>().checkValidity("panelDataScript");
             return;
         }
         numberOfTrials = Convert.ToInt32(textInput.text);

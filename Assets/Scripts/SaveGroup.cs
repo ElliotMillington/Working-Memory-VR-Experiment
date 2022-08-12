@@ -10,7 +10,10 @@ public class SaveGroup : MonoBehaviour
     public GameObject SavePrefab;
     private void Start()
     {
-        //TODO: get highest index of saved files and create that many save panels
+        //endure paths exits
+
+
+
         int highest = getHighestLoadoutNum();
         
         if (highest > 0 )
@@ -44,7 +47,8 @@ public class SaveGroup : MonoBehaviour
         // does not even have a save file folder so no save files
         if (!Directory.Exists(getPartialPath()))
         {
-            return 0;
+            //but make sure to create the directory for use
+            Directory.CreateDirectory(getPartialPath());
         }
 
         DirectoryInfo saveDirectory = new DirectoryInfo(getPartialPath());

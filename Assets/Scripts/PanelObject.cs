@@ -291,8 +291,6 @@ public class PanelObject : MonoBehaviour
         
         validPanel.SetActive(false);
 
-        Debug.Log("Activated");
-
         if (source != "groupScript") groupScript.allValid = groupScript.checkAllValid();
     }
 
@@ -724,7 +722,7 @@ public class PanelObject : MonoBehaviour
         //set displayRand toggle
         displayRandToggle.isOn = displayRand;
 
-
+        this.checkValidity("panelObjectScript");
     }
 
     public void selectDropdownValue(Dropdown dropdownToChange, string valueToFind)
