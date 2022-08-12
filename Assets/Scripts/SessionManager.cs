@@ -9,11 +9,73 @@ using UnityEngine.SceneManagement;
 public class SessionManager : MonoBehaviour
 {
 
+    public GameObject exitPanel;
+
     // Start is called before the first frame update.
     void Awake()
     {
         //This means that the object will persist between scenes.
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void Update()
+    {
+        // do nothing if escape key not pressed
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+
+        //check which scenes we are in
+
+        // if current scene is 2d or 3d then end UXF session and return to GUI scene
+        if (SceneManager.GetActiveScene().name == "Shapes_Colours_2d" || SceneManager.GetActiveScene().name == "Shapes_Colours_3d")
+        {
+            // end seesion if exists
+            if (Session.instance != null)
+            {
+                Session.instance.settings.SetValue("Escape", "esc");
+                Session.instance.End();
+            }
+
+            // move to GUI Scene
+            moveToGUI(GameObject.Find("TrialManager"), GameObject.Find("[UXF_Rig]"));
+            return;
+        }
+
+        if (SceneManager.GetActiveScene().name == "EntryScene")
+        {
+            // in entry scene
+
+            //find all panels in the scene
+
+
+            //load and save panel
+            GameObject save_panel = GameObject.FindGameObjectWithTag("Save_Panel");
+
+            //UXF panel
+            GameObject uxf_panel = GameObject.FindGameObjectWithTag("UXF_Panel");
+
+            //exit panel is passed in editor
+
+            // if any of the panels are open i.e not null then close all
+            if (save_panel != null || uxf_panel != null || exitPanel.active)
+            {
+                if (save_panel !=null) save_panel.SetActive(false);
+                if (uxf_panel != null) uxf_panel.SetActive(false);
+                exitPanel.SetActive(false);
+                return;
+            }
+            else
+            {
+                // else open the exit panel
+                exitPanel.SetActive(true);
+            }
+
+        }
+
+        
+        
+
+        //scene not found
+        return;
     }
 
     // Called for when session starts.
@@ -150,9 +212,29 @@ public class SessionManager : MonoBehaviour
 
     public void CleanUpTrial(Trial trial)
     {
+        List<UXFDataRow> responses;
+        // trial was escaped and ended
+        if (Session.instance.settings.ContainsKey("Escape"))
+        {
+            // save whateever data was collected in that time
+            if (trial.block.settings.ContainsKey("response_list"))
+            {
+                responses = (List<UXFDataRow>)trial.block.settings.GetObject("response_list");
+                var headers = new string[] { "Block_Number", "Trial_Number", "Dimension", "Layout", "Total_User_Time_Milliseconds", "Target_Shapes", "Participant_Selected_Shapes", "Correctly_Selected_Shapes", "Incorrectly_Selected_Shapes", "All_Correct" };
+                var surveyData = new UXF.UXFDataTable(headers);
+                foreach (UXFDataRow row in responses)
+                {
+                    surveyData.AddCompleteRow(row);
+                }
+                UXF.Session.instance.SaveDataTable(surveyData, "block_results" + trial.block.number);
+            }
+                
+         
+            return;
+        }
+
         print("End of trial");
 
-        List<UXFDataRow> responses;
         if (trial.numberInBlock == 1)
         {
             responses = new List<UXFDataRow>();

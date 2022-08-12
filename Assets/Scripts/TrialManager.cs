@@ -1,9 +1,11 @@
 using UnityEngine;
 using UXF;
+using UnityEngine.SceneManagement;
 
 public class TrialManager : MonoBehaviour
 {
 
+    
     void Awake()
     {
         //This means that the object will persist between scenes.
@@ -49,4 +51,5 @@ public class TrialManager : MonoBehaviour
     {
         Application.Quit();
     }
+
 }

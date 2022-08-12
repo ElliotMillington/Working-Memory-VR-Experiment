@@ -19,6 +19,9 @@ TagManager:
   - confirmation_plane
   - camera_rig
   - look_at_object
+  - UXF_Panel
+  - Save_Panel
+  - Exit_Panel
   layers:
   - Default
   - TransparentFX

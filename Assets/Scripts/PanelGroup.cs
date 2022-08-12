@@ -44,6 +44,8 @@ public class PanelGroup : MonoBehaviour
 
     public GameObject VRErrorBadge;
 
+    public HeadsetBadge headsetScript;
+
     public bool headsetOverwrite;
 
     private void Start() {
@@ -59,27 +61,6 @@ public class PanelGroup : MonoBehaviour
 
     }
 
-    
-    private void Awake() {
-        headsetActive = isPresent();
-    }
-
-    public bool isPresent()
-    {
-        var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-        SubsystemManager.GetInstances<XRDisplaySubsystem>(xrDisplaySubsystems);
-        foreach (var xrDisplay in xrDisplaySubsystems)
-        {
-            if (xrDisplay.running)
-            {
-                VRErrorBadge.SetActive(false);
-                return true;
-            }
-        }
-
-        VRErrorBadge.SetActive(true);
-        return false;
-    }
 
     public void enforceMove(string statement)
     {

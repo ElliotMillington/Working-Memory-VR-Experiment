@@ -394,7 +394,9 @@ public class ThreeDimensionalGroup : MonoBehaviour
 
         trialEndTime = System.DateTime.Now;
         double trialTime = (trialEndTime - trialStartTime).TotalSeconds;
-    
+
+        confirmationObj.GetComponentInChildren<Renderer>().material = confirmationPlaneDefault;
+
         List<ThreeDimensionalShape> wronglySelected = new List<ThreeDimensionalShape>();
         List<ThreeDimensionalShape> correctlySelected = new List<ThreeDimensionalShape>();
         foreach (ThreeDimensionalShape shape in selectedShapes)
@@ -468,7 +470,7 @@ public class ThreeDimensionalGroup : MonoBehaviour
         }else{
             //else there are more trials in the block to work through
             Session.instance.CurrentTrial.End();
-            Session.instance.Invoke("BeginNextTrialSafe", 5);
+            Session.instance.Invoke("BeginNextTrialSafe", 1);
         }
     }
 

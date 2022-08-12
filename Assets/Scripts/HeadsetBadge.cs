@@ -16,16 +16,20 @@ public class HeadsetBadge : MonoBehaviour
 
     public GameObject VRBadge;
     public GameObject ErrorMessage;
-    
+
+    public bool showingError;
+
     private void Start() {
+
         script = GameObject.FindGameObjectWithTag("panelGroup").GetComponent<PanelGroup>();
 
         if (script.headsetActive)
-        {
-            VRBadge.SetActive(false);
-            ErrorMessage.SetActive(false);
+        { 
+        VRBadge.SetActive(false);
+        ErrorMessage.SetActive(false);
         }
-        else{
+        else
+        {
             VRBadge.SetActive(true);
             ErrorMessage.SetActive(false);
         }
@@ -69,12 +73,15 @@ public class HeadsetBadge : MonoBehaviour
         ErrorMessage.SetActive(true);
         VRBadge.SetActive(false);
 
+        showingError = true;
+
         yield return new WaitForSeconds(5f);
 
         ErrorMessage.SetActive(false);
         if(!script.headsetOverwrite){
             VRBadge.SetActive(true);
         }
+        showingError = false;
         badgeMouseExit();
     }
 

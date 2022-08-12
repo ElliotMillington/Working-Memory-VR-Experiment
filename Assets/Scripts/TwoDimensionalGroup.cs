@@ -269,7 +269,7 @@ public class TwoDimensionalGroup : MonoBehaviour
         }else{
             //else there are more trials in the block to work through
             Session.instance.CurrentTrial.End();
-            Session.instance.Invoke("BeginNextTrialSafe", 5);
+            Session.instance.Invoke("BeginNextTrialSafe", 1);
         }
     }
 
