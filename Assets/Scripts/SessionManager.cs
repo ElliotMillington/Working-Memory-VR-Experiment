@@ -150,6 +150,8 @@ public class SessionManager : MonoBehaviour
 
     public void CleanUpTrial(Trial trial)
     {
+        print("End of trial");
+
         List<UXFDataRow> responses;
         if (trial.numberInBlock == 1)
         {

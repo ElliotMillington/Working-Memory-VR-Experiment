@@ -308,6 +308,7 @@ public class ThreeDimensionalGroup : MonoBehaviour
                 //save its mesh and material, and index
                 (Mesh, Material) targetCombo  = optionShapes[possibleTargetIndex].meshMaterialCombo;
                 newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().listPosition = possibleTargetIndex;
+                newTargetObj.GetComponentInChildren<ThreeDimensionalShape>().meshMaterialCombo = targetCombo;
 
                 //Set mesh
                 newTargetObj.GetComponentInChildren<MeshFilter>().mesh = targetCombo.Item1;
@@ -442,7 +443,6 @@ public class ThreeDimensionalGroup : MonoBehaviour
 
         foreach (Transform child in targetGrid.transform) Destroy(child.gameObject);
 
-        //TODO: Need to change this for circular
         if (option_string != "grid")
         {
             foreach (Transform child in roomObj.transform) if (child.name != "ConfirmationPlanes") Destroy(child.gameObject);

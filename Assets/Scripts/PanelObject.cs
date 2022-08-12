@@ -249,42 +249,49 @@ public class PanelObject : MonoBehaviour
 
         bool isDimenaionCompatible = (dataObject.dimension == 3 && !groupScript.headsetActive ? false : true);
 
-        if (cardinality >= dimensionalDisplay && dataObject.numberOfTrials > 0 && isDimenaionCompatible)
+        isValid = true;
+        
+        if (!(cardinality >= dimensionalDisplay))
         {
-            isValid = true;
+            isValid = false;
+            shapeAndColourReason.SetActive(true);
+        }else{
+            shapeAndColourReason.SetActive(false);
+        }
+
+        if (!(dataObject.numberOfTrials > 0))
+        {
+            isValid = false;
+            trialNumReason.SetActive(true);
+        }else{
+            trialNumReason.SetActive(false);
+        }
+
+        if(!isDimenaionCompatible)
+        {
+            isValid = false;
+            vrReason.SetActive(true);
+        }else{
+            vrReason.SetActive(false);
+        }   
+
+        if(isValid)
+        {
             validIcon.GetComponent<RawImage>().color = validTrialColour;
             validIcon.GetComponent<RawImage>().texture = validTrialTexture;
 
             validText.GetComponent<Text>().text = "Valid Trial";
-            validPanel.SetActive(false);
-        }else{
-            isValid = false;
+        }
+        else
+        {
             validIcon.GetComponent<RawImage>().color = invalidTrialColour;
             validIcon.GetComponent<RawImage>().texture = invalidTrialTexture;
-
             validText.GetComponent<Text>().text = "Invalid Trial";
-
-            if (!(cardinality >= dimensionalDisplay))
-            {
-                shapeAndColourReason.SetActive(true);
-            }else{
-                shapeAndColourReason.SetActive(false);
-            }
-
-            if (!(dataObject.numberOfTrials > 0))
-            {
-                trialNumReason.SetActive(true);
-            }else{
-                trialNumReason.SetActive(false);
-            }
-
-            if(!isDimenaionCompatible)
-            {
-                vrReason.SetActive(true);
-            }else{
-                vrReason.SetActive(false);
-            }   
         }
+        
+        validPanel.SetActive(false);
+
+        Debug.Log("Activated");
 
         if (source != "groupScript") groupScript.allValid = groupScript.checkAllValid();
     }

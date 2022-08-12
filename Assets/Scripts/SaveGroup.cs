@@ -44,7 +44,6 @@ public class SaveGroup : MonoBehaviour
         // does not even have a save file folder so no save files
         if (!Directory.Exists(getPartialPath()))
         {
-            Debug.Log("Got here!");
             return 0;
         }
 
