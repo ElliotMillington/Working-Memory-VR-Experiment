@@ -190,7 +190,7 @@ public class PanelObject : MonoBehaviour
         {
             dimensionBadgeObj.GetComponent<RawImage>().color = invertEnabledColour;
             dimensionBadgeTitle.text = (groupScript.headsetActive ? "Invert" : "Invert for Validity");
-            dimensionBadgeTitle.fontSize = (groupScript.headsetActive ? 14 : 12);
+            dimensionBadgeTitle.fontSize = (groupScript.headsetActive ? 28 : 24);
 
             dimensionBadgeTitle.gameObject.SetActive(true);
         }else{
@@ -199,14 +199,14 @@ public class PanelObject : MonoBehaviour
             {
                 dimensionBadgeObj.GetComponent<RawImage>().color = invertEnabledColour;
                 dimensionBadgeTitle.text = "Invert";
-                dimensionBadgeTitle.fontSize = 14;
+                dimensionBadgeTitle.fontSize = 28;
 
                 dimensionBadgeTitle.gameObject.SetActive(true);
             }else
             {
                 dimensionBadgeObj.GetComponent<RawImage>().color = invalidTrialColour;
                 dimensionBadgeTitle.text = "Connect VR to enable 3D.";
-                dimensionBadgeTitle.fontSize = 10;
+                dimensionBadgeTitle.fontSize = 20;
 
                 dimensionBadgeTitle.gameObject.SetActive(true);
             }
@@ -222,7 +222,7 @@ public class PanelObject : MonoBehaviour
             {
                 dimensionBadgeObj.GetComponent<RawImage>().color = invalidTrialColour;
                 dimensionBadgeTitle.text = "Connect VR to enable 3D.";
-                dimensionBadgeTitle.fontSize = 10;
+                dimensionBadgeTitle.fontSize = 20;
             }
         }else{
             if (groupScript.headsetActive)
