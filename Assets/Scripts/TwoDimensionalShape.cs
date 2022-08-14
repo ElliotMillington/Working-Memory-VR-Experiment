@@ -13,18 +13,10 @@ public class TwoDimensionalShape : MonoBehaviour
     public bool selected = false;
 
     public bool isTarget = false;
-
-    public RawImage buttonShape;
+    public RawImage selectedImage;
 
     public (Texture, (Color, string)) textureColourCombo;
 
-    private void Start() {
-        Color currColour = buttonShape.color;
-        currColour.a = 1;
-        buttonShape.color = currColour;
-    }
-
-    
     public  void OnMouseDown()
     {
         if (selected)
@@ -35,9 +27,10 @@ public class TwoDimensionalShape : MonoBehaviour
             //remove from selected
             group.selectedShapes.Remove(this);
 
-            Color currColour = buttonShape.color;
-            currColour.a = 1;
-            buttonShape.color = currColour;
+            // need to make its alpha zero
+            Color selectedImageColor = selectedImage.color;
+            selectedImageColor.a = 0;
+            selectedImage.color = selectedImageColor;
             
         } else
         {
@@ -51,9 +44,10 @@ public class TwoDimensionalShape : MonoBehaviour
 
                 group.selectedShapes.Add(this);
 
-                Color currColour = buttonShape.color;
-                currColour.a = 0.5f;
-                buttonShape.color = currColour;
+                //need to make selected shape visible visible
+                Color selectedImageColor = selectedImage.color;
+                selectedImageColor.a = 0.5f;
+                selectedImage.color = selectedImageColor;
             }
         }
         if (group.getSelectedSize() == group.targetNum)

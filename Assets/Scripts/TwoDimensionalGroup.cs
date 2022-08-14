@@ -93,8 +93,6 @@ public class TwoDimensionalGroup : MonoBehaviour
 
         //meshes and materials passed by the user
         selectedTextures = (List<Texture>)trial.settings.GetObject("selected_textures");
-
-        //TODO:
         selectedColours = (List<(Color,string)>)trial.settings.GetObject("selected_colours");
 
         List <(Texture, (Color, string))> possibleCombinations = new List <(Texture,(Color, string))>();
@@ -131,11 +129,11 @@ public class TwoDimensionalGroup : MonoBehaviour
             possibleCombinations.RemoveAt(removeIndex);
             newShape.GetComponentInChildren<TwoDimensionalShape>().textureColourCombo = combo;
 
-            //set texture
-            newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().texture = combo.Item1;
+            //set texture of shape
+            newShape.transform.GetChild(0).GetChild(0).gameObject.GetComponent<RawImage>().texture = combo.Item1;
 
             //Set colour
-            newShape.transform.GetChild(0).gameObject.GetComponent<RawImage>().color = combo.Item2.Item1;
+            newShape.transform.GetChild(0).GetChild(0).gameObject.GetComponent<RawImage>().color = combo.Item2.Item1;
         }
         // set grid to be invisible
         displayGridContainer.SetActive(false);
