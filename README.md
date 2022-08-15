@@ -4,7 +4,7 @@ This project
 
 ## System Requiremnts
 
-<img align="center" src= "https://user-images.githubusercontent.com/60265517/184690226-68fa930b-4cad-461b-896f-e15aed7ca23c.jpg">
+<img align="center" width="300" height="300" src= "https://user-images.githubusercontent.com/60265517/184690226-68fa930b-4cad-461b-896f-e15aed7ca23c.jpg">
 
 ## Variables
 
