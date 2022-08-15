@@ -116,6 +116,12 @@ public class ThreeDimensionalGroup : MonoBehaviour
             if (startText != null) startText.SetActive(false);
         }
 
+        if (option_string != "grid")
+        {
+            GameObject wallObj = GameObject.FindGameObjectWithTag("wall");
+            if (wallObj != null)wallObj.SetActive(false);
+        }
+
         //meshes and materials passed by the user
         selectedMeshes = (List<Mesh>)trial.settings.GetObject("selected_meshes");
         selectedMaterials = (List<Material>)trial.settings.GetObject("selected_materials");

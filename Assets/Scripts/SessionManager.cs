@@ -189,20 +189,6 @@ public class SessionManager : MonoBehaviour
             manager.BlockSetUp(trial.block);
         }
         manager.TrialSetUp(trial);
-
-        string scene_type = trial.settings.GetString("scene_type");
-
-        if (scene_type != "Two_Dimensional")
-        {
-            string option_string = trial.settings.GetString("option_distro").ToLower();
-            
-            if(option_string != "grid")
-            {
-                GameObject wallObj = GameObject.FindGameObjectWithTag("wall");
-                wallObj.SetActive(false);
-            }
-        }
-        
     }
 
     public void SceneSpecificClean(Trial trial)
