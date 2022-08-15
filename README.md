@@ -17,7 +17,7 @@ This project
 ## Acknowledgements
 
 Unity Development:
-<a href="https://github.com/AndrewParker770">Andrew Parker</a>
+<a href="https://github.com/AndrewParker770">Andrew Parker</a> <br/>
 <a href="https://github.com/ElliotMillington">Elliot Millington</a>
 
 Project Researcher:
