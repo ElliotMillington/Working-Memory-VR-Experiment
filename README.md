@@ -27,7 +27,7 @@ This project
 <ul>
   <li>For a user to confirm their input in any trial the number of user selected shapes <i>must</i> match the number of target shapes. </li>
   <li>For a user to confirm their input within any virtual reality space, they must perform the confirmation gesture. This is simply to point their controller towards the ceiling and click their controller. This area will chnage colour to indicate that confirmation is valid.</li>
-<ul>
+</ul>
 
 ### Design Limiations
 Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function other.
