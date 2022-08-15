@@ -39,10 +39,51 @@ This project
       <td>Number of trials</td>
       <td>The number of trials determines the number of times a single test condtion will be repeated by the user.</td>
     </tr>
+    <tr>
+      <tr>
+      <td>Layout</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Number of Target Shapes</td>
+      <td>This is the number of shapes the user will need to memorise to later select within the given number of display shapes. By default, values can be 1, 3, and 5.</td>
+    </tr>
+    <tr>
+      <td>Number of Display Shapes</td>
+      <td>This is the total number of the shapes from which the user must select the target shapes they were previously shown. By default, values can be 9, 16, 25. </td>
+    </tr>
+    <tr>
+      <td>Colours</td>
+      <td>This determines the range of colours that all objects in a block can be. There are total of 8 different colours.</td>
+    </tr>
+    <tr>
+      <td>Shapes</td>
+      <td>This determines the range of shapes that all objects in a block can be. There are total of 25 different shapes.</td>
+    </tr>
+    <tr>
+      <td>Target Display Time</td>
+      <td>This is the time in which users will be able to memorise the target shapes. By default, can be between 1 and 15 seconds. </td>
+    </tr>
+    <tr>
+      <td>Time until Display</td>
+      <td>This is the time between target shapes disappearing and for the display shapes, from which the user must select, to appear. By default, can be between 0 and 15 seconds. </td>
+    </tr>
+    <tr>
+      <td>Start Confirmation</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Target Shape Rotation</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Display Shape Rotation</td>
+      <td></td>
+    </tr>
   </table>
 </p>
   
-  
+Note there is also a 3 second delay between trails to ensure each trial is set up correctly.
 
 
 ### Panel Validity
