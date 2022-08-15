@@ -325,6 +325,7 @@ public class PanelObject : MonoBehaviour
 
     public void validMouseDown()
     {
+        checkValidity("panelObjectScript");
         if (!isValid)
         {
             validPanel.SetActive(true);

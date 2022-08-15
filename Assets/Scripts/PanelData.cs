@@ -86,6 +86,8 @@ public class PanelData : MonoBehaviour
         confirmStart = this.gameObject.GetComponent<PanelObject>().confirmStartToggle.isOn;
         targetRand = this.gameObject.GetComponent<PanelObject>().targetRandToggle.isOn;
         displayRand = this.gameObject.GetComponent<PanelObject>().displayRandToggle.isOn;
+
+        this.gameObject.GetComponent<PanelObject>().checkValidity("panelDataScript");
     }
 
     public void getFullLists()
