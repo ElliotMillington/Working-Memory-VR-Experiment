@@ -16,9 +16,9 @@ This project
 
 ## Acknowledgements
 
-Unity Development:
+Unity Development: <br/>
 <a href="https://github.com/AndrewParker770">Andrew Parker</a> <br/>
-<a href="https://github.com/ElliotMillington">Elliot Millington</a>
+<a href="https://github.com/ElliotMillington">Elliot Millington</a> <br/>
 
-Project Researcher:
+Project Researcher: <br/>
 Sarune Savickaite
