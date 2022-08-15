@@ -1,6 +1,6 @@
 # Working-Memory-VR-Experiment
 
-This project 
+This project
 
 ## System Requiremnts
 
@@ -20,7 +20,7 @@ This project
 
 ## Variables
 <p>
-  For the purposes of the next section, a trial is an instance of a block and a block is a collection of trials which all share the same test conditions.
+  For the purposes of the next section, a trial is an instance of a blocka, and a block is a collection of trials which all share the same test conditions.
 </p>
 <p>
   The following are a list of variables which may be manipulated by the user for a given experiment:
@@ -42,7 +42,7 @@ This project
     <tr>
       <tr>
       <td>Layout</td>
-      <td></td>
+      <td>This variable only affects blocks which are in 3 dimensions. By default, this can either be 'grid', which arranges shape objects in a grid pattern in front of the user, or 'circular', which arranges the shape objects around the user.</td>
     </tr>
     <tr>
       <td>Number of Target Shapes</td>
@@ -70,15 +70,15 @@ This project
     </tr>
     <tr>
       <td>Start Confirmation</td>
-      <td></td>
+      <td>A boolean value indicating if the first trial of each new block should wait for confirmation that the user is ready to begin the next block.</td>
     </tr>
     <tr>
-      <td>Target Shape Rotation</td>
-      <td></td>
+      <td>Random Target Shape Rotation</td>
+      <td>A boolean value indicating if the target shapes should be shown to the user in a random configuarion. This option is only avaible for blocks in 3 dimension.</td>
     </tr>
     <tr>
-      <td>Display Shape Rotation</td>
-      <td></td>
+      <td>Random Display Shape Rotation</td>
+      <td>A boolean value indicating if the display shapes should be shown to the user in a random configuarion. This option is only avaible for blocks in 3 dimension.</td>
     </tr>
   </table>
 </p>
@@ -87,9 +87,65 @@ Note there is also a 3 second delay between trails to ensure each trial is set u
 
 
 ### Panel Validity
-There are a number of contraints placed upon a trial for it to be valid.
+There are a number of contraints placed upon a trial for it to be valid. Each panel has an indicator denoting its current validity status. When a panel is invalid this indicator can be clicked to open a panel holding the reasons that make the panel invalid and how to resolve them. These constraints include:
+<ul>
+  <li> </li>
+  <li> </li>
+  <li> </li>
+</ul>
 
 ## Output
+
+'othersessiondata' which will hold the following information for each trial of a given session.<br>
+<p>
+  <table>
+    <tr>
+      <th>Result Collected</th>
+      <th>Description</th?
+    </tr>
+    <tr>
+      <td>Block Number</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Trial Number</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Dimension</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Layout</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Total User Time</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Target Shape</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Partipant Selected Shapes</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Correctly Selected Shapes</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Incorrectly Selected Shapes</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>All Correct?</td>
+      <td>This feild is a boolean value of 'TRUE' or 'FALSE' indicating if all partipant selected values are the same as the target values.</td>
+    </tr>
+  </table>
+</p>
+
 
 ## Design Decisions
 
