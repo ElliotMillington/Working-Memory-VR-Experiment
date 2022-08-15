@@ -112,7 +112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 147.38365, y: -27.5135}
+  m_AnchoredPosition: {x: 147.38365, y: -467.72952}
   m_SizeDelta: {x: 294.7673, y: 55.027}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &865617066708744174
@@ -622,6 +622,7 @@ RectTransform:
   m_Children:
   - {fileID: 946722488616221007}
   - {fileID: 6155762360951560051}
+  - {fileID: 3069824801250875072}
   m_Father: {fileID: 1325184835981723638}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1150,7 +1151,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 147.38365, y: -82.5405}
+  m_AnchoredPosition: {x: 147.38365, y: -137.5675}
   m_SizeDelta: {x: 294.7673, y: 55.027}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4776710158796700146
@@ -1519,8 +1520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -53, y: 0.000011206}
-  m_SizeDelta: {x: 345.277, y: 75.746}
+  m_AnchoredPosition: {x: -33, y: 0.00001657}
+  m_SizeDelta: {x: 430.097, y: 71.4521}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6532862683607314447
 CanvasRenderer:
@@ -1563,7 +1564,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Does first trial require user confirmation to start?
+  m_Text: Does the first trial of a block require user confirmation to start?
 --- !u!1 &539428473528038960
 GameObject:
   m_ObjectHideFlags: 0
@@ -9071,7 +9072,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4912042098556851397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9088,9 +9089,9 @@ RectTransform:
   m_Father: {fileID: 1325184835981723638}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 147.38365, y: -27.5135}
   m_SizeDelta: {x: 294.7673, y: 55.027}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3035078941052384595
@@ -9240,8 +9241,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70.03, y: 0}
-  m_SizeDelta: {x: 280.12, y: 75.746}
+  m_AnchoredPosition: {x: -62, y: 0.000029564}
+  m_SizeDelta: {x: 307.9963, y: 65.0237}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8407017196887607862
 CanvasRenderer:
@@ -9284,7 +9285,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Give display shapes random rotation?
+  m_Text: Should display shapes have random rotation?
 --- !u!1 &3201041077113848424
 GameObject:
   m_ObjectHideFlags: 0
@@ -13883,6 +13884,85 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &4639007691309972817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3069824801250875072}
+  - component: {fileID: 2959071996902564683}
+  - component: {fileID: 6045187771134199445}
+  m_Layer: 5
+  m_Name: Seconds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3069824801250875072
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4639007691309972817}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4519109683572911504}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 52.1, y: -18.135}
+  m_SizeDelta: {x: 320, y: 37.513}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2959071996902564683
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4639007691309972817}
+  m_CullTransparentMesh: 1
+--- !u!114 &6045187771134199445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4639007691309972817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 21
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Seconds
 --- !u!1 &4643763626502935019
 GameObject:
   m_ObjectHideFlags: 0
@@ -16982,8 +17062,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88, y: -0.000012875}
-  m_SizeDelta: {x: 216.8628, y: 101.478}
+  m_AnchoredPosition: {x: -87.642, y: 0.00046682}
+  m_SizeDelta: {x: 238.97, y: 110.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5135562951348678436
 CanvasRenderer:
@@ -17015,7 +17095,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 28
+    m_FontSize: 21
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -17026,9 +17106,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Time of Target Shape Display
-
-    (Seconds)'
+  m_Text: How long should target shapes be shown to the user?
 --- !u!1 &5923102412337642460
 GameObject:
   m_ObjectHideFlags: 0
@@ -18310,8 +18388,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88, y: -0.000012875}
-  m_SizeDelta: {x: 216.8628, y: 101.478}
+  m_AnchoredPosition: {x: -86.529, y: -0.00052786}
+  m_SizeDelta: {x: 234.51, y: 110.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1289229233455698741
 CanvasRenderer:
@@ -18343,20 +18421,19 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 28
+    m_FontSize: 21
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 221
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Time between display and start.
-
-    (Seconds)'
+  m_Text: How long should users wait between the target shapes disappearing and the
+    start of the trial?
 --- !u!1 &6410966081779413621
 GameObject:
   m_ObjectHideFlags: 0
@@ -18850,8 +18927,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70.03, y: -2.4865}
-  m_SizeDelta: {x: 280.12, y: 75.746}
+  m_AnchoredPosition: {x: -66.81354, y: -0.000020027}
+  m_SizeDelta: {x: 292.9858, y: 73.943}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4015049465686063722
 CanvasRenderer:
@@ -18894,7 +18971,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Give target shapes random rotation?
+  m_Text: Should target shapes have random rotation?
 --- !u!1 &6667676997043769184
 GameObject:
   m_ObjectHideFlags: 0
@@ -20745,7 +20822,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 147.38365, y: -137.5675}
+  m_AnchoredPosition: {x: 147.38365, y: -27.5135}
   m_SizeDelta: {x: 294.7673, y: 55.027}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2722044274811690580
@@ -22375,6 +22452,85 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Option A
+--- !u!1 &8063862797518736446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 232100596964237235}
+  - component: {fileID: 5311372303274367884}
+  - component: {fileID: 5280856017202026508}
+  m_Layer: 5
+  m_Name: Seconds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &232100596964237235
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063862797518736446}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 302204577293256310}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 52.1, y: -18.757}
+  m_SizeDelta: {x: 320, y: 37.513}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5311372303274367884
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063862797518736446}
+  m_CullTransparentMesh: 1
+--- !u!114 &5280856017202026508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063862797518736446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 21
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Seconds
 --- !u!1 &8090724698196759937
 GameObject:
   m_ObjectHideFlags: 0
@@ -23152,7 +23308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8234578037023372880
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23169,9 +23325,9 @@ RectTransform:
   m_Father: {fileID: 1325184835981723638}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 147.38365, y: -137.5675}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 294.7673, y: 55.027}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3155239221107227376
@@ -23397,6 +23553,7 @@ RectTransform:
   m_Children:
   - {fileID: 5326086642827868753}
   - {fileID: 7624067574284492320}
+  - {fileID: 232100596964237235}
   m_Father: {fileID: 1325184835981723638}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
