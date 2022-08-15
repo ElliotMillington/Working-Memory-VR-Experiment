@@ -33,7 +33,7 @@ This project
     </tr>
     <tr>
       <td>Dimension</td>
-      <td>Indicated by the badge of each panel, this varibable determines whether the block shall be in 3D, in virtual reality, or 2D, on the application monitor. Can be inverted by clicking the badge, when VR is detected(Discuessed further in section <a href="https://github.com/ElliotMillington/Working-Memory-VR-Experiment/blob/main/README.md#design-limiations">Design Decisions</a>).</td>
+      <td>Indicated by the badge of each panel, this varibable determines whether the block shall be in 3D, in virtual reality, or 2D, on the application monitor. Can be inverted by clicking the badge, when VR is detected(Discuessed further in section <a href="https://github.com/ElliotMillington/Working-Memory-VR-Experiment/blob/main/README.md#design-limiations">Design Limiations</a>).</td>
     </tr>
     <tr>
       <td>Number of trials</td>
