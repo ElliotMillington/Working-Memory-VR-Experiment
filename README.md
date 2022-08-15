@@ -19,8 +19,36 @@ This project
 </p>
 
 ## Variables
+<p>
+  For the purposes of the next section, a trial is an instance of a block and a block is a collection of trials which all share the same test conditions.
+</p>
+<p>
+  The following are a list of variables which may be manipulated by the user for a given experiment:
+</p>
+<p>
+  <table>
+    <tr>
+      <th>Variable</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>Dimension</td>
+      <td>Indicated by the badge of each panel, this varibable determines whether the block shall be in 3D, in virtual reality, or 2D, on the application monitor. Can be inverted by clicking the badge, when VR is detected([See Design Limitations](### Design Limiations)).</td>
+    </tr>
+    <tr>
+      <td>Number of trials</td>
+      <td>The number of trials determines the number of times a single test condtion will be repeated by the user.</td>
+    </tr>
+  </table>
+</p>
+  
+  
 
 
+### Panel Validity
+There are a number of contraints placed upon a trial for it to be valid.
+
+## Output
 
 ## Design Decisions
 
@@ -30,7 +58,7 @@ This project
 </ul>
 
 ### Design Limiations
-Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function other.
+Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case, functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function other.
 
 ## Acknowledgements
 
