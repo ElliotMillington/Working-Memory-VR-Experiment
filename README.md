@@ -2,7 +2,7 @@
 
 This project seeks to provide a flexible tool to create memory based experiments in both 2D and 3D. Using this tool an experimenter is able to test users over an extensive range of customisable varibales to construct test conditions for any number of hypotheses.
 
-<div display='flex'>
+<div class='flex'>
   <div flex='33.33' padding='5px'>
     <img src="[img_snow.jpg](https://user-images.githubusercontent.com/60265517/184759346-2fef9d61-0449-486a-8005-39db490aab79.PNG)" style="width:100%">
   </div>
