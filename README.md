@@ -28,7 +28,6 @@ Nine shapes in 3d with grid layout | Twenty-five shapes in 3d circular layout   
   </ul>
 <p>
 
-
 <p align="center">
   <img width="300" height="300" src= "https://user-images.githubusercontent.com/60265517/184690226-68fa930b-4cad-461b-896f-e15aed7ca23c.jpg" alt="HTC Vive Headset">
   <br>
@@ -38,6 +37,11 @@ Nine shapes in 3d with grid layout | Twenty-five shapes in 3d circular layout   
 ## Variables
 <p>
   For the purposes of the next section, a trial is an instance of a blocka, and a block is a collection of trials which all share the same test conditions.
+</p>
+<p align="center">
+  <img width="400" height="300" src= "https://user-images.githubusercontent.com/60265517/184932117-1f21d239-bbb1-4bf3-81e7-751cbbf9576b.PNG" alt="Experiment creation panel.">
+  <br>
+  <em>Experiment creation panel.</em>
 </p>
 <p>
   The following are a list of variables which may be manipulated by the user for a given experiment:
