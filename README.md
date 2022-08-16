@@ -1,11 +1,13 @@
 # Working-Memory-VR-Experiment
 
 This project seeks to provide a flexible tool to create memory based experiments in both 2D and 3D. Using this tool an experimenter is able to test users over an extensive range of customisable varibales to construct test conditions for any number of hypotheses.
-A single target shape in 2D             |  Five target shapes in 3D          |  The middle of a 2D trial with five shapes selected                       |
+A single target shape in 2D             |   The Start of a 2D Trial     |  The middle of a 2D trial with five shapes selected                       |
 :-------------------------:|:-------------------------:|:--------------------------:|
-![2dTarget1](https://user-images.githubusercontent.com/60265517/184759346-2fef9d61-0449-486a-8005-39db490aab79.PNG) | ![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG) | ![2dDisplaySelected5](https://user-images.githubusercontent.com/60265517/184759376-b5a1a269-85ad-4980-be6b-4edbef0cc905.PNG)
+![2dTarget1](https://user-images.githubusercontent.com/60265517/184759346-2fef9d61-0449-486a-8005-39db490aab79.PNG) | ![2dDisplay](https://user-images.githubusercontent.com/60265517/184759385-5adaa5fe-683a-4113-9443-827253134b32.PNG) | ![2dDisplaySelected5](https://user-images.githubusercontent.com/60265517/184759376-b5a1a269-85ad-4980-be6b-4edbef0cc905.PNG)
 
-![2dDisplay](https://user-images.githubusercontent.com/60265517/184759385-5adaa5fe-683a-4113-9443-827253134b32.PNG)
+ Five target shapes in 3D  |                             |
+ :-------------------------:|:-------------------------:|:--------------------------:|
+![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG) |  |    |
 
 ## System Requiremnts
 
