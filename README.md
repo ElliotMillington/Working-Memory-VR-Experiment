@@ -36,9 +36,9 @@ Nine shapes in 3d with grid layout | Twenty-five shapes in 3d circular layout   
 
 ### Note on System Testing
 
-System was created using a Windows 10 system therefore any subsequent builds taht were testing were using the Windows 10 platform. However, steps were taken to ensure that system should be compatible with other platforms, despite being untested.
+System was created using a Windows 10 system therefore any subsequent builds that were tested were done so using the Windows 10 platform. However, steps were taken to ensure that the system should be compatible with other platforms, despite being untested.
 
-However, accessing the project within the Unity Editor(outlined futher in <a href="https://github.com/ElliotMillington/Working-Memory-VR-Experiment/blob/main/README.md#how-to-use">How to Use</a>) will work across platforms.
+Accessing the project within the Unity Editor (outlined futher in <a href="https://github.com/ElliotMillington/Working-Memory-VR-Experiment/blob/main/README.md#how-to-use">How to Use</a>) will work across platforms.
 
 ## Variables
 <p>
