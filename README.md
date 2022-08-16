@@ -1,7 +1,7 @@
 # Working-Memory-VR-Experiment
 
 This project seeks to provide a flexible tool to create memory based experiments in both 2D and 3D. Using this tool an experimenter is able to test users over an extensive range of customisable varibales to construct test conditions for any number of hypotheses.
-A single target shape in 2D             |  A 2D trial displaying five target shapes  | The Start of a 2D Trial             
+A single target shape in 2D             |  A 2D trial displaying five target shapes  | The start of a 2D trial             
 :-------------------------:|:-------------------------:|:--------------------------:|
 ![2dTarget1](https://user-images.githubusercontent.com/60265517/184759346-2fef9d61-0449-486a-8005-39db490aab79.PNG) | ![2dTarget5](https://user-images.githubusercontent.com/60265517/184766663-6ca2b8ef-3c3f-4661-950f-1674306804a1.PNG) | ![2dDisplay](https://user-images.githubusercontent.com/60265517/184759385-5adaa5fe-683a-4113-9443-827253134b32.PNG)
 
@@ -124,8 +124,8 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
 </ul>
 
 ## How to Use
+This project can either be used in the 
 
-------
 
 
 ## Output
@@ -147,7 +147,7 @@ Before a user session begins, a location to store the output data must be define
     </tr>
     <tr>
       <td>Dimension</td>
-      <td>This feild indicates whether this block was in either 2D('2') or 3D('3').</td>
+      <td>This feild indicates whether this block was in either 2D or 3D, holding values '2' and '3' respectively.</td>
     </tr>
     <tr>
       <td>Layout</td>
