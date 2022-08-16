@@ -5,20 +5,15 @@ A single target shape in 2D             |   The Start of a 2D Trial     |  The m
 :-------------------------:|:-------------------------:|:--------------------------:|
 ![2dTarget1](https://user-images.githubusercontent.com/60265517/184759346-2fef9d61-0449-486a-8005-39db490aab79.PNG) | ![2dDisplay](https://user-images.githubusercontent.com/60265517/184759385-5adaa5fe-683a-4113-9443-827253134b32.PNG) | ![2dDisplaySelected5](https://user-images.githubusercontent.com/60265517/184759376-b5a1a269-85ad-4980-be6b-4edbef0cc905.PNG)
 
-A 2D trial with a single selected shape |  A 2D trial displaying five target shapes  |   Five target shapes in 3D
- :-------------------------:|:-------------------------:|:--------------------------:|
-![2dDisplaySelected](https://user-images.githubusercontent.com/60265517/184766608-1d4d2aeb-05d0-4e8f-9de4-2a192149283e.PNG) | ![2dTarget5](https://user-images.githubusercontent.com/60265517/184766663-6ca2b8ef-3c3f-4661-950f-1674306804a1.PNG) |    ![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG)
-
 A 2D trial with a single selected shape |  A 2D trial displaying five target shapes  |
  :-------------------------:|:-------------------------:|
 ![2dDisplaySelected](https://user-images.githubusercontent.com/60265517/184766608-1d4d2aeb-05d0-4e8f-9de4-2a192149283e.PNG) | ![2dTarget5](https://user-images.githubusercontent.com/60265517/184766663-6ca2b8ef-3c3f-4661-950f-1674306804a1.PNG)
 
 Five target shapes in 3D | Three target shapes in 3D   | 
  :-------------------------:|:-------------------------:|
-![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG) | ![3dDisplayStand](https://user-images.githubusercontent.com/60265517/184766799-20e7136d-b7e0-46b5-bc50-7ec1f36ede50.PNG) |
-:----------------------------:|:-------------------------------:|
+![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG) | ![3dDisplayStand](https://user-images.githubusercontent.com/60265517/184766799-20e7136d-b7e0-46b5-bc50-7ec1f36ede50.PNG)
 Nine shapes in 3d with grid layout | Twenty-five shapes in 3d circular layout   | 
-![3dGridDisplay](https://user-images.githubusercontent.com/60265517/184766847-5ca3721f-edbb-457c-97c8-ec9be1be0dee.PNG) | ![3dDisplayCircular25](https://user-images.githubusercontent.com/60265517/184766712-5d2b7717-b812-4b1e-86f4-760c2cf7ed8a.PNG) |
+![3dGridDisplay](https://user-images.githubusercontent.com/60265517/184766847-5ca3721f-edbb-457c-97c8-ec9be1be0dee.PNG) | ![3dDisplayCircular25](https://user-images.githubusercontent.com/60265517/184766712-5d2b7717-b812-4b1e-86f4-760c2cf7ed8a.PNG)
 
 
 
