@@ -78,7 +78,7 @@ This project seeks to provide a flexible tool to create memory based experiments
     </tr>
     <tr>
       <td>Random Display Shape Rotation</td>
-      <td>A boolean value indicating if the display shapes should be shown to the user in a random configuarion. This option is only avaible for blocks in 3 dimension.</td>
+      <td>A boolean value indicating if the display shapes should be shown to the user in a random configuarion. This option is only available for blocks in 3 dimension.</td>
     </tr>
   </table>
 </p>
@@ -89,14 +89,14 @@ Note there is also a 3 second delay between trails to ensure each trial is set u
 ### Panel Validity
 There are a number of contraints placed upon a trial for it to be valid. Each panel has an indicator denoting its current validity status. When a panel is invalid this indicator can be clicked to open a panel holding the reasons that make the panel invalid and how to resolve them. These constraints include:
 <ul>
-  <li> </li>
-  <li> </li>
-  <li> </li>
+  <li> The different possible permutations of selected shapes and colours must be greater than or equal to the number of display shapes. This ensures that there are enough unique shapes to choose from.</li>
+  <li> The number of trials must be an integer value greater than 0.</li>
+  <li> A block which is in 3 dimensions will be invalid if VR equipment has not been detected.</li>
 </ul>
 
 ## Output
 
-'othersessiondata' which will hold the following information for each trial of a given session.<br>
+Before a user session begins, a location to store the output data must be defined as well as a Particiapnt ID. Within this folder session folders will be created with unique file names. These themselves will contain folders named 'participantdetails', containing Particiapnt ID, and 'othersessiondata' which will hold the following information for each trial of a given session:<br>
 <p>
   <table>
     <tr>
@@ -151,11 +151,11 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
 
 <ul>
   <li>For a user to confirm their input in any trial the number of user selected shapes <i>must</i> match the number of target shapes. </li>
-  <li>For a user to confirm their input within any virtual reality space, they must perform the confirmation gesture. This is simply to point their controller towards the ceiling and click their controller. This area will chnage colour to indicate that confirmation is valid.</li>
+  <li>For a user to confirm their input within any virtual reality space, they must perform the confirmation gesture. This is to point their controller towards the ceiling and click. This area will change colour to indicate that confirmation is valid.</li>
 </ul>
 
 ### Design Limiations
-Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case, functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function other.
+Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case, functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function.
 
 ## Acknowledgements
 
