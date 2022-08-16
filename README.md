@@ -42,7 +42,7 @@ Accessing the project within the Unity Editor (outlined futher in <a href="https
 
 ## Variables
 <p>
-  For the purposes of the next section, a trial is an instance of a blocka, and a block is a collection of trials which all share the same test conditions.
+  For the purposes of the next section, a trial is an instance of a block, and a block is a collection of trials which all share the same test conditions.
 </p>
 
 <p align="center">
@@ -130,7 +130,7 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
 
 ## Output
 
-Before a user session begins, a location to store the output data must be defined as well as a Particiapnt ID. Within this folder session folders will be created with unique file names. These themselves will contain folders named 'participantdetails', containing Particiapnt ID, and 'othersessiondata' which will hold the following information for each trial of a given session:<br>
+Before a user session begins, a location to store the output data must be defined as well as a Particiapnt ID. Within this folder, session folders will be created with unique file names. These themselves will contain folders named 'participantdetails', containing Particiapnt ID, and 'othersessiondata' which will hold the following information from each trial of a given session:<br>
 <p>
   <table>
     <tr>
@@ -185,15 +185,15 @@ Before a user session begins, a location to store the output data must be define
 
 <ul>
   <li>For a user to confirm their input in any trial the number of user selected shapes <i>must</i> match the number of target shapes. </li>
-  <li>For a user to confirm their input within any virtual reality space, they must perform the confirmation gesture. This is to point their controller towards the ceiling and click. This area will change colour to indicate that confirmation is valid.</li>
+  <li>For a user to confirm their input within any virtual reality space, they must perform the confirmation gesture. This is to point their controller towards the ceiling and click. This area will change colour to indicate that confirmation is valid at that time.</li>
 </ul>
 
 ### Design Limiations
-Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case, functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function.
+Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function.
 
 ## Acknowledgements
 
-Unity Development: <br/>
+Unity Developers: <br/>
 <a href="https://github.com/AndrewParker770">Andrew Parker</a> <br/>
 <a href="https://github.com/ElliotMillington">Elliot Millington</a> <br/>
 
