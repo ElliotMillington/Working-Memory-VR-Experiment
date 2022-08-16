@@ -2,6 +2,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
+/*
+
+    This class takes the collection of panel data into a format which can be converted to json to be saved
+
+*/
 
 public class SaveData
 {
@@ -92,6 +97,7 @@ public class SaveData
 
     }
 
+    // allows 2 dimensional array to become 1 dimensional by packaging the files in aa known format
     public string[] flattenList(List<List<int>> twoDimensionalList)
     {
         List<string> stringList = new List<string>();

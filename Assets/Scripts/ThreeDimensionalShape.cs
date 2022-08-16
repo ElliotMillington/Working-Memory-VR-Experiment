@@ -1,7 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
+
+/*
+
+    This script is assigned to all three dimensional shapes, both target and display.
+
+    Handles the making grid shapes have random rotations.
+    Holds functions which manage the selection of the display shapes.
+
+*/
 
 
 public class ThreeDimensionalShape : MonoBehaviour

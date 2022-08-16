@@ -1,8 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+
+    This script is assigned to each shape toggle object in the shape panel option in a GUI panel.
+
+    Its purpose is to store the texture and mesh, corresponding to a given 'shape' which can be added or removed from a trial freely.
+
+*/
 
 public class ShapeToggle : MonoBehaviour
 {

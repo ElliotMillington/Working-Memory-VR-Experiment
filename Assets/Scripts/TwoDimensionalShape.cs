@@ -1,7 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+/*
+
+    This script is assigned to all two dimensional shapes, both target and display.
+
+    Holds functions which manage the selection of the display shapes.
+
+*/
 
 public class TwoDimensionalShape : MonoBehaviour
 {

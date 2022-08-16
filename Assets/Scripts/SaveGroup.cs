@@ -1,19 +1,20 @@
 using UnityEngine;
-using UnityEditor;
 using System.IO;
-using System.Collections.Generic;
 using System;
 
+/*
+
+    Script assigned to the save/load scroll view to manage save panel obejcts
+
+*/
 
 public class SaveGroup : MonoBehaviour
 {
     public GameObject SavePrefab;
+
+    // create as many save panels as the highest save index so that the highest index panel can be accessed by default
     private void Start()
     {
-        //endure paths exits
-
-
-
         int highest = getHighestLoadoutNum();
         
         if (highest > 0 )

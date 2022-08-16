@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.UI;
 using UXF;
 using UnityEngine.EventSystems;
 
+/*
+
+    This is the main script for handling all 2 dimensional trials
+
+*/
 
 public class TwoDimensionalGroup : MonoBehaviour
 {
@@ -286,6 +290,7 @@ public class TwoDimensionalGroup : MonoBehaviour
         startWaitToggle = !startWaitToggle;
     }
 
+    // used to convert a list of shapes into a readable string to be returned in the results
     public string shapesToString(List<TwoDimensionalShape> shapes)
     {
         List<string> strings = new List<string>();

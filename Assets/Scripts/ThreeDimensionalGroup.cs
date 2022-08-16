@@ -2,9 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UXF;
-using UnityEditor;
+
+/*
+
+    This is the main script for handling all 3 dimensional trials, both grid and circular configurations.
+
+*/
 
 
 public class ThreeDimensionalGroup : MonoBehaviour
@@ -35,8 +39,6 @@ public class ThreeDimensionalGroup : MonoBehaviour
 
     public ThreeDimensionalShape optionPrefab;
 
-
-    
 
     public GameObject targetGridPrefab;
 
@@ -143,6 +145,7 @@ public class ThreeDimensionalGroup : MonoBehaviour
 
         switch (option_string)
         {
+            // set up for a grid configuration
             case "grid":
 
                 while (optionShapes.Count < optionNum)
@@ -183,7 +186,7 @@ public class ThreeDimensionalGroup : MonoBehaviour
                     optionNumIndex++;
                 }
                 break;
-
+            // set up for a circular configuration
             case "circular":
 
                 List<(Vector3, Vector3)> positionsAndRotation = new List<(Vector3, Vector3)>();
@@ -207,7 +210,6 @@ public class ThreeDimensionalGroup : MonoBehaviour
                     {
                         var angle = (isAlternate ? y * Mathf.PI * 2 / SQRT_OPTION : (y * Mathf.PI * 2 / SQRT_OPTION) + (360/SQRT_OPTION*2));
 
-                        // TODO: make shape face the center
                         Vector3 rotation = new Vector3(0,0,0);
                         if (display_random)
                         {
@@ -327,20 +329,19 @@ public class ThreeDimensionalGroup : MonoBehaviour
             }
         }
 
-
-
-
-
-
+        // show target shapes
         targetStand.SetActive(true);
 
+        // dictates how long the user will have to examine the target shapes
         yield return new WaitForSeconds(trial.settings.GetFloat("shape_display_time"));
 
+        // makes all target shapes invisible/inactive
         foreach (ThreeDimensionalShape shape in targetShapes) shape.gameObject.SetActive(false);
 
         //make time in between taking away target and the display of the shapes
         yield return new WaitForSeconds(trial.settings.GetFloat("delay_time"));
 
+        // make all display shapes visible
         foreach (ThreeDimensionalShape shape in optionShapes) shape.gameObject.SetActive(true);
         
         //Start timing the trial

@@ -1,7 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+/*
+
+    This script is assigned to each colour toggle object in the colour panel option in a GUI panel.
+
+    Its purpose is to store the colour and materials, corresponding to a given 'colour' which can be added or removed from a trial freely.
+
+*/
 
 public class ColourToggle : MonoBehaviour
 {

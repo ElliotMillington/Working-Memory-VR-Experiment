@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Valve.VR.Extras;
 using System;
 
+/*
+
+    Script assigned to each of the VR controllers to manage clicking in the 3 dimensional space
+
+*/
 
 public class SceneHandler : MonoBehaviour
 {

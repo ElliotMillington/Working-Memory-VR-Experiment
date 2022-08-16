@@ -1,9 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+
+/*
+
+    This script attatched to each GUI panel holds the data about the block the user has input 
+
+*/
 
 public class PanelData : MonoBehaviour
 {
@@ -45,6 +50,7 @@ public class PanelData : MonoBehaviour
     [HideInInspector]
     public List<Material> allMaterials;
 
+    // initialise a new GUI panel to accept data
     public void populateNew() {
 
         GameObject trialManager = GameObject.Find("TrialManager");
@@ -90,6 +96,7 @@ public class PanelData : MonoBehaviour
         this.gameObject.GetComponent<PanelObject>().checkValidity("panelDataScript");
     }
 
+    // the following functions are used by components in the GUI to set values to their corresponding variable
     public void getFullLists()
     {
         GameObject trialManager = GameObject.Find("TrialManager");
@@ -230,6 +237,7 @@ public class PanelData : MonoBehaviour
         }
     }
 
+    // The following fuctions are used in saving to convert to and from a savable obejct
     public List<int> convertToIndices<T>(List<T> allList, List<T> selectedList)
     {
         List<int> indexList = new List<int>();

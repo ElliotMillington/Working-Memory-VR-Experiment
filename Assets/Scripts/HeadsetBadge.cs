@@ -1,10 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR.Management;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.XR;
 
+/*
+
+    This script tracks if the VR equiment can be found on system start.
+
+    If headset not found then badge indicating this will be displayed and 3d options disabled.
+
+
+*/
 
 public class HeadsetBadge : MonoBehaviour
 {
@@ -28,6 +34,7 @@ public class HeadsetBadge : MonoBehaviour
 
     }
 
+    // detect if there are VR devices connected
     public bool isPresent()
     {
         var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
@@ -43,7 +50,6 @@ public class HeadsetBadge : MonoBehaviour
         VRBadge.SetActive(true);
         return false;
     }
-
 
     public void badgeMouseOver()
     {

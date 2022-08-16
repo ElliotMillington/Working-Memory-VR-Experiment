@@ -2,8 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
-using System;
 
+/*
+
+    Assigned to the SavePrefab to provide fucntions that trigger save, load and deletion of saves
+
+*/
 
 public class SavePanel : MonoBehaviour
 {

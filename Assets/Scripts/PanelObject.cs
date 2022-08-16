@@ -2,7 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEditor;
+
+/*
+
+    This script is assigned to each GUI panel object and facilitates the function of that panel.
+
+*/
 
 public class PanelObject : MonoBehaviour
 {
@@ -115,6 +120,7 @@ public class PanelObject : MonoBehaviour
     private void Start() {
         groupScript = this.transform.GetComponentInParent<PanelGroup>();
 
+        // creates bunch of listeners for toggle and slider components
         colourToggle.onValueChanged.AddListener(delegate{
             togglePanel(colourToggle, "colour");
             });
@@ -238,6 +244,7 @@ public class PanelObject : MonoBehaviour
         dimensionBadgeTitle.gameObject.SetActive(false);
     }
 
+    // ensures that the trial is valid ***
     public void checkValidity(string source)
     {
         if (groupScript == null) return;

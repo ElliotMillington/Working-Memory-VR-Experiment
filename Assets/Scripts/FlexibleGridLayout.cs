@@ -1,8 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+
+/*
+
+    This script creates a grid from the child obejcts - works best when the number of objects are square numebrs
+
+*/
 
 public class FlexibleGridLayout : LayoutGroup
 {

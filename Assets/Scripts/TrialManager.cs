@@ -1,6 +1,13 @@
 using UnityEngine;
 using UXF;
-using UnityEngine.SceneManagement;
+
+/*
+
+    This script is assigned to the trial manager present in all scenes
+
+    It initiates the calls to create a given trial for the block the experimenter has indicated.
+
+*/
 
 public class TrialManager : MonoBehaviour
 {
@@ -46,7 +53,7 @@ public class TrialManager : MonoBehaviour
         Debug.Log("Trial Ended");
     }
 
-
+    // used by the exit panel to stop application builds
     public void exitGame()
     {
         Application.Quit();

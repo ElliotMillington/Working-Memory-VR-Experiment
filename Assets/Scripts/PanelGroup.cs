@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.UI;
-using UnityEngine.XR;
 
+/*
+
+    This script acts upon the collection of panel object scripts.
+
+*/
 
 public class PanelGroup : MonoBehaviour
 {
@@ -155,7 +158,7 @@ public class PanelGroup : MonoBehaviour
 
     public GameObject returnNewPanel()
     {
-        return this.gameObject.GetChildren()[(this.transform.childCount)-2];
+        return this.gameObject.transform.GetChild((this.transform.childCount)-2).gameObject;
     }
 
     public void createPositionalPanel(string prefabName, int pos)
@@ -244,6 +247,7 @@ public class PanelGroup : MonoBehaviour
     }
 
 
+    // create panel at a specific point
     public void duplicationAtIndex(int index, PanelObject newObj)
     {
         List<PanelObject> newGrouping = new List<PanelObject>();
@@ -264,6 +268,7 @@ public class PanelGroup : MonoBehaviour
 
     }
 
+    // This function is used in testing the allow the use of 3d scenes when VR is not detected
     public void toggleVROverwite()
     {
         headsetOverwrite = !headsetOverwrite;
@@ -288,6 +293,7 @@ public class PanelGroup : MonoBehaviour
         enforceMove("enforce");
     }
 
+    // used in saving to load the object returned form the SaveData script
     public IEnumerator loadPanalDataCollection(SaveData dataObj)
     {
         //delete what was there before

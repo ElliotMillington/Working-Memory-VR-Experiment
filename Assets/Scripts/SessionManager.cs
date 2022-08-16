@@ -1,9 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using UXF;
 using UnityEngine.SceneManagement;
+
+/*
+
+    This script is assigned to the Session Manager which is a obejct which is always present in any given scene.
+
+    Manages escaping scenes, creating blocks for a session, set up and clean up of trials, saving trial information, and scene navigation
+
+*/
 
 
 public class SessionManager : MonoBehaviour
