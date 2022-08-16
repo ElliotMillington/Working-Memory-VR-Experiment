@@ -34,6 +34,12 @@ Nine shapes in 3d with grid layout | Twenty-five shapes in 3d circular layout   
   <em>The HTC Vive VR headset.</em>
 </p>
 
+### Note on System Testing
+
+System was created using a Windows 10 system therefore any subsequent builds taht were testing were using the Windows 10 platform. However, steps were taken to ensure that system should be compatible with other platforms, despite being untested.
+
+However, accessing the project within the Unity Editor(outlined futher in <a href="https://github.com/ElliotMillington/Working-Memory-VR-Experiment/blob/main/README.md#how-to-use">How to Use</a>) will work across platforms.
+
 ## Variables
 <p>
   For the purposes of the next section, a trial is an instance of a blocka, and a block is a collection of trials which all share the same test conditions.
@@ -116,6 +122,11 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
   <li> The number of trials must be an integer value greater than 0.</li>
   <li> A block which is in 3 dimensions will be invalid if VR equipment has not been detected.</li>
 </ul>
+
+## How to Use
+
+------
+
 
 ## Output
 
