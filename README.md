@@ -132,7 +132,10 @@ Once the project has been opened in the Unity editor, ensure that you have loade
 The begin the experiment in the editor click the play button, generally found at the top of the editor.
 
 ### How to build and run the project as an executable application
-Open the project in the Unity editor and navigate to File > Build Settings, this should open up the 'Build Settings' tab. As stated previously in the section  
+Open the project in the Unity editor and navigate to File > Build Settings, this should open up the 'Build Settings' tab. Select the platform that the build is intended for and click the 'Build' button. Select the destination folder in which the build is to be created. After building is completed open the build destination folder and click the 'Working_Memory_VR_Experiment' executable file to begin the application.
+
+#### Building Note
+As stated previously in the <a href="https://github.com/ElliotMillington/Working-Memory-VR-Experiment/blob/main/README.md#system-requiremnts"> System Requirments</a> section, building has been tested using the 'PC, Mac & Linux standalone' platform, but should be compatible compatible with other platforms. 
 
 
 ## Output
