@@ -45,12 +45,6 @@ Accessing the project within the Unity Editor (outlined futher in <a href="https
   For the purposes of the next section, a trial is an instance of a block, and a block is a collection of trials which all share the same test conditions.
 </p>
 
-<p align="center">
-  <img width="500" height="300" src= "https://user-images.githubusercontent.com/60265517/184932117-1f21d239-bbb1-4bf3-81e7-751cbbf9576b.PNG" alt="Experiment creation panel.">
-  <br>
-  <em>Experiment creation panel.</em>
-</p>
-
 <p>
   The following are a list of variables which may be manipulated by the user for a given experiment:
 </p>
@@ -124,8 +118,21 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
 </ul>
 
 ## How to Use
-This project can either be used in the 
+This project can either be used in the Unity editor, or built in the Unity editor and run as an executable.
 
+### Unity Editor
+Once the project has been opened in the Unity editor, ensure that you have loaded the 'EntryScene', which can be found in 'Assets/Scenes' folder in the Unity inspector. Navigate to the 'Game' tab in the Unity Inspector, ensuring that the aspect ratio of the display is set to 'Full HD (1920x1080)' if not already; by default it is set to 'Free Aspect'. This should prepare the GUI for use in the editor and should appear as shown below: 
+
+<p align="center">
+  <img width="500" height="300" src= "https://user-images.githubusercontent.com/60265517/184932117-1f21d239-bbb1-4bf3-81e7-751cbbf9576b.PNG" alt="Experiment creation panel.">
+  <br>
+  <em>Experiment creation panel.</em>
+</p>
+
+The begin the experiment in the editor click the play button, generally found at the top of the editor.
+
+### How to build and run the project as an executable application
+Open the project in the Unity editor and navigate to File > Build Settings, this should open up the 'Build Settings' tab. As stated previously in the section  
 
 
 ## Output
