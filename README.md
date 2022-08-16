@@ -5,9 +5,9 @@ A single target shape in 2D             |   The Start of a 2D Trial     |  The m
 :-------------------------:|:-------------------------:|:--------------------------:|
 ![2dTarget1](https://user-images.githubusercontent.com/60265517/184759346-2fef9d61-0449-486a-8005-39db490aab79.PNG) | ![2dDisplay](https://user-images.githubusercontent.com/60265517/184759385-5adaa5fe-683a-4113-9443-827253134b32.PNG) | ![2dDisplaySelected5](https://user-images.githubusercontent.com/60265517/184759376-b5a1a269-85ad-4980-be6b-4edbef0cc905.PNG)
 
- Five target shapes in 3D  |                             |
+ Five target shapes in 3D  |   Five target shapes in 3D                           |   Five target shapes in 3D
  :-------------------------:|:-------------------------:|:--------------------------:|
-![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG) |  |    |
+![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG) | ![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG) |    ![3dTarget5](https://user-images.githubusercontent.com/60265517/184759947-96a59f60-41e6-4191-ba0f-974dcd7e1062.PNG)
 
 ## System Requiremnts
 
