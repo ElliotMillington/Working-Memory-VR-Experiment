@@ -209,11 +209,11 @@ Before a user session begins, a location to store the output data must be define
 Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function.
 
 ## Citations
-This is a project that anyone may use freely, however we ask in that in the instance that you do use this project in any form of publication that you should appropriately accredit this page and the following people for this tool's creation. 
+This is a project that anyone may use freely, however we ask in that in the instance that you do use this project in any form of publication that you should appropriately accredit this page and the following people for this tool's creation:
 
-### Acknowledgements
+#### Acknowledgements
 
-Unity Developers: <br/>
+Unity Developer: <br/>
 <a href="https://github.com/AndrewParker770">Andrew Parker</a> <br/>
 <a href="https://github.com/ElliotMillington">Elliot Millington</a> <br/>
 
