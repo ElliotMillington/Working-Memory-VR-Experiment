@@ -1,6 +1,6 @@
 # Working-Memory-VR-Experiment
 
-This project
+This project seeks to provide a flexible tool to create memory based experiments in both 2D and 3D. Using this tool an experimenter is able to test users over an extensive range of customisable varibales to construct test conditions for any number of hypotheses.
 
 ## System Requiremnts
 
@@ -105,39 +105,39 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
     </tr>
     <tr>
       <td>Block Number</td>
-      <td></td>
+      <td>Denotes the block number that the trial occured in to be used to identify the test conditions applied(i.e. other test conditions not in this table are not recorded and should be recorded by the experimenter).</td>
     </tr>
     <tr>
       <td>Trial Number</td>
-      <td></td>
+      <td>Denotes the block number that the trial occured in to be used to identify the test conditions applied. </td>
     </tr>
     <tr>
       <td>Dimension</td>
-      <td></td>
+      <td>This feild indicates whether this block was in either 2D('2') or 3D('3').</td>
     </tr>
     <tr>
       <td>Layout</td>
-      <td></td>
+      <td>This value is only applicable in 3 dimensional blocks either denoting the 'grid' or 'circular' layout of the block. For 2 dimensional blocks the value is 'N/A'.</td>
     </tr>
     <tr>
       <td>Total User Time</td>
-      <td></td>
+      <td>This is the time in milliseconds between when the display shape objects, the ones in which the user is to select from, become visable until when the user confirms their input.</td>
     </tr>
     <tr>
       <td>Target Shape</td>
-      <td></td>
+      <td> This is a list of the shape objects, both colour and shape names, that the user should have attempted to select.</td>
     </tr>
     <tr>
       <td>Partipant Selected Shapes</td>
-      <td></td>
+      <td> This is a list of the shape objects, both colour and shape names, that the user did select from the display shape objects.</td>
     </tr>
     <tr>
       <td>Correctly Selected Shapes</td>
-      <td></td>
+      <td>This is a list of the shape objects, both colour and shape names, that the user did select from the display shape objects and were also target shapes.</td>
     </tr>
     <tr>
       <td>Incorrectly Selected Shapes</td>
-      <td></td>
+      <td>This is a list of the shape objects, both colour and shape names, that the user did select from the display shape objects and were not target shapes.</td>
     </tr>
     <tr>
       <td>All Correct?</td>
