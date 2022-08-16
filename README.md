@@ -110,21 +110,28 @@ Note there is also a 3 second delay between trails to ensure each trial is set u
 
 
 ### Panel Validity
-There are a number of contraints placed upon a trial for it to be valid. Each panel has an indicator denoting its current validity status. When a panel is invalid this indicator can be clicked to open a panel holding the reasons that make the panel invalid and how to resolve them. These constraints include:
+There are a number of contraints placed upon a trial for it to be valid. Each panel has an indicator denoting its current validity status (see image below). When a panel is invalid this indicator can be clicked to open a panel holding the reasons that make the panel invalid and how to resolve them. These constraints include:
 <ul>
   <li> The different possible permutations of selected shapes and colours must be greater than or equal to the number of display shapes. This ensures that there are enough unique shapes to choose from.</li>
   <li> The number of trials must be an integer value greater than 0.</li>
   <li> A block which is in 3 dimensions will be invalid if VR equipment has not been detected.</li>
 </ul>
 
+<p align="center">
+  <img width="500" height="300" src= "https://user-images.githubusercontent.com/60265517/184996681-736a6723-de31-4a80-8be1-4cd47c41c0ed.PNG" alt="Example of blocks being customised.">
+  <br>
+  <em>Experiment creation panel.</em>
+</p>
+
 ## How to Use
+
 This project can either be used in the Unity editor, or built in the Unity editor and run as an executable.
 
 ### Unity Editor
 Once the project has been opened in the Unity editor, ensure that you have loaded the 'EntryScene', which can be found in 'Assets/Scenes' folder in the Unity inspector. Navigate to the 'Game' tab in the Unity Inspector, ensuring that the aspect ratio of the display is set to 'Full HD (1920x1080)' if not already; by default it is set to 'Free Aspect'. This should prepare the GUI for use in the editor and should appear as shown below: 
 
 <p align="center">
-  <img width="500" height="300" src= "https://user-images.githubusercontent.com/60265517/184932117-1f21d239-bbb1-4bf3-81e7-751cbbf9576b.PNG" alt="Experiment creation panel.">
+  <img width="500" height="300" src= "https://user-images.githubusercontent.com/60265517/184932117-1f21d239-bbb1-4bf3-81e7-751cbbf9576b.PNG" alt="EntryScence experiment formulation panel">
   <br>
   <em>Experiment creation panel.</em>
 </p>
