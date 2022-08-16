@@ -120,7 +120,7 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
 <p align="center">
   <img width="500" height="300" src= "https://user-images.githubusercontent.com/60265517/184996681-736a6723-de31-4a80-8be1-4cd47c41c0ed.PNG" alt="Example of blocks being customised.">
   <br>
-  <em>Experiment creation panel.</em>
+  <em>Example of blocks being customised.</em>
 </p>
 
 ## How to Use
@@ -133,7 +133,7 @@ Once the project has been opened in the Unity editor, ensure that you have loade
 <p align="center">
   <img width="500" height="300" src= "https://user-images.githubusercontent.com/60265517/184932117-1f21d239-bbb1-4bf3-81e7-751cbbf9576b.PNG" alt="EntryScence experiment formulation panel">
   <br>
-  <em>Experiment creation panel.</em>
+  <em>EntryScence experiment formulation panel</em>
 </p>
 
 The begin the experiment in the editor click the play button, generally found at the top of the editor.
