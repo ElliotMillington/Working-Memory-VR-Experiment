@@ -208,7 +208,7 @@ Before a user session begins, a location to store the output data must be define
 ### Design Limiations
 Ensure that VR devices have been connected, and are active, at the time of application startup. If this is not the case functions which require access to VR equipment will be diabled. This will not prevent the system from running any other function.
 
-## Citations
+## Citations for Publication
 This is a project that anyone may use freely, however we ask in that in the instance that you do use this project in any form of publication that you should appropriately accredit this page and the following people for this tool's creation:
 
 #### Acknowledgements
