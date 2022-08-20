@@ -206,6 +206,7 @@ Before a user session begins, a location to store the output data must be define
 <ul>
   <li>For a user to confirm their input in any trial the number of user selected shapes <i>must</i> match the number of target shapes. </li>
   <li>For a user to confirm their input within any virtual reality space, they must perform the confirmation gesture. This is to point their controller towards the ceiling and click. This area will change colour to indicate that confirmation is valid at that time.</li>
+  <li>Pressing the 'esc' button will end any running experiment saving any data collected from finished trials in the session.</li>
 </ul>
 
 ### Design Limiations
