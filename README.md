@@ -125,7 +125,11 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
 
 ## How to Use
 
-This project can either be used in the Unity editor, or built in the Unity editor and run as an executable.
+This project can either be used in the Unity editor, or built in the Unity editor and run as an executable. The first step is to clone the project into the desired directory by opening a command in that directory and running command:
+
+```bash
+git clone 
+```
 
 ### Unity Editor
 Once the project has been opened in the Unity editor, ensure that you have loaded the 'EntryScene', which can be found in 'Assets/Scenes' folder in the Unity inspector. Navigate to the 'Game' tab in the Unity Inspector, ensuring that the aspect ratio of the display is set to 'Full HD (1920x1080)' if not already; by default it is set to 'Free Aspect'. This should prepare the GUI for use in the editor and should appear as shown below: 
