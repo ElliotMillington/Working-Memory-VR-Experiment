@@ -1,6 +1,6 @@
 # Working-Memory-VR-Experiment
 
-This project seeks to provide a flexible tool to create memory based experiments in both 2D and 3D. Using this tool an experimenter is able to test users over an extensive range of customisable varibales to construct test conditions for any number of hypotheses.
+This project seeks to provide a flexible tool to create memory based experiments in both 2D and 3D enironments. Using this tool, an experimenter is able to test users over an extensive range of customisable variables to construct test conditions for any number of hypotheses.
 A single target shape in 2D             |  A 2D trial displaying five target shapes  | The start of a 2D trial             
 :-------------------------:|:-------------------------:|:--------------------------:|
 ![2dTarget1](https://user-images.githubusercontent.com/60265517/184759346-2fef9d61-0449-486a-8005-39db490aab79.PNG) | ![2dTarget5](https://user-images.githubusercontent.com/60265517/184766663-6ca2b8ef-3c3f-4661-950f-1674306804a1.PNG) | ![2dDisplay](https://user-images.githubusercontent.com/60265517/184759385-5adaa5fe-683a-4113-9443-827253134b32.PNG)
@@ -23,8 +23,8 @@ Nine shapes in 3d with grid layout | Twenty-five shapes in 3d circular layout   
 
 <p>
   <ul>
-    <li>The system was created and tested in Unity version 2020.3.0f1, and therefore this version shall be required to access this project throguh the Unity    Editor</li>
-    <li>VR capabilities within this project were tested on a system with access to SteamVR version 1.22.13f, which is required to manage and detect connected VR devices</li>
+    <li>The system was created and tested in Unity version 2020.3.0f1, and therefore this version shall be required to access this project throguh the Unity    Editor.</li>
+    <li>VR capabilities within this project were tested on a system with access to SteamVR version 1.22.13f; this version or greater is required to manage and detect connected VR devices.</li>
   </ul>
 <p>
 
@@ -38,7 +38,7 @@ Nine shapes in 3d with grid layout | Twenty-five shapes in 3d circular layout   
 
 System was created using a Windows 10 system therefore any subsequent builds that were tested were done so using the Windows 10 platform. However, steps were taken to ensure that the system should be compatible with other platforms, despite being untested.
 
-Accessing the project within the Unity Editor (outlined futher in <a href="https://github.com/ElliotMillington/Working-Memory-VR-Experiment/blob/main/README.md#how-to-use">How to Use</a>) will work across platforms.
+Accessing the project within the Unity Editor (outlined futher in <a href="https://github.com/ElliotMillington/Working-Memory-VR-Experiment/blob/main/README.md#how-to-use">How to Use</a>) will work across any platform.
 
 ## Variables
 <p>
@@ -107,7 +107,6 @@ Accessing the project within the Unity Editor (outlined futher in <a href="https
 </p>
   
 Note there is also a 3 second delay between trails to ensure each trial is set up correctly.
-
 
 ### Panel Validity
 There are a number of contraints placed upon a trial for it to be valid. Each panel has an indicator denoting its current validity status (see image below). When a panel is invalid this indicator can be clicked to open a panel holding the reasons that make the panel invalid and how to resolve them. These constraints include:
