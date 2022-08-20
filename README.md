@@ -128,7 +128,7 @@ There are a number of contraints placed upon a trial for it to be valid. Each pa
 This project can either be used in the Unity editor, or built in the Unity editor and run as an executable. The first step is to clone the project into the desired directory by opening a command in that directory and running command:
 
 ```bash
-git clone 
+git clone https://github.com/ElliotMillington/Working-Memory-VR-Experiment.git
 ```
 
 ### Unity Editor
