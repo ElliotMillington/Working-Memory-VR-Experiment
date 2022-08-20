@@ -72,6 +72,11 @@ public class PanelGroup : MonoBehaviour
             move = !move;
         }
 
+        foreach (PanelObject obj in panelGroup)
+        {
+            obj.setDelete(delete);
+        }
+
         if(move)
         {
             foreach (PanelObject panel in panelGroup)

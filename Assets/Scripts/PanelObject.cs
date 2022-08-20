@@ -561,6 +561,7 @@ public class PanelObject : MonoBehaviour
 
         newObj.GetComponent<PanelObject>().groupScript = this.transform.GetComponentInParent<PanelGroup>();
         newObj.GetComponent<PanelObject>().duplicateMouseExit();
+        newObj.GetComponent<PanelObject>().groupScript.enforceMove("enforce");
         groupScript.duplicationAtIndex(this.gameObject.transform.GetSiblingIndex(), newObj.GetComponent<PanelObject>());
 
         StartCoroutine(newObj.GetComponent<PanelObject>().duplicateScript(baseScript));
