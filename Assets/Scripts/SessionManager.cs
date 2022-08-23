@@ -195,6 +195,14 @@ public class SessionManager : MonoBehaviour
             manager.BlockSetUp(trial.block);
         }
         manager.TrialSetUp(trial);
+        if(trial.numberInBlock > 1)
+        {
+            GameObject startButton = GameObject.FindGameObjectWithTag("startButton");
+            GameObject startText = GameObject.FindGameObjectWithTag("textHolder");
+            if (startButton != null) startButton.SetActive(false);
+            if (startText != null) startText.SetActive(false);
+        }
+
     }
 
     public void SceneSpecificClean(Trial trial)
