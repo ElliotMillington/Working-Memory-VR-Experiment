@@ -131,7 +131,7 @@ git clone https://github.com/ElliotMillington/Working-Memory-VR-Experiment.git
 ```
 
 ### Unity Editor
-Once the project has been opened in the Unity editor, ensure that you have loaded the 'EntryScene', which can be found in 'Assets/Scenes' folder in the Unity inspector. Navigate to the 'Game' tab in the Unity Inspector, ensuring that the aspect ratio of the display is set to 'Full HD (1920x1080)' if not already; by default it is set to 'Free Aspect'. This should prepare the GUI for use in the editor and should appear as shown below: 
+Once the project has been opened in the Unity editor, ensure that you have loaded the 'EntryScene', which can be found in 'Assets/Scenes' folder in the Unity inspector. Navigate to the 'Game' tab in the Unity Inspector, ensuring that the aspect ratio of the display is set to 'Full HD (1920x1080)' if not already and lower scale so that the scene fills the game window; by default aspect ratio is set to 'Free Aspect'. This should prepare the GUI for use in the editor and should appear as shown below: 
 
 <p align="center">
   <img width="500" height="300" src= "https://user-images.githubusercontent.com/60265517/184932117-1f21d239-bbb1-4bf3-81e7-751cbbf9576b.PNG" alt="EntryScence experiment formulation panel">
