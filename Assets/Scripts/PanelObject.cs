@@ -532,7 +532,6 @@ public class PanelObject : MonoBehaviour
 
     public void deletePanel(GameObject deleteObj)
     {
-        Debug.Log(groupScript.panelGroup.IndexOf(deleteObj.GetComponent<PanelObject>()));
         groupScript.removeIndex(deleteObj.transform.GetSiblingIndex());
     }
 
