@@ -407,11 +407,6 @@ public class PanelObject : MonoBehaviour
             panelToggle.isOn = false;
         }
     }
-
-    public int getPanelIndex()
-    {
-        return panel.transform.GetSiblingIndex();
-    }
     
     void moveDown()
     {
@@ -535,9 +530,10 @@ public class PanelObject : MonoBehaviour
 
     }
 
-    public void deletePanel()
+    public void deletePanel(GameObject deleteObj)
     {
-        groupScript.removeIndex(getPanelIndex());
+        Debug.Log(groupScript.panelGroup.IndexOf(deleteObj.GetComponent<PanelObject>()));
+        groupScript.removeIndex(deleteObj.transform.GetSiblingIndex());
     }
 
     public void setDelete(bool value)

@@ -61,7 +61,6 @@ public class PanelGroup : MonoBehaviour
         panelGroup = new List<PanelObject>(this.gameObject.GetComponentsInChildren<PanelObject>());
         this.enforceMove("enforce");
         enforceTitle();
-
     }
 
 
@@ -255,22 +254,9 @@ public class PanelGroup : MonoBehaviour
     // create panel at a specific point
     public void duplicationAtIndex(int index, PanelObject newObj)
     {
-        List<PanelObject> newGrouping = new List<PanelObject>();
-        for(int i = 0; i < index; i++)
-        {
-            newGrouping.Add(panelGroup[i]);
-        }
-        newGrouping.Add(newObj);
-        for(int j = index; j < panelGroup.Count; j++)
-        {
-            newGrouping.Add(panelGroup[j]);
-        }
-
-        panelGroup = newGrouping;
-
+        panelGroup.Insert(index+1, newObj);
         enforceTitle();
         enforceMove("enforce");
-
     }
 
     // This function is used in testing the allow the use of 3d scenes when VR is not detected
