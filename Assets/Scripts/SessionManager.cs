@@ -107,8 +107,8 @@ public class SessionManager : MonoBehaviour
             string scene_name;
 
             bool confirm_start = dataObj.confirmStart;
-            bool display_random;
-            bool target_random;
+            bool display_random = dataObj.displayRand; 
+            bool target_random = dataObj.targetRand;
 
             List<(Color, string)> selectedColours = dataObj.selectedColours;
             List<Material> selectedMaterials = dataObj.selectedMaterials;
@@ -125,15 +125,11 @@ public class SessionManager : MonoBehaviour
 
                 //not relevant for 2D
                 option_distro = null; 
-                display_random = false; //false but not user for 2d
-                target_random = false;
             }else{
                 option_num = dataObj.threeDisplayNum;
                 option_distro = dataObj.optionDistro;
                 scene_type = "Three_Dimensional";
                 scene_name = "Shapes_Colours_3d";
-                display_random = dataObj.displayRand; 
-                target_random = dataObj.targetRand;
             }
             makeBlock(session, trial_num, scene_type, scene_name, option_num, target_num, option_distro, shape_display_time, delay_time, selectedColours, selectedMaterials, selectedMeshes, selectedTextures, confirm_start, display_random, target_random);
         }
@@ -151,16 +147,14 @@ public class SessionManager : MonoBehaviour
         block.settings.SetValue("shape_display_time", shape_display_time);
         block.settings.SetValue("delay_time", delay_time);
 
-        //delay_time;
+        block.settings.SetValue("display_random", display_random);
+        block.settings.SetValue("target_random", target_random);
 
         block.settings.SetValue("confirm_start", confirm_start);
         
         if (scene_type == "Three_Dimensional")
         {
             block.settings.SetValue("option_distro", option_distro);
-            block.settings.SetValue("display_random", display_random);
-            block.settings.SetValue("target_random", target_random);
-
             //pass in approriate meshes/textures or colour/material depening on scene
             //Mesh and Materical
             block.settings.SetValue("selected_meshes", selectedMeshes);

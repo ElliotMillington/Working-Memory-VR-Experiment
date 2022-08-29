@@ -81,6 +81,8 @@ public class TwoDimensionalGroup : MonoBehaviour
 
         confirm_start = trial.settings.GetBool("confirm_start");
         int optionNum = trial.settings.GetInt("option_num");
+        bool display_random = trial.settings.GetBool("display_random");
+        bool target_random = trial.settings.GetBool("target_random");
 
         if (confirm_start && trial.numberInBlock == 1)
         {
@@ -128,6 +130,12 @@ public class TwoDimensionalGroup : MonoBehaviour
             newShape.GetComponent<TwoDimensionalShape>().group = this;
             newShape.GetComponent<TwoDimensionalShape>().listPosition = i;
 
+            // rotate display shape
+            if (display_random)
+            {
+                newShape.transform.GetChild(0).GetChild(0).gameObject.GetComponent<RawImage>().transform.Rotate(new Vector3(0f, 0f , UnityEngine.Random.Range(360f, 0f)));
+            }
+
             int removeIndex = UnityEngine.Random.Range(0, possibleCombinations.Count);
             (Texture, (Color, string)) combo = possibleCombinations[removeIndex];
             possibleCombinations.RemoveAt(removeIndex);
@@ -160,6 +168,12 @@ public class TwoDimensionalGroup : MonoBehaviour
                 GameObject newTargetObj = (GameObject) Instantiate(targetShapePrefab, targetGrid.transform);
                 targetShapes.Add(newTargetObj.GetComponent<TwoDimensionalShape>());
                 newTargetObj.GetComponent<TwoDimensionalShape>().group = this;
+
+                // rotate target shape
+                if (target_random)
+                {
+                    newTargetObj.GetComponent<RawImage>().transform.Rotate(new Vector3(0f, 0f , UnityEngine.Random.Range(360f, 0f)));
+                }
 
                 //save its texture and colour, and index
                 (Texture, (Color, string)) targetCombo  = optionShapes[possibleTargetIndex].textureColourCombo;

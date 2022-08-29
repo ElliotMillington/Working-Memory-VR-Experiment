@@ -111,10 +111,8 @@ public class PanelObject : MonoBehaviour
     public Toggle confirmStartToggle;
     public Toggle targetRandToggle;
 
-    public GameObject targetRandObj;
     public Toggle displayRandToggle;
 
-    public GameObject displayRandObj;
 
 
     private void Start() {
@@ -480,8 +478,6 @@ public class PanelObject : MonoBehaviour
 
             threeDisplayObj.SetActive(true);
             threeLayoutObj.SetActive(true);
-            displayRandObj.SetActive(true);
-            targetRandObj.SetActive(true);
 
             twoDisplayObj.SetActive(false);
         } 
@@ -494,8 +490,6 @@ public class PanelObject : MonoBehaviour
 
             threeDisplayObj.SetActive(false);
             threeLayoutObj.SetActive(false);
-            displayRandObj.SetActive(false);
-            targetRandObj.SetActive(false);
         }
 
         if (groupScript != null) checkValidity("panelObjectScript");
@@ -510,9 +504,7 @@ public class PanelObject : MonoBehaviour
 
             threeDisplayObj.SetActive(true);
             threeLayoutObj.SetActive(true);
-            displayRandObj.SetActive(true);
-            targetRandObj.SetActive(true);
-
+        
             twoDisplayObj.SetActive(false);
         } 
         else
@@ -524,8 +516,6 @@ public class PanelObject : MonoBehaviour
 
             threeDisplayObj.SetActive(false);
             threeLayoutObj.SetActive(false);
-            displayRandObj.SetActive(false);
-            targetRandObj.SetActive(false);
         }
 
     }

@@ -63,6 +63,7 @@ public class SavePanel : MonoBehaviour
         SaveData loadedData = loadPanelData();
         PanelGroup panelGroupScript = GameObject.FindGameObjectWithTag("panelGroup").GetComponent<PanelGroup>();
         StartCoroutine(panelGroupScript.loadPanalDataCollection(loadedData));
+
     }
 
     public SaveData loadPanelData()
