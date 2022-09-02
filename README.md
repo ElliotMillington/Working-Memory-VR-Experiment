@@ -97,11 +97,11 @@ Accessing the project within the Unity Editor (outlined futher in <a href="https
     </tr>
     <tr>
       <td>Random Target Shape Rotation</td>
-      <td>A boolean value indicating if the target shapes should be shown to the user in a random configuarion. This option is only avaible for blocks in 3 dimension.</td>
+      <td>A boolean value indicating if the target shapes should be shown to the user in a random configuarion.</td>
     </tr>
     <tr>
       <td>Random Display Shape Rotation</td>
-      <td>A boolean value indicating if the display shapes should be shown to the user in a random configuarion. This option is only available for blocks in 3 dimension.</td>
+      <td>A boolean value indicating if the display shapes should be shown to the user in a random configuarion.</td>
     </tr>
   </table>
 </p>
