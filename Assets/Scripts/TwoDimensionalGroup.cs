@@ -150,6 +150,16 @@ public class TwoDimensionalGroup : MonoBehaviour
         // set grid to be invisible
         displayGridContainer.SetActive(false);
 
+        //set the size of the option shape images to be "square"
+        foreach(TwoDimensionalShape shape in optionShapes)
+        {
+            float buttonHeight = shape.transform.parent.GetComponent<RectTransform>().rect.height;
+            // number appears to make shapes circular
+            float MAGIC_NUMBER = 190f;
+            shape.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(buttonHeight-20f, buttonHeight-20f-MAGIC_NUMBER);
+        }
+        
+
 
         //Set up target shapes
         targetNum = trial.settings.GetInt("target_num");
@@ -184,6 +194,15 @@ public class TwoDimensionalGroup : MonoBehaviour
                 newTargetObj.GetComponent<RawImage>().texture = targetCombo.Item1;
                 newTargetObj.GetComponent<RawImage>().color = targetCombo.Item2.Item1;
             }
+        }
+
+        //set the size of the target shape images to be "square"
+        foreach(TwoDimensionalShape shape in targetShapes)
+        {
+            float shapeHeight = shape.transform.GetComponent<RectTransform>().rect.height;
+            // number appears to make shapes circular
+            float MAGIC_NUMBER = 40f;
+            shape.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(shapeHeight-20f, shapeHeight-20f-MAGIC_NUMBER);
         }
 
         //show target shapes for the specified time
