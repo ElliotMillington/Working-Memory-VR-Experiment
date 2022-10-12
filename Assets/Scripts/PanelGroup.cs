@@ -314,9 +314,10 @@ public class PanelGroup : MonoBehaviour
             List<(Color,string)> selectedColours = panelDataScript.convertFromIndices(dataObj.selectedColoursIndexes[counter], panelDataScript.allColours);
             List<Texture> selectedTextures = panelDataScript.convertFromIndices(dataObj.selectedTexturesIndexes[counter], panelDataScript.allTextures);
 
-            GameObject.FindGameObjectWithTag("Save_Panel").SetActive(false);
             StartCoroutine(createdPanel.GetComponent<PanelObject>().swapScripts(dimension,numberOfTrials,targetNum,twoDisplayNum,threeDisplayNum,optionDistro,selectedColours,selectedTextures,shapeDisplayTime,targetToDisplayDelay,confirmStart,targetRand,displayRand));
         }
+
+        GameObject.FindGameObjectWithTag("Save_Panel").SetActive(false);
 
         foreach (PanelObject panelObjScript in panelObjCollection)
         {
