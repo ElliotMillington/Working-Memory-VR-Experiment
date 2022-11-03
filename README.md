@@ -118,17 +118,46 @@ Note there is also a 3 second delay between trails to ensure each trial is set u
   <th>
    Colours
   </th>
-  <td>
  </tr>
  <tr>
   <td>
    <ul>
-    <li>1</li>
+    <li>Black</li>
+    <li>Blue</li>
+    <li>Green</li>
+    <li>Orange</li>
+    <li>Red</li>
+    <li>Violet</li>
+    <li>White</li>
+    <li>Yellow</li>
    </ul>
   </td>
   <td>
    <ul>
-    <li>2</li>
+    <li>Arrow</li>
+    <li>Circle</li>
+    <li>Crescent</li>
+    <li>Cross</li>
+    <li>Heart</li>
+    <li>Hexagon</li>
+    <li>Kite</li>
+    <li>Octogon</li>
+    <li>Parallelogram</li>
+    <li>Pentagon</li>
+    <li>Pic</li>
+    <li>Polygon</li>
+    <li>Qautrefoil</li>
+    <li>Rectangle</li>
+    <li>Rhombus</li>
+    <li>Right Angle Triangle</li>
+    <li>Ring</li>
+    <li>Scalene Triangle</li>
+    <li>Semi-circle</li>
+    <li>Square</li>
+    <li>Star</li>
+    <li>Trapeze</li>
+    <li>Triangle</li>
+    <li>Trifoil</li>
    </ul>
   </td>
  </tr>
