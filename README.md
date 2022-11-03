@@ -110,7 +110,7 @@ Note there is also a 3 second delay between trails to ensure each trial is set u
 
 #### List Of Avilable Shapes and Colours
 
-<div style="display: flex;">
+<div style="display: flex; flex-direction: row;">
   <ul>
     <li>1</li>
     <li>2</li>
