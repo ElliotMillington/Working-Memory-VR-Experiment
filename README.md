@@ -110,18 +110,26 @@ Note there is also a 3 second delay between trails to ensure each trial is set u
 
 #### List Of Avilable Shapes and Colours
 
-<div style="display: flex; flex-direction: column;">
+<table>
+ <th>
+  Shapes
+ </th>
+ <th>
+  Colours
+ </th>
+ <td>
   <ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
+   <li>1</li>
   </ul>
+ </td>
+ <td>
   <ul>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
+   <li>2</li>
   </ul>
-</div>
+ </td>
+  
+
+</table>
 
 ### Panel Validity
 There are a number of contraints placed upon a trial for it to be valid. Each panel has an indicator denoting its current validity status (see image below). When a panel is invalid this indicator can be clicked to open a panel holding the reasons that make the panel invalid and how to resolve them. These constraints include:
