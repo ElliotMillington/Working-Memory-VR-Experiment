@@ -108,7 +108,7 @@ Accessing the project within the Unity Editor (outlined futher in <a href="https
   
 Note there is also a 3 second delay between trails to ensure each trial is set up correctly.
 
-#### List Of Avilable Shapes and Colours
+#### List Of Available Shapes and Colours
 
 <table>
  <tr>
