@@ -111,22 +111,28 @@ Note there is also a 3 second delay between trails to ensure each trial is set u
 #### List Of Avilable Shapes and Colours
 
 <table>
- <th>
-  Shapes
- </th>
- <th>
-  Colours
- </th>
- <td>
-  <ul>
-   <li>1</li>
-  </ul>
- </td>
- <td>
-  <ul>
-   <li>2</li>
-  </ul>
- </td>
+ <tr>
+  <th>
+   Shapes
+  </th>
+  <th>
+   Colours
+  </th>
+  <td>
+ </tr>
+ <tr>
+  <td>
+   <ul>
+    <li>1</li>
+   </ul>
+  </td>
+  <td>
+   <ul>
+    <li>2</li>
+   </ul>
+  </td>
+ </tr>
+ 
   
 
 </table>
