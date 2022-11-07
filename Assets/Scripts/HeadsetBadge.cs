@@ -30,8 +30,13 @@ public class HeadsetBadge : MonoBehaviour
         script = GameObject.FindGameObjectWithTag("panelGroup").GetComponent<PanelGroup>();
 
         // check if VR equipment is present
-        script.headsetActive = isPresent();
-
+        if (Application.isEditor)
+        {
+            script.headsetActive = isPresent();
+        }else{
+            script.headsetActive = true;
+        }
+        
     }
 
     // detect if there are VR devices connected
