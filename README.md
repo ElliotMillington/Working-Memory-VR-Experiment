@@ -1,4 +1,4 @@
-# Working-Memory-VR-Experiment
+# Dimensional Search: Visual Search and Working Memory VR Experiment
 
 This project seeks to provide a flexible tool to create memory based experiments in both 2D and 3D enironments. Using this tool, an experimenter is able to test users over an extensive range of customisable variables to construct test conditions for any number of hypotheses.
 A single target shape in 2D             |  A 2D trial displaying five target shapes  | The start of a 2D trial             
