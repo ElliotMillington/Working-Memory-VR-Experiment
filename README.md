@@ -280,4 +280,4 @@ Unity Developer: <br/>
 <a href="https://github.com/ElliotMillington">Elliot Millington</a> <br/>
 
 Project Researcher: <br/>
-Sarune Savickaite
+<a href="https://github.com/sarunesavickaiteexeter">Sarune Savickaite</a> <br/>
